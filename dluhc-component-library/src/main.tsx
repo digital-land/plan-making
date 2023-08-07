@@ -1,5 +1,17 @@
-import { render } from 'preact'
-import { App } from './app.tsx'
-import './index.css'
+import { render } from "preact";
+import SiteSelectionForm from "./components/siteSelectionForm.tsx";
 
-render(<App />, document.getElementById('app')!)
+declare global {
+  interface Window {
+    DLUHC: any;
+  }
+}
+
+const renderSiteSelectionForm = (_options: {}, element: HTMLElement) => {
+  render(<SiteSelectionForm />, element);
+};
+
+window.DLUHC = {
+  ...window.DLUHC,
+  renderSiteSelectionForm,
+} as Record<string, () => void>;
