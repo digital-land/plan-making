@@ -1,17 +1,22 @@
 import { render } from "preact";
 import SiteSelectionForm from "./components/siteSelectionForm.tsx";
 
+type renderFunction = (options: {}, element: HTMLElement) => void;
+
 declare global {
   interface Window {
-    DLUHC: any;
+    DLUHC: Record<string, renderFunction>;
   }
 }
 
-const renderSiteSelectionForm = (_options: {}, element: HTMLElement) => {
+const renderSiteSelectionForm: renderFunction = (
+  _options: {},
+  element: HTMLElement
+) => {
   render(<SiteSelectionForm />, element);
 };
 
 window.DLUHC = {
   ...window.DLUHC,
   renderSiteSelectionForm,
-} as Record<string, () => void>;
+};
