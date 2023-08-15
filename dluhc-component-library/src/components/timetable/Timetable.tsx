@@ -1,4 +1,5 @@
 import { useEffect, useState } from "preact/hooks";
+import Stages from "./Stages";
 
 interface TimetableProps {
   filepath: string;
@@ -41,8 +42,7 @@ const Timetable = ({ filepath }: TimetableProps) => {
       </div>
       <div>
         <h2>Timetable</h2>
-        <a>show all sections</a>
-        <div>timetable table</div>
+        <Stages />
       </div>
     </>
   );
