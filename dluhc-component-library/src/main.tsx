@@ -1,6 +1,8 @@
 import { render } from "preact";
 import SiteSelectionForm from "./components/siteSelectionForm.tsx";
 
+import "./index.css";
+
 type renderFunction = (options: {}, element: HTMLElement) => void;
 
 declare global {
