@@ -49,12 +49,12 @@ const Stages = () => {
     getCoreRowModel: getCoreRowModel(),
   });
   return (
-    <table>
-      <thead>
+    <table className="w-full text-sm text-left">
+      <thead className="text-xs text-gray-700 uppercase text-left">
         {table.getHeaderGroups().map((headerGroup) => (
           <tr key={headerGroup.id}>
             {headerGroup.headers.map((header) => (
-              <th key={header.id}>
+              <th key={header.id} scope="col" className="px-6 py-3">
                 {flexRender(
                   header.column.columnDef.header,
                   header.getContext()
@@ -67,14 +67,16 @@ const Stages = () => {
       <tbody>
         {table.getRowModel().rows.map((row) => (
           <>
-            <tr key={row.id}>
+            <tr key={row.id} className="bg-white">
               {row.getVisibleCells().map((cell) => (
-                <td key={cell.id}>
+                <td key={cell.id} className="px-6 py-4">
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </td>
               ))}
             </tr>
-            <a>More Information</a>
+            <div className="px-6">
+              <a>More Information</a>
+            </div>
           </>
         ))}
       </tbody>
