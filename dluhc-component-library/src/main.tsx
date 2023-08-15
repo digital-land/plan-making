@@ -1,7 +1,9 @@
 import { render } from "preact";
 import SiteSelectionForm from "./components/siteSelectionForm.tsx";
+import Timetable from "./components/timetable/Timetable.tsx";
 
-type renderFunction = (options: {}, element: HTMLElement) => void;
+// TODO update any
+type renderFunction = (options: any, element: HTMLElement) => void;
 
 declare global {
   interface Window {
@@ -16,7 +18,17 @@ const renderSiteSelectionForm: renderFunction = (
   render(<SiteSelectionForm />, element);
 };
 
+const renderTimetable: renderFunction = (
+  options: {
+    timetableDataPath: string;
+  },
+  element: HTMLElement
+) => {
+  render(<Timetable filepath={options.timetableDataPath} />, element);
+};
+
 window.DLUHC = {
   ...window.DLUHC,
   renderSiteSelectionForm,
+  renderTimetable,
 };
