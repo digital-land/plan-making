@@ -1,4 +1,5 @@
 import {
+  ColumnDef,
   createColumnHelper,
   flexRender,
   getCoreRowModel,
@@ -23,7 +24,7 @@ const mockData = [
 
 const columnHelper = createColumnHelper<rowData>();
 
-const columns = [
+const columns: ColumnDef<rowData, any> = [
   columnHelper.accessor("stage", {
     cell: (data) => data.getValue(),
     header: () => <span>Stage</span>,
