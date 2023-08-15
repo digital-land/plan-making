@@ -42,7 +42,7 @@ const Timetable = ({ filepath }: TimetableProps) => {
       </div>
       <div>
         <h2>Timetable</h2>
-        <Stages />
+        <Stages data={timetableData} />
       </div>
     </>
   );
