@@ -2,6 +2,8 @@ import { render } from "preact";
 import SiteSelectionForm from "./components/siteSelectionForm.tsx";
 import Timetable from "./components/timetable/Timetable.tsx";
 
+import "./index.css";
+
 // TODO update any
 type renderFunction = (options: any, element: HTMLElement) => void;
 
