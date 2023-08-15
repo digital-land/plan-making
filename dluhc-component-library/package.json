@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@tanstack/react-table": "^8.9.3",
+    "ol": "^7.5.0",
     "preact": "^10.16.0"
   },
   "devDependencies": {
