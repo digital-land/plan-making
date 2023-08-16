@@ -1,8 +1,8 @@
 import { createColumnHelper } from "@tanstack/table-core";
-import { RowData } from "./types";
+import { TimetableStage } from "./types";
 import ProgressTile from "./ProgressTile";
 
-const columnHelper = createColumnHelper<RowData>();
+const columnHelper = createColumnHelper<TimetableStage>();
 
 export const columnDefinitions = [
   columnHelper.accessor("developmentPlanEvent", {
