@@ -1,14 +1,14 @@
 import { useEffect, useState } from "preact/hooks";
-import Stages from "./Stages";
+import Timetable from "./Timetable";
 
-interface TimetableProps {
+interface TimetablePageProps {
   filepath: string;
 }
 
 const loadData = async (filepath: string) =>
   await fetch(filepath).then((res) => res.json());
 
-const Timetable = ({ filepath }: TimetableProps) => {
+const TimetablePage = ({ filepath }: TimetablePageProps) => {
   const [timetableData, setTimetableData] = useState();
 
   useEffect(() => {
@@ -42,10 +42,10 @@ const Timetable = ({ filepath }: TimetableProps) => {
       </div>
       <div>
         <h2>Timetable</h2>
-        <Stages data={timetableData} />
+        <Timetable data={timetableData} />
       </div>
     </>
   );
 };
 
-export default Timetable;
+export default TimetablePage;

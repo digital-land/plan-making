@@ -37,7 +37,7 @@ interface StagesProps {
   data?: RowData[];
 }
 
-const Stages = ({ data }: StagesProps) => {
+const Timetable = ({ data }: StagesProps) => {
   const table = useReactTable({
     data: data ?? [],
     columns,
@@ -81,4 +81,4 @@ const Stages = ({ data }: StagesProps) => {
   );
 };
 
-export default Stages;
+export default Timetable;

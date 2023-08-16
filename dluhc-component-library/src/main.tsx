@@ -1,6 +1,6 @@
 import { render } from "preact";
 import SiteSelectionForm from "./components/siteSelectionForm.tsx";
-import Timetable from "./components/timetable/Timetable.tsx";
+import TimetablePage from "./components/timetablePage/TimetablePage.tsx";
 
 import "./index.css";
 
@@ -26,7 +26,7 @@ const renderTimetable: renderFunction = (
   },
   element: HTMLElement
 ) => {
-  render(<Timetable filepath={options.timetableDataPath} />, element);
+  render(<TimetablePage filepath={options.timetableDataPath} />, element);
 };
 
 window.DLUHC = {
