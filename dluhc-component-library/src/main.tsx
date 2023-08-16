@@ -4,23 +4,23 @@ import TimetablePage from "./components/timetablePage/TimetablePage.tsx";
 
 import "./index.css";
 
-// TODO update any
-type renderFunction = (options: any, element: HTMLElement) => void;
+type Options = any;
+type RenderFunction = (options: Options, element: HTMLElement) => void;
 
 declare global {
   interface Window {
-    DLUHC: Record<string, renderFunction>;
+    DLUHC: Record<string, RenderFunction>;
   }
 }
 
-const renderSiteSelectionForm: renderFunction = (
+const renderSiteSelectionForm: RenderFunction = (
   _options: {},
   element: HTMLElement
 ) => {
   render(<SiteSelectionForm />, element);
 };
 
-const renderTimetable: renderFunction = (
+const renderTimetable: RenderFunction = (
   options: {
     timetableDataPath: string;
   },
