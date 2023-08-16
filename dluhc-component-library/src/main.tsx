@@ -24,11 +24,12 @@ const renderSiteSelectionForm: RenderFunction = (
 
 const renderTimetable: RenderFunction = (
   options: {
-    timetableDataPath: string;
+    timetableJsonPath?: string;
+    timetableCsvPath?: string;
   },
   element: HTMLElement,
 ) => {
-  render(<TimetablePage filepath={options.timetableDataPath} />, element);
+  render(<TimetablePage jsonFilepath={options.timetableJsonPath} csvFilepath={options.timetableCsvPath} />, element);
 };
 
 const renderMap: RenderFunction = (_options: {}, element: HTMLElement) => {
