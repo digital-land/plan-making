@@ -56,7 +56,7 @@ const Timetable = ({ data }: StagesProps) => {
                 <th key={header.id} className="py-3">
                   {flexRender(
                     header.column.columnDef.header,
-                    header.getContext()
+                    header.getContext(),
                   )}
                 </th>
               ))}
@@ -76,7 +76,7 @@ const Timetable = ({ data }: StagesProps) => {
               <tr className="border-b">
                 <div className="pt-1 pb-3">
                   <span className="text-blue-400 underline">
-                    More information
+                    More informations
                   </span>
                 </div>
               </tr>
