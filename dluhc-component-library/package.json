@@ -11,6 +11,7 @@
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,html,css}\""
   },
   "dependencies": {
+    "@tanstack/react-table": "^8.9.3",
     "preact": "^10.16.0"
   },
   "devDependencies": {

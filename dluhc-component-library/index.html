@@ -7,12 +7,14 @@
     <title>Vite + Preact + TS</title>
   </head>
   <body>
-    <div id="siteSelectionForm" role="main"></div>
+    <div id="timetable" role="main"></div>
     <script type="module" src="/src/main.tsx"></script>
     <script type="module">
-      window.DLUHC.renderSiteSelectionForm(
-        {},
-        document.getElementById("siteSelectionForm"),
+      window.DLUHC.renderTimetable(
+        {
+          timetableDataPath: "/src/mockData/timetable.json",
+        },
+        document.getElementById("timetable"),
       );
     </script>
   </body>
