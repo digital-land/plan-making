@@ -47,7 +47,7 @@ const Timetable = ({ data }: StagesProps) => {
     getCoreRowModel: getCoreRowModel(),
   });
   return (
-    <div className="px-4">
+    <div>
       <table className="w-full text-sm text-left px-4">
         <thead className="capitalise text-left font-bold border-b">
           {table.getHeaderGroups().map((headerGroup) => (
@@ -56,7 +56,7 @@ const Timetable = ({ data }: StagesProps) => {
                 <th key={header.id} className="py-3">
                   {flexRender(
                     header.column.columnDef.header,
-                    header.getContext()
+                    header.getContext(),
                   )}
                 </th>
               ))}
