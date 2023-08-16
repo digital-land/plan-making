@@ -76,7 +76,7 @@ const Timetable = ({ data }: StagesProps) => {
               <tr className="border-b">
                 <div className="pt-1 pb-3">
                   <span className="text-blue-400 underline">
-                    More informations
+                    More information
                   </span>
                 </div>
               </tr>
