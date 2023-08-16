@@ -8,6 +8,7 @@
   </head>
   <body>
     <div id="timetable" role="main"></div>
+    <div id="siteMap" role="main"></div>
     <script type="module" src="/src/main.tsx"></script>
     <script type="module">
       window.DLUHC.renderTimetable(
@@ -16,6 +17,7 @@
         },
         document.getElementById("timetable"),
       );
+      window.DLUHC.renderMap({}, document.getElementById("siteMap"));
     </script>
   </body>
 </html>
