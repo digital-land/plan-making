@@ -24,13 +24,13 @@ const TimetablePage = ({ filepath }: TimetablePageProps) => {
           <h1 className="my-16 text-3xl font-bold">
             Birmingham New Local Plan Timetable
           </h1>
-          <p className="w-1/2 text-lg mb-8">
+          <p className="w-2/3 text-lg mb-8">
             We are working on a new Local Plan for Birmingham which will guide
             how the city will develop in the future and provide policies to
             guide decisions on development proposals and planning applications
             up to 2042.
           </p>
-          <p className="w-1/2 mb-8 text-lg">
+          <p className="w-2/3 mb-8 text-lg">
             This page provides updates on the progress of our New Local Plan.
           </p>
         </div>
