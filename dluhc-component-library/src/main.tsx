@@ -15,7 +15,7 @@ declare global {
 
 const renderSiteSelectionForm: RenderFunction = (
   _options: {},
-  element: HTMLElement
+  element: HTMLElement,
 ) => {
   render(<SiteSelectionForm />, element);
 };
