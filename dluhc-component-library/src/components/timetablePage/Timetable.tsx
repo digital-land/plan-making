@@ -4,12 +4,12 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { columnDefinitions } from "./columnDefinitions";
-import { RowData } from "./types";
+import { TimetableStage } from "./types";
 
 import "./Timetable.css";
 
 interface StagesProps {
-  data?: RowData[];
+  data?: TimetableStage[];
 }
 
 const Timetable = ({ data }: StagesProps) => {

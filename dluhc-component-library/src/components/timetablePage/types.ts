@@ -1,6 +1,6 @@
 export type Progress = "notStarted" | "delayed" | "inProgress" | "finished";
 
-export type RowData = {
+export type TimetableStage = {
   developmentPlanEvent: string;
   startDate: string;
   endDate: string;
