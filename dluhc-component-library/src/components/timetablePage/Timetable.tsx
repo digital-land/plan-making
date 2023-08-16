@@ -56,7 +56,7 @@ const Timetable = ({ data }: StagesProps) => {
                 <th key={header.id} className="py-3">
                   {flexRender(
                     header.column.columnDef.header,
-                    header.getContext()
+                    header.getContext(),
                   )}
                 </th>
               ))}
