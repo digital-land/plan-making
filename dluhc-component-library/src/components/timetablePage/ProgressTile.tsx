@@ -1,13 +1,22 @@
+import { Progress } from "./types";
+
 interface ProgressTileProps {
-  progress: "notStarted" | "delayed" | "inProgress" | "finished";
+  progress: Progress;
 }
+
+const progressTextMap = {
+  notStarted: "Not started",
+  delayed: "Delayed",
+  inProgress: "In progress",
+  finished: "Finished",
+};
 
 const ProgressTile = ({ progress }: ProgressTileProps) => {
   const progressClass = `progress-${progress}`;
 
   return (
     <span className={`uppercase font-semibold py-1 px-2 ${progressClass}`}>
-      {progress}
+      {progressTextMap[progress]}
     </span>
   );
 };
