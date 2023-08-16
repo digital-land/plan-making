@@ -5,18 +5,21 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 
+import "./Timetable.css";
+import ProgressTile from "./ProgressTile";
+
 type RowData = {
   developmentPlanEvent: string;
   startDate: string;
   endDate: string;
-  progress: string;
+  progress: "notStarted" | "delayed" | "inProgress" | "finished";
 };
 
 const columnHelper = createColumnHelper<RowData>();
 
 const columns = [
   columnHelper.accessor("developmentPlanEvent", {
-    cell: (data) => <span className="font-medium">{data.getValue()}</span>,
+    cell: (data) => <span className="font-bold">{data.getValue()}</span>,
     header: () => <span>Stage</span>,
   }),
   columnHelper.accessor("startDate", {
@@ -28,7 +31,7 @@ const columns = [
     header: () => <span>End Date</span>,
   }),
   columnHelper.accessor("progress", {
-    cell: (data) => <span className="uppercase">{data.getValue()}</span>,
+    cell: (data) => <ProgressTile progress={data.getValue()} />,
     header: () => <span>Progress</span>,
   }),
 ];
@@ -46,7 +49,7 @@ const Timetable = ({ data }: StagesProps) => {
   return (
     <div className="px-4">
       <table className="w-full text-sm text-left px-4">
-        <thead className="text-xs text-gray-700 uppercase text-left">
+        <thead className="capitalise text-left font-bold border-b">
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
@@ -65,13 +68,17 @@ const Timetable = ({ data }: StagesProps) => {
             <>
               <tr key={row.id} className="bg-white">
                 {row.getVisibleCells().map((cell) => (
-                  <td key={cell.id} className="py-2">
+                  <td key={cell.id} className="pt-3">
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </td>
                 ))}
               </tr>
               <tr className="border-b">
-                <a>More Information</a>
+                <div className="pt-1 pb-3">
+                  <span className="text-blue-400 underline">
+                    More information
+                  </span>
+                </div>
               </tr>
             </>
           ))}

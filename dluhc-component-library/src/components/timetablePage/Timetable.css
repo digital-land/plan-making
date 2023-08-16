@@ -1,0 +1,19 @@
+.progress-finished {
+  background-color: #cce2d8;
+  color: #005a30;
+}
+
+.progress-inProgress {
+  background-color: #d2e2f1;
+  color: #175082;
+}
+
+.progress-delayed {
+  background-color: #fff8bf;
+  color: #594d00;
+}
+
+.progress-notStarted {
+  background-color: #efefef;
+  color: #383f43;
+}

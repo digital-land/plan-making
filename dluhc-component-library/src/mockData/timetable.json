@@ -3,30 +3,30 @@
     "developmentPlanEvent": "Scoping of the New Local Plan",
     "startDate": "January 2023",
     "endDate": "March 2023",
-    "progress": "Finished"
+    "progress": "finished"
   },
   {
     "developmentPlanEvent": "Gateway 1. Check-point",
     "startDate": "April 2023",
     "endDate": "May 2023",
-    "progress": "Finished"
+    "progress": "finished"
   },
   {
     "developmentPlanEvent": "Call for evidence",
     "startDate": "June 2023",
     "endDate": "August 2023",
-    "progress": "In Progress"
+    "progress": "inProgress"
   },
   {
     "developmentPlanEvent": "Evidence gathering and public consultation",
     "startDate": "September 2023",
     "endDate": "October 2024",
-    "progress": "Delayed"
+    "progress": "delayed"
   },
   {
     "developmentPlanEvent": "Gateway 2. Check-point",
     "startDate": "November 2024",
     "endDate": "December 2024",
-    "progress": "Not Started"
+    "progress": "notStarted"
   }
 ]
