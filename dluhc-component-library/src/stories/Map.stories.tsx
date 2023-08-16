@@ -11,7 +11,6 @@ const MapComponent = ({ lat, lng, zoom }: MapComponentProps) => {
   return (
     <MapContainer>
       <BaseMap
-        mapId="site-selection-map"
         lat={lat}
         lng={lng}
         zoom={zoom}

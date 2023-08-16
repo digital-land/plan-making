@@ -3,31 +3,38 @@ import TileLayer from "ol/layer/Tile";
 import { useGeographic } from "ol/proj";
 import { OSM } from "ol/source";
 import { CSSProperties } from "preact/compat";
-import { useEffect, useMemo } from "preact/hooks";
+import { useEffect, useMemo, useRef } from "preact/hooks";
 import "../../../node_modules/ol/ol.css";
 import { useMap } from "../../contexts/mapContext";
 
 interface BaseMapProps {
-  mapId: string;
   lat?: number;
   lng?: number;
   zoom?: number;
+  id?: string;
   className?: string;
   style?: CSSProperties;
 }
 
 const BaseMap = ({
-  mapId,
   lat = 0,
   lng = 0,
   zoom = 0,
+  id,
   className,
   style,
 }: BaseMapProps) => {
   const map = useMap();
-  const props = useMemo(() => ({ className, style }), [className, style]);
+  const props = useMemo(
+    () => ({ id, className, style }),
+    [id, className, style],
+  );
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (!ref.current) {
+      return;
+    }
     useGeographic();
     map.setLayers([new TileLayer({ source: new OSM() })]);
     map.setView(
@@ -36,10 +43,10 @@ const BaseMap = ({
         zoom,
       }),
     );
-    map.setTarget(mapId);
-  }, [lng, lat, map, mapId, zoom]);
+    map.setTarget(ref.current);
+  }, [lng, lat, map, ref, zoom]);
 
-  return <div id={mapId} {...props} />;
+  return <div ref={ref} {...props} />;
 };
 
 export default BaseMap;

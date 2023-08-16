@@ -35,7 +35,6 @@ const renderMap: RenderFunction = (_options: {}, element: HTMLElement) => {
   render(
     <MapContainer>
       <BaseMap
-        mapId="site-selection-map"
         lat={54.97}
         lng={-1.65}
         zoom={10}
