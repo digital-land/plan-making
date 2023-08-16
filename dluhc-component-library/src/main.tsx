@@ -13,7 +13,7 @@ declare global {
 
 const renderSiteSelectionForm: renderFunction = (
   _options: {},
-  element: HTMLElement
+  element: HTMLElement,
 ) => {
   render(<SiteSelectionForm />, element);
 };
