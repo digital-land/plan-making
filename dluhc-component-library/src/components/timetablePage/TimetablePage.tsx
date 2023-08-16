@@ -6,10 +6,6 @@ interface TimetablePageProps {
   filepath: string;
 }
 
-enum fileEndings { 
-  CSV= ".csv", 
-  JSON = ".json"
-}
 
 const loadJson = async (filepath: string) =>
   await fetch(filepath).then((res) => res.json());
@@ -21,13 +17,13 @@ const TimetablePage = ( { filepath }: TimetablePageProps) => {
   const [timetableData, setTimetableData] = useState();
 
   useEffect(() => {
-    if (filepath.includes(fileEndings.CSV)) {
+    if (/.csv$/.test(filepath)) {
       loadCSV(filepath).then((data) => {
         csvToJson()
           .fromString(data)
           .then((jsonObj: any) => setTimetableData(jsonObj));
       });
-    } else if (filepath.includes(fileEndings.JSON)) {
+    } else if (/.json$/.test(filepath)) {
       loadJson(filepath).then((data) => {
         setTimetableData(data);
       });
