@@ -47,7 +47,7 @@ const Timetable = ({ data }: StagesProps) => {
     getCoreRowModel: getCoreRowModel(),
   });
   return (
-    <div className="px-4">
+    <div>
       <table className="w-full text-sm text-left px-4">
         <thead className="capitalise text-left font-bold border-b">
           {table.getHeaderGroups().map((headerGroup) => (
