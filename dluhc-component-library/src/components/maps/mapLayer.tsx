@@ -37,7 +37,7 @@ const MapLayer = ({ features, stroke, fill }: MapLayerProps) => {
     });
     map.addLayer(layer.current);
     return () => {
-      layer.current && map.removeLayer(layer.current);
+      layer.current && map?.removeLayer(layer.current);
     };
   }, [features, map, layer, stroke, fill]);
 
