@@ -41,7 +41,7 @@ const MapLayer = ({ features, stroke, fill }: MapLayerProps) => {
     };
   }, [features, map, layer, stroke, fill]);
 
-  return <></>;
+  return null;
 };
 
 export default MapLayer;
