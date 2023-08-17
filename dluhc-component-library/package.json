@@ -10,7 +10,7 @@
     "preview": "vite preview",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,html,css}\"",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build -o docs-build -s ./.storybook"
+    "build-storybook": "storybook build -o docs-build"
   },
   "dependencies": {
     "@tanstack/react-table": "^8.9.3",

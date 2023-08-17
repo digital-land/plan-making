@@ -8,6 +8,6 @@ export default {
 
 export const Default = {
   args: {
-    filepath: "/src/mockData/timetable.csv",
+    filepath: "/assets/timetable.csv",
   },
 };
