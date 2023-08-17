@@ -1,4 +1,8 @@
-{% extends "layouts/main.html" %} {% set pageName="Home" %} {% block content %}
+{% extends "layouts/main.html" %} 
+
+{% set pageName="Home" %}
+
+{% block content %}
 
 <script src="/public/static/js/index-baa7de5f.js"></script>
 
@@ -7,6 +11,7 @@
     {% include "govuk-prototype-kit/includes/homepage-top.njk" %}
 
     <h1 class="govuk-heading-xl">{{ serviceName }}</h1>
+    <a href="/start"> Go to the start page </a>
 
     <div id="siteSelectionForm" role="main"></div>
   </div>

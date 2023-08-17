@@ -1,0 +1,135 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+Check your answers template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+    text: "Back",
+    href: "javascript:window.history.back()"
+  }) }}
+{% endblock %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds-from-desktop">
+
+    <h1 class="govuk-heading-xl">
+      Check your answers before sending your application
+    </h1>
+
+    {{ govukSummaryList({
+        rows: [
+          {
+            key: {
+              text: "What is your development plan event?"
+            },
+            value: {
+              text: data["development-plan-event"]
+            },
+            actions: {
+              items: [
+                {
+                  href: "/development-plan-event",
+                  text: "Change",
+                  visuallyHiddenText: "What is your development plan event?"
+                }
+              ]
+            }
+          }
+          ,
+          {
+            key: {
+              text: "When is the event start date?"
+            },
+            value: {
+              text: data["start-date"]
+            },
+            actions: {
+              items: [
+                {
+                  href: "/start-date",
+                  text: "Change",
+                  visuallyHiddenText: "When is the event start date?"
+                }
+              ]
+            }
+          }
+          ,
+          {
+            key: {
+              text: "When is the event start date?"
+            },
+            value: {
+              text: data["end-date"]
+            },
+            actions: {
+              items: [
+                {
+                  href: "/end-date",
+                  text: "Change",
+                  visuallyHiddenText: "When is the event start date?"
+                }
+              ]
+            }
+          }
+          ,
+          {
+            key: {
+              text: "What is the progress of the development plan event?"
+            },
+            value: {
+              text: data["progress"]
+            },
+            actions: {
+              items: [
+                {
+                  href: "/progress",
+                  text: "Change",
+                  visuallyHiddenText: "What is the progress of the development plan event?"
+                }
+              ]
+            }
+          }
+          ,
+          {
+            key: {
+              text: "Notes"
+            },
+            value: {
+              text: data["notes"]
+            },
+            actions: {
+              items: [
+                {
+                  href: "/notes",
+                  text: "Change",
+                  visuallyHiddenText: "Notes"
+                }
+              ]
+            }
+          }
+        ]
+      }) }}
+
+    <h2 class="govuk-heading-m">
+      Now send your application
+    </h2>
+
+    <p>
+      By submitting this application you are confirming that, to the best of your knowledge, the details you are
+      providing are correct.
+    </p>
+
+    <form action="/confirmation" method="post" novalidate>
+
+      {{ govukButton({
+          text: "Accept and send"
+        }) }}
+
+    </form>
+
+  </div>
+</div>
+{% endblock %}

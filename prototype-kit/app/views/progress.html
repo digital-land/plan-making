@@ -1,0 +1,62 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <form class="form" action="/notes" method="post">
+
+      {% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+      {{ govukRadios({
+        name: "progress",
+        fieldset: {
+          legend: {
+            text: "What is the progress of the development plan event?",
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+          }
+        },
+        items: [
+          {
+            value: "notStarted",
+            text: "Not started"
+          },
+          {
+            value: "inProgress",
+            text: "In progress"
+          },
+          {
+            value: "finished",
+            text: "Finished"
+          },
+          {
+            value: "delayed",
+            text: "Delayed"
+          }
+        ]
+      }) }}
+
+
+      {{ govukButton({
+        text: "Continue"
+        }) }}
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}

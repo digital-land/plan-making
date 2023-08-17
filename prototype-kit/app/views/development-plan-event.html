@@ -1,0 +1,48 @@
+{% extends "layouts/main.html" %}
+
+{% block pageTitle %}
+Question page template – {{ serviceName }} – GOV.UK Prototype Kit
+{% endblock %}
+
+{% block beforeContent %}
+{{ govukBackLink({
+  text: "Back",
+  href: "javascript:window.history.back()"
+}) }}
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    <h1 class="govuk-heading-l">
+
+    </h1>
+
+    <form class="form" action="/start-date" method="post">
+      {% from "govuk/components/input/macro.njk" import govukInput %}
+
+      {{ govukInput({
+        label: {
+          text: "What is your development plan event?",
+          classes: "govuk-label--l",
+          isPageHeading: true,
+          hint: "For example, 'Scoping of the New Local Plan'"
+        },
+        id: "development-plan-event",
+        name: "development-plan-event"
+      }) }}
+
+      {{ govukButton({
+        text: "Continue"
+        }) }}
+
+
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}
