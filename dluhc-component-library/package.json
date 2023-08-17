@@ -27,6 +27,7 @@
     "@storybook/preact": "^7.3.1",
     "@storybook/preact-vite": "^7.3.1",
     "@storybook/testing-library": "^0.2.0",
+    "@types/geojson": "^7946.0.10",
     "autoprefixer": "^10.4.15",
     "postcss": "^8.4.27",
     "prettier": "^3.0.1",
