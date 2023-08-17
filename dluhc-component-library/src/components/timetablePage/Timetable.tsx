@@ -7,6 +7,7 @@ import {
 
 import "./Timetable.css";
 import ProgressTile from "./ProgressTile";
+import AccordionDropdown from "./AccoordionDropdown";
 
 type RowData = {
   developmentPlanEvent: string;
@@ -74,11 +75,7 @@ const Timetable = ({ data }: StagesProps) => {
                 ))}
               </tr>
               <tr className="border-b">
-                <div className="pt-1 pb-3">
-                  <span className="text-blue-400 underline">
-                    More information
-                  </span>
-                </div>
+                <AccordionDropdown />
               </tr>
             </>
           ))}
