@@ -1,7 +1,7 @@
 import { render } from "preact";
 import BaseMap from "./components/maps/baseMap.tsx";
 import MapContainer from "./components/maps/mapContainer.tsx";
-import SiteSelectionForm from "./components/siteSelectionForm.tsx";
+import SiteSelectionForm from "./components/siteSelectionForm/SiteSelectionForm.tsx";
 import TimetablePage from "./components/timetablePage/TimetablePage.tsx";
 
 import "./index.css";
@@ -16,10 +16,12 @@ declare global {
 }
 
 const renderSiteSelectionForm: RenderFunction = (
-  _options: {},
+  options: {
+    schemaFilepath: string;
+  },
   element: HTMLElement,
 ) => {
-  render(<SiteSelectionForm />, element);
+  render(<SiteSelectionForm filepath={options.schemaFilepath} />, element);
 };
 
 const renderTimetable: RenderFunction = (

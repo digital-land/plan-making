@@ -1,0 +1,39 @@
+{
+  "$id": "https://example.com/local-plans/example-site-details.schema/0.1",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Basic Schema Test",
+  "description": "Very basic schema test to generate dynamic form components",
+  "required": ["relationshipTo", "address", "name"],
+  "type": "object",
+  "properties": {
+    "relationshipTo": {
+      "type": "string",
+      "title": "Your relationship to the site",
+      "enum": [
+        "landowner",
+        "developer",
+        "local-authority",
+        "planning-agent",
+        "none"
+      ]
+    },
+    "address": {
+      "type": "string",
+      "title": "Please provide the fullest postal address you can"
+    },
+    "name": {
+      "type": "string",
+      "title": "Your name"
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "title": "Your email"
+    },
+    "phone": {
+      "type": "string",
+      "title": "Your phone number",
+      "minLength": 10
+    }
+  }
+}
