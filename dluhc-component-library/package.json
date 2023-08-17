@@ -7,13 +7,33 @@
     "start": "vite",
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,html,css}\"",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build -o docs-build -s ./.storybook"
   },
   "dependencies": {
+    "@tanstack/react-table": "^8.9.3",
+    "csvtojson": "^2.0.10",
+    "ol": "^7.5.0",
     "preact": "^10.16.0"
   },
   "devDependencies": {
     "@preact/preset-vite": "^2.5.0",
+    "@storybook/addon-essentials": "^7.3.1",
+    "@storybook/addon-interactions": "^7.3.1",
+    "@storybook/addon-links": "^7.3.1",
+    "@storybook/blocks": "^7.3.1",
+    "@storybook/preact": "^7.3.1",
+    "@storybook/preact-vite": "^7.3.1",
+    "@storybook/testing-library": "^0.2.0",
+    "autoprefixer": "^10.4.15",
+    "postcss": "^8.4.27",
+    "prettier": "^3.0.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "storybook": "^7.3.1",
+    "tailwindcss": "^3.3.3",
     "typescript": "^5.0.2",
     "vite": "^4.4.5"
   }
