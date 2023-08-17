@@ -5,6 +5,7 @@ on:
       - main
     paths:
       [
+        ".github/workflows/storybook.yml",
         "dluhc-component-library/src/stories/**",
         "dluhc-component-library/src/components/**",
       ]
