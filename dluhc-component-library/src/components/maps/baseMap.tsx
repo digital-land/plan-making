@@ -3,43 +3,65 @@ import TileLayer from "ol/layer/Tile";
 import { useGeographic } from "ol/proj";
 import { OSM } from "ol/source";
 import { CSSProperties } from "preact/compat";
-import { useEffect, useMemo } from "preact/hooks";
+import { useEffect, useMemo, useRef } from "preact/hooks";
 import "../../../node_modules/ol/ol.css";
+import { Draw } from "ol/interaction.js";
 import { useMap } from "../../contexts/mapContext";
+import VectorSource from "ol/source/Vector";
+import VectorLayer from "ol/layer/Vector";
 
 interface BaseMapProps {
-  mapId: string;
   lat?: number;
   lng?: number;
   zoom?: number;
+  id?: string;
   className?: string;
   style?: CSSProperties;
 }
 
 const BaseMap = ({
-  mapId,
   lat = 0,
   lng = 0,
   zoom = 0,
+  id,
   className,
   style,
 }: BaseMapProps) => {
   const map = useMap();
-  const props = useMemo(() => ({ className, style }), [className, style]);
+  const props = useMemo(
+    () => ({ id, className, style }),
+    [id, className, style],
+  );
+  const ref = useRef<HTMLDivElement>(null);
+  const source = new VectorSource();
+  const vector = new VectorLayer({
+    source: source,
+    style: {
+      "fill-color": "rgba(255, 255, 255, 0.2)",
+      "stroke-color": "#ffcc33",
+      "stroke-width": 2,
+      "circle-radius": 7,
+      "circle-fill-color": "#ffcc33",
+    },
+  });
 
   useEffect(() => {
+    if (!ref.current) {
+      return;
+    }
     useGeographic();
-    map.setLayers([new TileLayer({ source: new OSM() })]);
+    map.setLayers([new TileLayer({ source: new OSM() }), vector]);
     map.setView(
       new View({
         center: [lng, lat],
         zoom,
       }),
     );
-    map.setTarget(mapId);
-  }, [lng, lat, map, mapId, zoom]);
+    map.setTarget(ref.current);
+    map.addInteraction(new Draw({ source: source, type: "Polygon" }));
+  }, [lng, lat, map, ref, zoom]);
 
-  return <div id={mapId} {...props} />;
+  return <div ref={ref} {...props} />;
 };
 
 export default BaseMap;

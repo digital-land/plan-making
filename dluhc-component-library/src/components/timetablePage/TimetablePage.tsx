@@ -1,20 +1,33 @@
 import { useEffect, useState } from "preact/hooks";
 import Timetable from "./Timetable";
+import csvToJson from "csvtojson";
+import { TimetableStage } from "./types";
 
 interface TimetablePageProps {
   filepath: string;
 }
 
-const loadData = async (filepath: string) =>
+const loadJson = async (filepath: string) =>
   await fetch(filepath).then((res) => res.json());
 
+const loadCSV = async (filepath: string) =>
+  await fetch(filepath).then((res) => res.text());
+
 const TimetablePage = ({ filepath }: TimetablePageProps) => {
-  const [timetableData, setTimetableData] = useState();
+  const [timetableData, setTimetableData] = useState<TimetableStage[]>();
 
   useEffect(() => {
-    loadData(filepath).then((data) => {
-      setTimetableData(data);
-    });
+    if (/.csv$/.test(filepath)) {
+      loadCSV(filepath).then((data) => {
+        csvToJson()
+          .fromString(data)
+          .then((jsonObj) => setTimetableData(jsonObj as TimetableStage[]));
+      });
+    } else if (/.json$/.test(filepath)) {
+      loadJson(filepath).then((data) => {
+        setTimetableData(data);
+      });
+    }
   }, [setTimetableData, filepath]);
 
   return (

@@ -24,18 +24,17 @@ const renderSiteSelectionForm: RenderFunction = (
 
 const renderTimetable: RenderFunction = (
   options: {
-    timetableDataPath: string;
+    timetableFilepath: string;
   },
   element: HTMLElement,
 ) => {
-  render(<TimetablePage filepath={options.timetableDataPath} />, element);
+  render(<TimetablePage filepath={options.timetableFilepath} />, element);
 };
 
 const renderMap: RenderFunction = (_options: {}, element: HTMLElement) => {
   render(
     <MapContainer>
       <BaseMap
-        mapId="site-selection-map"
         lat={54.97}
         lng={-1.65}
         zoom={10}

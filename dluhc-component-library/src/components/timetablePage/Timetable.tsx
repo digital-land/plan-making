@@ -1,50 +1,22 @@
 import {
-  createColumnHelper,
   flexRender,
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+import { columnDefinitions } from "./columnDefinitions";
+import { TimetableStage } from "./types";
 
 import "./Timetable.css";
-import ProgressTile from "./ProgressTile";
 import AccordionDropdown from "./AccordionDropdown";
 
-type RowData = {
-  developmentPlanEvent: string;
-  startDate: string;
-  endDate: string;
-  progress: "notStarted" | "delayed" | "inProgress" | "finished";
-};
-
-const columnHelper = createColumnHelper<RowData>();
-
-const columns = [
-  columnHelper.accessor("developmentPlanEvent", {
-    cell: (data) => <span className="font-bold">{data.getValue()}</span>,
-    header: () => <span>Stage</span>,
-  }),
-  columnHelper.accessor("startDate", {
-    cell: (data) => data.getValue(),
-    header: () => <span>Start Date</span>,
-  }),
-  columnHelper.accessor("endDate", {
-    cell: (data) => data.getValue(),
-    header: () => <span>End Date</span>,
-  }),
-  columnHelper.accessor("progress", {
-    cell: (data) => <ProgressTile progress={data.getValue()} />,
-    header: () => <span>Progress</span>,
-  }),
-];
-
 interface StagesProps {
-  data?: RowData[];
+  data?: TimetableStage[];
 }
 
 const Timetable = ({ data }: StagesProps) => {
   const table = useReactTable({
     data: data ?? [],
-    columns,
+    columns: columnDefinitions,
     getCoreRowModel: getCoreRowModel(),
   });
   return (
