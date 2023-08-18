@@ -22,7 +22,7 @@ const FormPage = ({
         {subtitle ? <p>{subtitle}</p> : null}
       </div>
       <div className="form-page-body mb-4">{children}</div>
-      <div className="form-page-footer mb-4 flex space-x-6">
+      <div className="form-page-footer mt-10 flex space-x-6">
         <button
           className="bg-gray-200 hover:bg-gray-300 text-black py-1 px-2"
           onClick={onBackClicked}

@@ -2,7 +2,7 @@ import TimetablePage from "../components/timetablePage/TimetablePage";
 
 export default {
   component: TimetablePage,
-  title: "Timetable",
+  title: "SOW14/Timetable",
   tags: ["autodocs"],
 };
 

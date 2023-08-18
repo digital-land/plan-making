@@ -1,30 +1,39 @@
-import { loadJson } from "../../utils";
-import FormPage from "./FormPage";
 import { useState, useEffect } from "preact/hooks";
+import { loadJson } from "../../utils";
+import DynamicForm from "./components/DynamicForm";
+import { SiteSelectionFormSchema } from "./types";
+
+import "./SiteSelectionForm.css";
 
 interface SiteSelectionForm {
-  filepath: string;
+  filepath?: string;
+  data?: SiteSelectionFormSchema;
 }
 
-interface SiteSelectionFormSchema {
-  stages: ReadonlyArray<FormStage>;
-}
-
-interface FormStage {
-  title: string;
-  subtitle?: string;
-}
-
-const SiteSelectionForm = ({ filepath }: SiteSelectionForm) => {
-  const [formSchema, setFormSchema] = useState<SiteSelectionFormSchema>();
+const SiteSelectionForm = ({ filepath, data }: SiteSelectionForm) => {
+  const [formSchema, setFormSchema] =
+    useState<SiteSelectionFormSchema | null>();
 
   const [currentStage, setCurrentStage] = useState(0);
 
   useEffect(() => {
-    loadJson(filepath).then((data) => {
+    if (data) {
       setFormSchema(data);
-    });
-  }, [setFormSchema, filepath]);
+    } else if (filepath) {
+      loadJson(filepath).then((data) => {
+        setFormSchema(data);
+      });
+    } else {
+      setFormSchema(null);
+    }
+  }, [setFormSchema, filepath, data]);
+
+  if (!formSchema) {
+    return null;
+  }
+
+  // useMemo
+  const propertyKeys = Object.keys(formSchema.properties);
 
   const handleBackClicked = () => {
     if (!formSchema || currentStage <= 0) {
@@ -36,7 +45,7 @@ const SiteSelectionForm = ({ filepath }: SiteSelectionForm) => {
   };
 
   const handleContinueClicked = () => {
-    if (!formSchema || currentStage >= formSchema?.stages.length - 1) {
+    if (!formSchema || currentStage >= propertyKeys.length - 1) {
       // TODO handle error here, button shouldnt be displayed too
       return;
     }
@@ -44,37 +53,12 @@ const SiteSelectionForm = ({ filepath }: SiteSelectionForm) => {
     setCurrentStage(currentStage + 1);
   };
 
-  if (!formSchema) {
-    return null;
-  }
-
   return (
-    <FormStage
-      data={formSchema.stages[currentStage]}
+    <DynamicForm
+      data={formSchema.properties[propertyKeys[currentStage]]}
       onBackClicked={handleBackClicked}
       onContinueClicked={handleContinueClicked}
     />
-  );
-};
-
-interface FormStageProps {
-  data: FormStage;
-  onBackClicked: () => void;
-  onContinueClicked: () => void;
-}
-
-const FormStage = ({
-  data,
-  onBackClicked,
-  onContinueClicked,
-}: FormStageProps) => {
-  return (
-    <FormPage
-      title={data.title}
-      subtitle={data.subtitle}
-      onBackClicked={onBackClicked}
-      onContinueClicked={onContinueClicked}
-    ></FormPage>
   );
 };
 

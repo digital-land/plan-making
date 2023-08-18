@@ -22,7 +22,7 @@ const MapComponent = ({ lat, lng, zoom }: MapComponentProps) => {
 
 export default {
   component: MapComponent,
-  title: "Map",
+  title: "Components/Map/Base",
   tags: ["autodocs"],
 };
 
