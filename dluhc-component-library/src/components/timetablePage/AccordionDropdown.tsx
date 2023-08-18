@@ -23,7 +23,7 @@ const AccordionDropdown = ({ information }: { information?: string }) => {
         >
           More information
         </span>
-        {isClicked ? <div class="border-l-4 p-4">{information}</div> : null}
+        {isClicked ? <div class="border-l-4 p-4 m-1">{information}</div> : null}
       </div>
     </>
   );
