@@ -19,7 +19,7 @@ const FormPage = ({
     <div>
       <div className="form-page-header mb-4">
         <h1 className="my-2 text-4xl font-bold">{title}</h1>
-        {subtitle ? <p>{subtitle}</p> : null}
+        {subtitle && <p>{subtitle}</p>}
       </div>
       <div className="form-page-body mb-4">{children}</div>
       <div className="form-page-footer mt-10 flex space-x-6">

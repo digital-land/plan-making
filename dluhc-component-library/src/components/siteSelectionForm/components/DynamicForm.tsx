@@ -8,11 +8,37 @@ interface DynamicFormProps {
   onContinueClicked: () => void;
 }
 
+enum InputType {
+  Input,
+  MultiSelect,
+  None,
+}
+
+const getInputType = (data: FormStage) => {
+  if (data.type === "string") {
+    return data.enum ? InputType.MultiSelect : InputType.Input;
+  }
+
+  return InputType.None;
+};
+
 const DynamicForm = ({
   data,
   onBackClicked,
   onContinueClicked,
 }: DynamicFormProps) => {
+  let questionInputComponent = null;
+
+  const inputType = getInputType(data);
+
+  switch (inputType) {
+    case InputType.MultiSelect:
+      questionInputComponent = (
+        <MultiSelect values={data.enum as ReadonlyArray<string>} />
+      );
+      break;
+  }
+
   return (
     <FormPage
       title={data.title}
@@ -20,7 +46,7 @@ const DynamicForm = ({
       onBackClicked={onBackClicked}
       onContinueClicked={onContinueClicked}
     >
-      <div>{data.enum && <MultiSelect values={data.enum} />}</div>
+      <div>{questionInputComponent}</div>
     </FormPage>
   );
 };

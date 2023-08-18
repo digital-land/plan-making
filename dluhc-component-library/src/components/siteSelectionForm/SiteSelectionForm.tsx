@@ -1,4 +1,4 @@
-import { useState, useEffect } from "preact/hooks";
+import { useState, useEffect, useMemo } from "preact/hooks";
 import { loadJson } from "../../utils";
 import DynamicForm from "./components/DynamicForm";
 import { SiteSelectionFormSchema } from "./types";
@@ -32,8 +32,10 @@ const SiteSelectionForm = ({ filepath, data }: SiteSelectionForm) => {
     return null;
   }
 
-  // useMemo
-  const propertyKeys = Object.keys(formSchema.properties);
+  const propertyKeys = useMemo(
+    () => Object.keys(formSchema.properties),
+    [formSchema],
+  );
 
   const handleBackClicked = () => {
     if (!formSchema || currentStage <= 0) {
