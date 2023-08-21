@@ -44,7 +44,7 @@ Check your answers template – {{ serviceName }} – GOV.UK Prototype Kit
               text: "When is the event start date?"
             },
             value: {
-              text: data["start-date"]
+              text: data["start-date-day"]+' '+data["start-date-month"]+' '+data["start-date-year"]
             },
             actions: {
               items: [
@@ -59,10 +59,10 @@ Check your answers template – {{ serviceName }} – GOV.UK Prototype Kit
           ,
           {
             key: {
-              text: "When is the event start date?"
+              text: "When is the event end date?"
             },
             value: {
-              text: data["end-date"]
+              text: data["end-date-day"]+' '+data["end-date-month"]+' '+data["end-date-year"] 
             },
             actions: {
               items: [
@@ -112,6 +112,7 @@ Check your answers template – {{ serviceName }} – GOV.UK Prototype Kit
           }
         ]
       }) }}
+
 
     <h2 class="govuk-heading-m">
       Now send your application
