@@ -9,6 +9,8 @@ import { Draw } from "ol/interaction.js";
 import { useMap } from "../../contexts/mapContext";
 import VectorSource from "ol/source/Vector";
 import VectorLayer from "ol/layer/Vector";
+import { Polygon } from "ol/geom";
+import { fetchDataset } from "src/api/api";
 
 interface BaseMapProps {
   lat?: number;
@@ -59,6 +61,11 @@ const BaseMap = ({
     );
     map.setTarget(ref.current);
     map.addInteraction(new Draw({ source: source, type: "Polygon" }));
+    source.on("addfeature", async function (evt) {
+      var feature = evt.feature;
+      var coords = (feature?.getGeometry() as Polygon).getCoordinates();
+      let features = await fetchDataset(coords);
+    });
   }, [lng, lat, map, ref, zoom]);
 
   return <div ref={ref} {...props} />;
