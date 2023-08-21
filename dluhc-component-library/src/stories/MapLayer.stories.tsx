@@ -31,7 +31,7 @@ const LayerMapComponent = ({
 
 export default {
   component: LayerMapComponent,
-  title: "Map Layer",
+  title: "Components/Map/Map Layer",
   tags: ["autodocs"],
 };
 
