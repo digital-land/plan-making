@@ -2,6 +2,7 @@ import { useEffect, useState } from "preact/hooks";
 import Timetable from "./Timetable";
 import csvToJson from "csvtojson";
 import { TimetableStage } from "./types";
+import AccordionDropdown from "./AccordionDropdown";
 
 interface TimetablePageProps {
   filepath: string;
@@ -60,7 +61,7 @@ const TimetablePage = ({ filepath }: TimetablePageProps) => {
             <p>Status: New Local Plan</p>
             <p>Period: 2022 - 2042</p>
             <p>Coverage: City Wide</p>
-            <a className="text-blue-400 underline">➤ More Information</a>
+            <AccordionDropdown></AccordionDropdown>
           </div>
         </div>
         <div>
