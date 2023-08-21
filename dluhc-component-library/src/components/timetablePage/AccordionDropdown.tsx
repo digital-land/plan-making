@@ -10,7 +10,7 @@ const AccordionDropdown = ({ children }: AccordionDropdownProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const handleDropdownClicked = () => {
-    isExpanded == true ? setIsExpanded(!isExpanded) : setIsExpanded(true);
+    setIsExpanded(!isExpanded);
   };
 
   const rotationClass = isExpanded ? "rotate-90" : "";
