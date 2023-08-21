@@ -1,9 +1,10 @@
 import { useState, useEffect, useMemo } from "preact/hooks";
 import { loadJson } from "../../utils";
 import DynamicForm from "./components/DynamicForm";
-import { SiteSelectionFormSchema } from "./types";
+import { FormState, FormValue, SiteSelectionFormSchema } from "./types";
 
 import "./SiteSelectionForm.css";
+import FormPage from "./components/FormPage";
 
 interface SiteSelectionForm {
   filepath?: string;
@@ -14,7 +15,9 @@ const SiteSelectionForm = ({ filepath, data }: SiteSelectionForm) => {
   const [formSchema, setFormSchema] =
     useState<SiteSelectionFormSchema | null>();
 
-  const [currentStage, setCurrentStage] = useState(0);
+  const [formData, setFormData] = useState<FormState>({});
+
+  const [currentPage, setCurrentPage] = useState(0);
 
   useEffect(() => {
     if (data) {
@@ -37,30 +40,52 @@ const SiteSelectionForm = ({ filepath, data }: SiteSelectionForm) => {
     [formSchema],
   );
 
+  const currentPageId = useMemo(
+    () => propertyKeys[currentPage],
+    [propertyKeys, currentPage],
+  );
+
   const handleBackClicked = () => {
-    if (!formSchema || currentStage <= 0) {
+    if (!formSchema || currentPage <= 0) {
       // TODO handle error here, button shouldnt be displayed too
       return;
     }
 
-    setCurrentStage(currentStage - 1);
+    setCurrentPage(currentPage - 1);
   };
 
   const handleContinueClicked = () => {
-    if (!formSchema || currentStage >= propertyKeys.length - 1) {
+    if (!formSchema || currentPage >= propertyKeys.length - 1) {
       // TODO handle error here, button shouldnt be displayed too
       return;
     }
 
-    setCurrentStage(currentStage + 1);
+    setCurrentPage(currentPage + 1);
+  };
+
+  const handleFormValueChange = (id: string, value: FormValue) => {
+    const newState = {
+      ...formData,
+      [id]: value,
+    };
+
+    setFormData(newState);
   };
 
   return (
-    <DynamicForm
-      data={formSchema.properties[propertyKeys[currentStage]]}
+    <FormPage
+      title={formSchema.properties[currentPageId].title}
+      subtitle={formSchema.properties[currentPageId].subtitle}
       onBackClicked={handleBackClicked}
       onContinueClicked={handleContinueClicked}
-    />
+    >
+      <DynamicForm
+        id={currentPageId}
+        formPageSchema={formSchema.properties[currentPageId]}
+        value={formData[currentPageId]}
+        onFormValueChange={handleFormValueChange}
+      />
+    </FormPage>
   );
 };
 

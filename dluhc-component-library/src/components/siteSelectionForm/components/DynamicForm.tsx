@@ -1,11 +1,13 @@
-import { FormStage } from "../types";
-import FormPage from "./FormPage";
+import { useMemo } from "preact/hooks";
+import { FormPageSchema, FormValue } from "../types";
 import MultiSelect from "./MultiSelect";
+import { JSXInternal } from "node_modules/preact/src/jsx";
 
 interface DynamicFormProps {
-  data: FormStage;
-  onBackClicked: () => void;
-  onContinueClicked: () => void;
+  id: string;
+  formPageSchema: FormPageSchema;
+  value: FormValue;
+  onFormValueChange: (id: string, value: FormValue) => void;
 }
 
 enum InputType {
@@ -14,41 +16,44 @@ enum InputType {
   None,
 }
 
-const getInputType = (data: FormStage) => {
-  if (data.type === "string") {
-    return data.enum ? InputType.MultiSelect : InputType.Input;
+const getInputType = (formPageSchema: FormPageSchema) => {
+  if (formPageSchema.type === "string") {
+    return formPageSchema.enum ? InputType.MultiSelect : InputType.Input;
   }
 
   return InputType.None;
 };
 
 const DynamicForm = ({
-  data,
-  onBackClicked,
-  onContinueClicked,
+  id,
+  formPageSchema,
+  value,
+  onFormValueChange,
 }: DynamicFormProps) => {
-  let questionInputComponent = null;
+  let questionInputComponent: JSXInternal.Element | null = null;
 
-  const inputType = getInputType(data);
+  const inputType = useMemo(
+    () => getInputType(formPageSchema),
+    [formPageSchema],
+  );
+
+  const handleFormValueChange = (newValue: FormValue) => {
+    onFormValueChange(id, newValue);
+  };
 
   switch (inputType) {
     case InputType.MultiSelect:
       questionInputComponent = (
-        <MultiSelect values={data.enum as ReadonlyArray<string>} />
+        <MultiSelect
+          options={formPageSchema.enum as ReadonlyArray<string>}
+          values={value as Record<string, boolean>}
+          onChange={handleFormValueChange}
+        />
       );
       break;
   }
 
-  return (
-    <FormPage
-      title={data.title}
-      subtitle={data.subtitle}
-      onBackClicked={onBackClicked}
-      onContinueClicked={onContinueClicked}
-    >
-      <div>{questionInputComponent}</div>
-    </FormPage>
-  );
+  return <form>{questionInputComponent}</form>;
 };
 
 export default DynamicForm;
