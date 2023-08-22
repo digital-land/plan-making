@@ -61,10 +61,10 @@ const BaseMap = ({
     );
     map.setTarget(ref.current);
     map.addInteraction(new Draw({ source: source, type: "Polygon" }));
-    source.on("addfeature", async function (evt) {
-      var feature = evt.feature;
-      var coords = (feature?.getGeometry() as Polygon).getCoordinates();
-      let features = await fetchDataset(coords);
+    source.on("addfeature", async (evt) => {
+      let feature = evt.feature;
+      let geometry = feature?.getGeometry() as Polygon;
+      let features = await fetchDataset(geometry);
     });
   }, [lng, lat, map, ref, zoom]);
 
