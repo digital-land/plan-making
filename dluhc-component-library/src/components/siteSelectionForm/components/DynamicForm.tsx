@@ -2,8 +2,7 @@ import { useMemo } from "preact/hooks";
 import { FormPageSchema, FormValue } from "../types";
 import MultiSelect from "./MultiSelect";
 import { JSXInternal } from "node_modules/preact/src/jsx";
-import TextInput from "./TextInput";
-import NumberInput from "./NumberInput";
+import Input from "./Input";
 
 interface DynamicFormProps {
   id: string;
@@ -22,7 +21,8 @@ enum InputType {
 const getInputType = (formPageSchema: FormPageSchema) => {
   if (formPageSchema.type === "string") {
     return formPageSchema.enum ? InputType.MultiSelect : InputType.TextInput;
-  } else if (formPageSchema.type === "number") {
+  }
+  if (formPageSchema.type === "number") {
     return InputType.NumberInput;
   }
 
@@ -58,7 +58,8 @@ const DynamicForm = ({
       break;
     case InputType.TextInput:
       questionInputComponent = (
-        <TextInput
+        <Input
+          type={formPageSchema.type}
           value={(value as string) || ""}
           onChange={handleFormValueChange}
         />
@@ -67,7 +68,14 @@ const DynamicForm = ({
       break;
     case InputType.NumberInput:
       questionInputComponent = (
-        <NumberInput value={value as number} onChange={handleFormValueChange} />
+        <Input
+          type={formPageSchema.type}
+          value={(value as number) || ""}
+          step={formPageSchema.step}
+          min={formPageSchema.min}
+          max={formPageSchema.max}
+          onChange={handleFormValueChange}
+        />
       );
 
       break;
