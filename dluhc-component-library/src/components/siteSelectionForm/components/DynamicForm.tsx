@@ -3,6 +3,7 @@ import { FormPageSchema, FormValue } from "../types";
 import MultiSelect from "./MultiSelect";
 import { JSXInternal } from "node_modules/preact/src/jsx";
 import TextInput from "./TextInput";
+import NumberInput from "./NumberInput";
 
 interface DynamicFormProps {
   id: string;
@@ -12,14 +13,17 @@ interface DynamicFormProps {
 }
 
 enum InputType {
-  Input,
+  TextInput,
+  NumberInput,
   MultiSelect,
   None,
 }
 
 const getInputType = (formPageSchema: FormPageSchema) => {
   if (formPageSchema.type === "string") {
-    return formPageSchema.enum ? InputType.MultiSelect : InputType.Input;
+    return formPageSchema.enum ? InputType.MultiSelect : InputType.TextInput;
+  } else if (formPageSchema.type === "number") {
+    return InputType.NumberInput;
   }
 
   return InputType.None;
@@ -40,7 +44,6 @@ const DynamicForm = ({
 
   const handleFormValueChange = (newValue: FormValue) => {
     onFormValueChange(id, newValue);
-    console.log(id);
   };
 
   switch (inputType) {
@@ -53,12 +56,18 @@ const DynamicForm = ({
         />
       );
       break;
-    case InputType.Input:
+    case InputType.TextInput:
       questionInputComponent = (
         <TextInput
           value={(value as string) || ""}
           onChange={handleFormValueChange}
         />
+      );
+
+      break;
+    case InputType.NumberInput:
+      questionInputComponent = (
+        <NumberInput value={value as number} onChange={handleFormValueChange} />
       );
 
       break;

@@ -52,6 +52,10 @@ export const Default = {
           type: "string",
           title: "Your name",
         },
+        age: {
+          type: "number",
+          title: "Age in years",
+        },
       },
     },
   },
