@@ -2,6 +2,7 @@ import { useMemo } from "preact/hooks";
 import { FormPageSchema, FormValue } from "../types";
 import MultiSelect from "./MultiSelect";
 import { JSXInternal } from "node_modules/preact/src/jsx";
+import TextInput from "./TextInput";
 
 interface DynamicFormProps {
   id: string;
@@ -39,6 +40,7 @@ const DynamicForm = ({
 
   const handleFormValueChange = (newValue: FormValue) => {
     onFormValueChange(id, newValue);
+    console.log(id);
   };
 
   switch (inputType) {
@@ -50,6 +52,15 @@ const DynamicForm = ({
           onChange={handleFormValueChange}
         />
       );
+      break;
+    case InputType.Input:
+      questionInputComponent = (
+        <TextInput
+          value={(value as string) || ""}
+          onChange={handleFormValueChange}
+        />
+      );
+
       break;
   }
 
