@@ -7,7 +7,7 @@ import { useEffect, useMemo, useRef } from "preact/hooks";
 import "../../../node_modules/ol/ol.css";
 import { Draw } from "ol/interaction.js";
 import { useMap } from "../../contexts/mapContext";
-import VectorSource from "ol/source/Vector";
+import VectorSource, { VectorSourceEvent } from "ol/source/Vector";
 import VectorLayer from "ol/layer/Vector";
 import { Polygon } from "ol/geom";
 import { fetchDataset } from "src/api/api";
@@ -61,7 +61,7 @@ const BaseMap = ({
     );
     map.setTarget(ref.current);
     map.addInteraction(new Draw({ source: source, type: "Polygon" }));
-    source.on("addfeature", async function (evt) {
+    source.on("addfeature", async function (evt: VectorSourceEvent) {
       let feature = evt.feature;
       let geometry = feature?.getGeometry() as Polygon;
       let features = await fetchDataset(geometry);
