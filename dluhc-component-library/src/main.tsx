@@ -5,6 +5,7 @@ import SiteSelectionForm from "./components/siteSelectionForm/SiteSelectionForm.
 import TimetablePage from "./components/timetablePage/TimetablePage.tsx";
 
 import "./index.css";
+import DrawingLayer from "./components/maps/drawingLayer.tsx";
 
 type Options = any;
 type RenderFunction = (options: Options, element: HTMLElement) => void;
@@ -36,6 +37,7 @@ const renderTimetable: RenderFunction = (
 const renderMap: RenderFunction = (_options: {}, element: HTMLElement) => {
   render(
     <MapContainer>
+      <DrawingLayer></DrawingLayer>
       <BaseMap
         lat={54.97}
         lng={-1.65}
