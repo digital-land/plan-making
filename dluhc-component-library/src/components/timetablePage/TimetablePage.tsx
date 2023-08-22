@@ -4,6 +4,7 @@ import { loadCSV, loadJson } from "../../utils";
 import Timetable from "./Timetable";
 import { TimetableStage } from "./types";
 import AccordionDropdown from "./AccordionDropdown";
+import { ImportCSV } from "./ImportCSV";
 
 interface TimetablePageProps {
   filepath: string;
