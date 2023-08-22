@@ -61,7 +61,7 @@ const BaseMap = ({
     );
     map.setTarget(ref.current);
     map.addInteraction(new Draw({ source: source, type: "Polygon" }));
-    source.on("addfeature", async (evt) => {
+    source.on("addfeature", async function (evt) {
       let feature = evt.feature;
       let geometry = feature?.getGeometry() as Polygon;
       let features = await fetchDataset(geometry);

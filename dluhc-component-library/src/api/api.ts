@@ -5,8 +5,9 @@ export async function fetchDataset(geometry: Geometry) {
   const format = new WKT();
   const polygon = format.writeGeometry(geometry);
 
-  const promise = await fetch(
+  return await fetch(
     `https://www.planning.data.gov.uk/entity.geojson?limit=100&geometry=${polygon}`,
-  );
-  return await promise.json();
+  ).then((Response) => {
+    return Response.json();
+  });
 }
