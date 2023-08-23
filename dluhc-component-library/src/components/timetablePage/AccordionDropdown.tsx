@@ -16,16 +16,14 @@ const AccordionDropdown = ({ children }: AccordionDropdownProps) => {
   const rotationClass = isExpanded ? "rotate-90" : "";
 
   return (
-    <div className="pt-1 pb-3">
+    <div
+      className="pt-1 pb-3 cursor-pointer w-fit"
+      onClick={handleDropdownClicked}
+    >
       <IndicationArrow
         className={`h-3 w-3 transition-all inline-block ${rotationClass}`}
       />
-      <span
-        className="text-blue-400 underline cursor-pointer pl-2"
-        onClick={handleDropdownClicked}
-      >
-        More information
-      </span>
+      <span className="text-blue-400 underline pl-2">More information</span>
       {isExpanded && <div class="border-l-4 p-4 m-1">{children}</div>}
     </div>
   );
