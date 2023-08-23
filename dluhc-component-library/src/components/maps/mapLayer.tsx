@@ -14,9 +14,10 @@ interface MapLayerProps {
   features: FeatureCollection;
   stroke: StrokeOptions;
   fill: FillOptions;
+  zIndex: number;
 }
 
-const MapLayer = ({ features, stroke, fill }: MapLayerProps) => {
+const MapLayer = ({ features, stroke, fill, zIndex = 2 }: MapLayerProps) => {
   const map = useMap();
   const layer = useRef<BaseLayer | null>(null);
 
@@ -36,6 +37,8 @@ const MapLayer = ({ features, stroke, fill }: MapLayerProps) => {
         stroke: new Stroke(stroke),
       }),
     });
+
+    layer.current.setZIndex(zIndex);
     map.addLayer(layer.current);
 
     return () => {

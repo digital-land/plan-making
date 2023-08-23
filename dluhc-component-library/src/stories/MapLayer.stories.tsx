@@ -4,6 +4,7 @@ import MapContainer from "../components/maps/mapContainer";
 import MapLayer from "../components/maps/mapLayer";
 import { Options as StrokeOptions } from "ol/style/Stroke";
 import { Options as FillOptions } from "ol/style/Fill";
+import DrawingLayer from "src/components/maps/drawingLayer";
 
 interface LayerMapComponentProps {
   features: FeatureCollection;
@@ -25,6 +26,7 @@ const LayerMapComponent = ({
         style={{ height: "500px", width: "500px" }}
       />
       <MapLayer features={features} stroke={stroke} fill={fill} />
+      <DrawingLayer />
     </MapContainer>
   );
 };

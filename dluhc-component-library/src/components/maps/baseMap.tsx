@@ -14,6 +14,7 @@ interface BaseMapProps {
   id?: string;
   className?: string;
   style?: CSSProperties;
+  zIndex?: number;
 }
 
 const BaseMap = ({
@@ -23,6 +24,7 @@ const BaseMap = ({
   id,
   className,
   style,
+  zIndex = 0,
 }: BaseMapProps) => {
   const map = useMap();
   const props = useMemo(
@@ -36,7 +38,9 @@ const BaseMap = ({
       return;
     }
     useGeographic();
-    map.setLayers([new TileLayer({ source: new OSM() })]);
+    const tileLayer = new TileLayer({ source: new OSM() });
+    tileLayer.setZIndex(zIndex);
+    map.addLayer(tileLayer);
     map.setView(
       new View({
         center: [lng, lat],
@@ -44,7 +48,7 @@ const BaseMap = ({
       }),
     );
     map.setTarget(ref.current);
-  }, [lng, lat, map, ref, zoom]);
+  }, [lng, lat, map, ref, zoom, zIndex]);
 
   return <div ref={ref} {...props} />;
 };

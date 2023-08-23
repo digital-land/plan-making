@@ -37,13 +37,13 @@ const renderTimetable: RenderFunction = (
 const renderMap: RenderFunction = (_options: {}, element: HTMLElement) => {
   render(
     <MapContainer>
-      <DrawingLayer></DrawingLayer>
       <BaseMap
         lat={54.97}
         lng={-1.65}
         zoom={10}
         style={{ height: "500px", width: "500px" }}
-      ></BaseMap>
+      />
+      <DrawingLayer />
     </MapContainer>,
     element,
   );

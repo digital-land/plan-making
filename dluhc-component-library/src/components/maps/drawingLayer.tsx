@@ -1,3 +1,4 @@
+import { GeometryCollection } from "ol/geom";
 import Polygon from "ol/geom/Polygon";
 import { Draw } from "ol/interaction";
 import VectorLayer from "ol/layer/Vector";
@@ -6,7 +7,12 @@ import { useEffect, useRef } from "react";
 import { fetchDataset } from "src/api/api";
 import { useMap } from "src/contexts/mapContext";
 
-const DrawingLayer = () => {
+interface DrawingLayerProps {
+  zIndex?: number;
+}
+
+const DrawingLayer = ({ zIndex = 1 }: DrawingLayerProps) => {
+  let features: GeometryCollection | undefined = undefined;
   const map = useMap();
   const source = new VectorSource();
   const vector = new VectorLayer({
@@ -27,16 +33,15 @@ const DrawingLayer = () => {
     }
 
     map.addInteraction(new Draw({ source: source, type: "Polygon" }));
-
+    vector.setZIndex(zIndex);
     map.addLayer(vector);
 
     source.on("addfeature", async function (evt: VectorSourceEvent) {
       let feature = evt.feature;
       let geometry = feature?.getGeometry() as Polygon;
-      let features = await fetchDataset(geometry);
-      console.log(features);
+      features = await fetchDataset(geometry);
     });
-  }, [ref]);
+  }, [ref, zIndex]);
 
   return <div ref={ref} />;
 };
