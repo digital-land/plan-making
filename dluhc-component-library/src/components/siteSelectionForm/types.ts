@@ -9,6 +9,9 @@ export interface FormPageSchema {
   title: string;
   subtitle?: string;
   enum?: ReadonlyArray<string>;
+  step?: string;
+  min?: string;
+  max?: string;
 }
 
 export type FormValue = string | number | boolean | Record<string, boolean>;

@@ -52,6 +52,17 @@ export const Default = {
           type: "string",
           title: "Your name",
         },
+        age: {
+          type: "number",
+          title: "Age in years",
+          step: 1,
+          min: 18,
+          max: 35,
+        },
+        another: {
+          type: "number",
+          title: "Another",
+        },
       },
     },
   },
