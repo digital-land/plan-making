@@ -16,7 +16,6 @@
     "@tanstack/react-table": "^8.9.3",
     "csvtojson": "^2.0.10",
     "ol": "^7.5.0",
-    "papaparse": "^5.4.1",
     "preact": "^10.16.0"
   },
   "devDependencies": {
@@ -29,7 +28,6 @@
     "@storybook/preact-vite": "^7.3.1",
     "@storybook/testing-library": "^0.2.0",
     "@types/geojson": "^7946.0.10",
-    "@types/papaparse": "^5.3.7",
     "autoprefixer": "^10.4.15",
     "postcss": "^8.4.27",
     "prettier": "^3.0.1",
