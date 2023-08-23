@@ -1,4 +1,3 @@
-import DrawingLayer from "src/components/maps/drawingLayer";
 import BaseMap from "../components/maps/baseMap";
 import MapContainer from "../components/maps/mapContainer";
 
@@ -17,7 +16,6 @@ const MapComponent = ({ lat, lng, zoom }: MapComponentProps) => {
         zoom={zoom}
         style={{ height: "500px", width: "500px" }}
       />
-      <DrawingLayer />
     </MapContainer>
   );
 };

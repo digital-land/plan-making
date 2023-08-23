@@ -17,7 +17,7 @@ interface MapLayerProps {
   zIndex: number;
 }
 
-const MapLayer = ({ features, stroke, fill, zIndex = 2 }: MapLayerProps) => {
+const MapLayer = ({ features, stroke, fill, zIndex = 1 }: MapLayerProps) => {
   const map = useMap();
   const layer = useRef<BaseLayer | null>(null);
 

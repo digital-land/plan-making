@@ -10,12 +10,14 @@ interface LayerMapComponentProps {
   features: FeatureCollection;
   stroke: StrokeOptions;
   fill: FillOptions;
+  zIndex: number;
 }
 
 const LayerMapComponent = ({
   features,
   stroke,
   fill,
+  zIndex,
 }: LayerMapComponentProps) => {
   return (
     <MapContainer>
@@ -25,7 +27,12 @@ const LayerMapComponent = ({
         zoom={15.5}
         style={{ height: "500px", width: "500px" }}
       />
-      <MapLayer features={features} stroke={stroke} fill={fill} />
+      <MapLayer
+        features={features}
+        stroke={stroke}
+        fill={fill}
+        zIndex={zIndex}
+      />
       <DrawingLayer />
     </MapContainer>
   );

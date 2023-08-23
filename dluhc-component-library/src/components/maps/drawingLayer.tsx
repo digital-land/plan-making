@@ -9,20 +9,32 @@ import { useMap } from "src/contexts/mapContext";
 
 interface DrawingLayerProps {
   zIndex?: number;
+  strokeColor?: string;
+  fillcolor?: string;
+  strokeWidth?: number;
+  circleRadius?: number;
+  circleFillColor?: string;
 }
 
-const DrawingLayer = ({ zIndex = 1 }: DrawingLayerProps) => {
-  let features: GeometryCollection | undefined = undefined;
+const DrawingLayer = ({
+  zIndex = 2,
+  strokeColor = "#ffcc33",
+  fillcolor = "rgba(255, 255, 255, 0.2)",
+  strokeWidth = 2,
+  circleRadius = 7,
+  circleFillColor = "#ffcc33",
+}: DrawingLayerProps) => {
+  let features: GeometryCollection | undefined;
   const map = useMap();
   const source = new VectorSource();
   const vector = new VectorLayer({
     source: source,
     style: {
-      "fill-color": "rgba(255, 255, 255, 0.2)",
-      "stroke-color": "#ffcc33",
-      "stroke-width": 2,
-      "circle-radius": 7,
-      "circle-fill-color": "#ffcc33",
+      "fill-color": fillcolor,
+      "stroke-color": strokeColor,
+      "stroke-width": strokeWidth,
+      "circle-radius": circleRadius,
+      "circle-fill-color": circleFillColor,
     },
   });
   const ref = useRef<HTMLDivElement>(null);
