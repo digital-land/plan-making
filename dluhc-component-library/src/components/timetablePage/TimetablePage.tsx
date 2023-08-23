@@ -13,15 +13,23 @@ interface TimetablePageProps {
 const TimetablePage = ({ filepath, headersFilepath }: TimetablePageProps) => {
   const [timetableData, setTimetableData] = useState<TimetableStage[]>();
   const [timetableHeaderData, setTimetableHeaderData] =
-    useState<TimetableHeader[]>();
+    useState<TimetableHeader>();
 
   useEffect(() => {
+    console.log({ headersFilepath });
+
     loadCSV(headersFilepath).then((data) => {
       csvToJson()
         .fromString(data)
-        .then((jsonObj) =>
-          setTimetableHeaderData(jsonObj as TimetableHeader[]),
-        );
+        .then((jsonObj) => {
+          console.log("setting timetable data:", jsonObj[0]);
+          console.log({ data: jsonObj[0] });
+          //setTimetableHeaderData(jsonObj[0] as TimetableHeader);
+          setTimetableHeaderData({
+            name: "Test name",
+            description: "Description",
+          } as TimetableHeader);
+        });
     });
   }, [setTimetableHeaderData, headersFilepath]);
 
@@ -37,26 +45,31 @@ const TimetablePage = ({ filepath, headersFilepath }: TimetablePageProps) => {
         setTimetableData(data);
       });
     }
+    console.log("test load data effect");
   }, [setTimetableData, filepath]);
-  //localhost:6006/?path=/docs/sow14-timetable--docs
 
-  console.log("Headers");
-  console.log(headersFilepath);
-  console.log(timetableHeaderData);
-  console.log("data");
-  console.log(timetableData);
+  // console.log("Headers");
+  // console.log(headersFilepath);
+  // console.log(timetableHeaderData);
+  // console.log("data");
+  // console.log(timetableData);
+
+  // let x = null;
+  // if (timetableHeaderData) {
+  //   x = timetableHeaderData[0];
+  // }
+
+  console.log("rerender");
+
   return (
     <>
       <div>
         <div>
           <h1 className="my-16 text-3xl font-bold">
-            Birmingham New Local Plan Timetable
+            {timetableHeaderData?.name}
           </h1>
           <p className="w-2/3 text-lg mb-8">
-            We are working on a new Local Plan for Birmingham which will guide
-            how the city will develop in the future and provide policies to
-            guide decisions on development proposals and planning applications
-            up to 2042.
+            {timetableHeaderData?.description}
           </p>
           <p className="w-2/3 mb-8 text-lg">
             This page provides updates on the progress of our New Local Plan.
@@ -65,16 +78,21 @@ const TimetablePage = ({ filepath, headersFilepath }: TimetablePageProps) => {
         <hr className="my-8"></hr>
         <div>
           <div className="my-8">
-            <p className="text-sm">Published 5 january 2023</p>
             <p className="text-sm">
-              last updated 5 january 2023 -
+              Published {timetableHeaderData?.published}
+            </p>
+            <p className="text-sm">
+              last updated {timetableHeaderData?.updated} -
               <span className="text-blue-400 underline"> See all updates</span>
             </p>
           </div>
           <div>
-            <p>Status: New Local Plan</p>
-            <p>Period: 2022 - 2042</p>
-            <p>Coverage: City Wide</p>
+            <p>Status: {timetableHeaderData?.status}</p>
+            <p>
+              Period: {timetableHeaderData?.periodStartDate} -{" "}
+              {timetableHeaderData?.periodEndDate}
+            </p>
+            <p>Coverage: {timetableHeaderData?.coverage}</p>
             <AccordionDropdown></AccordionDropdown>
           </div>
         </div>
