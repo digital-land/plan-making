@@ -47,6 +47,7 @@ const TimetablePage = ({ filepath, headersFilepath }: TimetablePageProps) => {
     }
     console.log("test load data effect");
   }, [setTimetableData, filepath]);
+  //localhost:6006/?path=/docs/sow14-timetable--docs
 
   // console.log("Headers");
   // console.log(headersFilepath);
