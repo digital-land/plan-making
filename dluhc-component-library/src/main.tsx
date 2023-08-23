@@ -27,14 +27,14 @@ const renderSiteSelectionForm: RenderFunction = (
 const renderTimetable: RenderFunction = (
   options: {
     timetableFilepath: string;
-    timetableHeadersPath: string;
+    timetableHeadersFilepath: string;
   },
   element: HTMLElement,
 ) => {
   render(
     <TimetablePage
       filepath={options.timetableFilepath}
-      timetableHeadersPath={options.timetableHeadersPath}
+      headersFilepath={options.timetableHeadersFilepath}
     />,
     element,
   );
