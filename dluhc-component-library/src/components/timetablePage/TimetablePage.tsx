@@ -7,26 +7,23 @@ import AccordionDropdown from "./AccordionDropdown";
 
 interface TimetablePageProps {
   filepath: string;
-  timetableHeadersPath: string;
+  headersFilepath: string;
 }
 
-const TimetablePage = (
-  { filepath }: TimetablePageProps,
-  { timetableHeadersPath }: TimetablePageProps,
-) => {
+const TimetablePage = ({ filepath, headersFilepath }: TimetablePageProps) => {
   const [timetableData, setTimetableData] = useState<TimetableStage[]>();
   const [timetableHeaderData, setTimetableHeaderData] =
     useState<TimetableHeader[]>();
 
   useEffect(() => {
-    loadCSV(timetableHeadersPath).then((data) => {
+    loadCSV(headersFilepath).then((data) => {
       csvToJson()
         .fromString(data)
         .then((jsonObj) =>
           setTimetableHeaderData(jsonObj as TimetableHeader[]),
         );
     });
-  }, [setTimetableHeaderData, timetableHeadersPath]);
+  }, [setTimetableHeaderData, headersFilepath]);
 
   useEffect(() => {
     if (/.csv$/.test(filepath)) {
@@ -41,12 +38,15 @@ const TimetablePage = (
       });
     }
   }, [setTimetableData, filepath]);
+  //localhost:6006/?path=/docs/sow14-timetable--docs
 
+  console.log("Headers");
+  console.log(headersFilepath);
+  console.log(timetableHeaderData);
+  console.log("data");
+  console.log(timetableData);
   return (
     <>
-      {console.log(timetableHeaderData)}
-      {console.log("____________________________")}
-      {console.log(timetableData)}
       <div>
         <div>
           <h1 className="my-16 text-3xl font-bold">
