@@ -17,7 +17,7 @@ const RadioButtons = ({ name, options, value, onChange }: MultiSelectProps) => {
           type="radio"
           class="radio mr-2"
           name={name}
-          checked={value == key}
+          checked={value === key}
           onClick={() => onChange(key)}
         />
         <span>{key}</span>
