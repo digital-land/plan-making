@@ -64,10 +64,6 @@ export const Default = {
           min: 18,
           max: 35,
         },
-        another: {
-          type: "number",
-          title: "Another",
-        },
       },
     },
   },
