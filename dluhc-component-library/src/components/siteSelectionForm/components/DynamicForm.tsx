@@ -60,7 +60,7 @@ const DynamicForm = ({
       questionInputComponent = (
         <Input
           type={formPageSchema.type}
-          value={(value as string) || ""}
+          value={(value as string) ?? ""}
           onChange={handleFormValueChange}
         />
       );
@@ -70,7 +70,7 @@ const DynamicForm = ({
       questionInputComponent = (
         <Input
           type={formPageSchema.type}
-          value={(value as number) || ""}
+          value={(value as number) ?? 0}
           step={formPageSchema.step}
           min={formPageSchema.min}
           max={formPageSchema.max}
