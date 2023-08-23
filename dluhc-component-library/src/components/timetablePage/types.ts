@@ -13,7 +13,6 @@ export type TimetableHeader = {
   published: string;
   updated: string;
   status: string;
-  periodStartDate: Number;
-  periodEndDate: Number;
+  periodStartToEnd: string;
   coverage: string;
 };

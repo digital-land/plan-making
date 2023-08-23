@@ -15,52 +15,31 @@ const TimetablePage = ({ filepath, headersFilepath }: TimetablePageProps) => {
   const [timetableHeaderData, setTimetableHeaderData] =
     useState<TimetableHeader>();
 
-  useEffect(() => {
-    console.log({ headersFilepath });
-
-    loadCSV(headersFilepath).then((data) => {
-      csvToJson()
-        .fromString(data)
-        .then((jsonObj) => {
-          console.log("setting timetable data:", jsonObj[0]);
-          console.log({ data: jsonObj[0] });
-          //setTimetableHeaderData(jsonObj[0] as TimetableHeader);
-          setTimetableHeaderData({
-            name: "Test name",
-            description: "Description",
-          } as TimetableHeader);
-        });
-    });
-  }, [setTimetableHeaderData, headersFilepath]);
-
-  useEffect(() => {
+  async function loadData() {
     if (/.csv$/.test(filepath)) {
-      loadCSV(filepath).then((data) => {
+      await loadCSV(filepath).then((data) => {
         csvToJson()
           .fromString(data)
           .then((jsonObj) => setTimetableData(jsonObj as TimetableStage[]));
       });
     } else if (/.json$/.test(filepath)) {
-      loadJson(filepath).then((data) => {
+      await loadJson(filepath).then((data) => {
         setTimetableData(data);
       });
     }
-    console.log("test load data effect");
-  }, [setTimetableData, filepath]);
-  //localhost:6006/?path=/docs/sow14-timetable--docs
 
-  // console.log("Headers");
-  // console.log(headersFilepath);
-  // console.log(timetableHeaderData);
-  // console.log("data");
-  // console.log(timetableData);
+    await loadCSV(headersFilepath).then((data) => {
+      csvToJson()
+        .fromString(data)
+        .then((jsonObj) => {
+          setTimetableHeaderData(jsonObj[0] as TimetableHeader);
+        });
+    });
+  }
 
-  // let x = null;
-  // if (timetableHeaderData) {
-  //   x = timetableHeaderData[0];
-  // }
-
-  console.log("rerender");
+  useEffect(() => {
+    loadData();
+  }, [setTimetableData, filepath, setTimetableHeaderData, headersFilepath]);
 
   return (
     <>
@@ -89,10 +68,7 @@ const TimetablePage = ({ filepath, headersFilepath }: TimetablePageProps) => {
           </div>
           <div>
             <p>Status: {timetableHeaderData?.status}</p>
-            <p>
-              Period: {timetableHeaderData?.periodStartDate} -{" "}
-              {timetableHeaderData?.periodEndDate}
-            </p>
+            <p>Period: {timetableHeaderData?.periodStartToEnd}</p>
             <p>Coverage: {timetableHeaderData?.coverage}</p>
             <AccordionDropdown></AccordionDropdown>
           </div>
