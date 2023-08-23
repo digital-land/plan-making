@@ -44,7 +44,7 @@ const MapComponent = ({
 
 export default {
   component: MapComponent,
-  title: "Components/Map/Base",
+  title: "Components/Map/Drawing Layer",
   tags: ["autodocs"],
 };
 
