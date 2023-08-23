@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { IndicationArrow } from "../inlinesvgs/IndicationArrow";
 import { ComponentChildren } from "preact";
-import { ImportCSV } from "./ImportCSV";
 
 interface AccordionDropdownProps {
   children?: ComponentChildren;
@@ -11,9 +10,6 @@ const AccordionDropdown = ({ children }: AccordionDropdownProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const handleDropdownClicked = () => {
-    {
-      ImportCSV();
-    }
     setIsExpanded(!isExpanded);
   };
 

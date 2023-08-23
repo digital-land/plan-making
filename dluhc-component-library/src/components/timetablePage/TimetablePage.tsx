@@ -2,16 +2,31 @@ import { useEffect, useState } from "preact/hooks";
 import csvToJson from "csvtojson";
 import { loadCSV, loadJson } from "../../utils";
 import Timetable from "./Timetable";
-import { TimetableStage } from "./types";
+import { TimetableHeader, TimetableStage } from "./types";
 import AccordionDropdown from "./AccordionDropdown";
-import { ImportCSV } from "./ImportCSV";
 
 interface TimetablePageProps {
   filepath: string;
+  timetableHeadersPath: string;
 }
 
-const TimetablePage = ({ filepath }: TimetablePageProps) => {
+const TimetablePage = (
+  { filepath }: TimetablePageProps,
+  { timetableHeadersPath }: TimetablePageProps,
+) => {
   const [timetableData, setTimetableData] = useState<TimetableStage[]>();
+  const [timetableHeaderData, setTimetableHeaderData] =
+    useState<TimetableHeader[]>();
+
+  useEffect(() => {
+    loadCSV(timetableHeadersPath).then((data) => {
+      csvToJson()
+        .fromString(data)
+        .then((jsonObj) =>
+          setTimetableHeaderData(jsonObj as TimetableHeader[]),
+        );
+    });
+  }, [setTimetableHeaderData, timetableHeadersPath]);
 
   useEffect(() => {
     if (/.csv$/.test(filepath)) {
@@ -29,6 +44,9 @@ const TimetablePage = ({ filepath }: TimetablePageProps) => {
 
   return (
     <>
+      {console.log(timetableHeaderData)}
+      {console.log("____________________________")}
+      {console.log(timetableData)}
       <div>
         <div>
           <h1 className="my-16 text-3xl font-bold">
