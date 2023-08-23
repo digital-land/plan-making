@@ -9,5 +9,6 @@ export default {
 export const Default = {
   args: {
     filepath: "/plan-making/assets/timetable.csv",
+    headersFilepath: "/plan-making/assets/timetableHeader.csv",
   },
 };
