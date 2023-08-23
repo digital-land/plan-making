@@ -1,11 +1,16 @@
-interface MultiSelectProps {
+interface RadioButtonsProps {
   name: string;
   options: ReadonlyArray<string>;
   value: String;
   onChange: (values: string) => void;
 }
 
-const RadioButtons = ({ name, options, value, onChange }: MultiSelectProps) => {
+const RadioButtons = ({
+  name,
+  options,
+  value,
+  onChange,
+}: RadioButtonsProps) => {
   if (!options.length) {
     return null;
   }
