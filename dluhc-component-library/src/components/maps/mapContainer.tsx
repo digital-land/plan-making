@@ -1,5 +1,10 @@
 import { Map as OLMap } from "ol";
-import { ComponentChildren } from "preact";
+import {
+  ComponentChildren,
+  cloneElement,
+  isValidElement,
+  toChildArray,
+} from "preact";
 import { CSSProperties, useMemo, useState } from "preact/compat";
 import { MapProvider } from "../../contexts/mapContext";
 
@@ -22,9 +27,16 @@ const MapContainer = ({
     [id, className, style],
   );
 
+  const childrenWithProps = toChildArray(children).map((child, index) => {
+    if (isValidElement(child)) {
+      return cloneElement(child, { zIndex: index });
+    }
+    return child;
+  });
+
   return (
     <MapProvider map={map} {...props}>
-      {children}
+      {childrenWithProps}
     </MapProvider>
   );
 };
