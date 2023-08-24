@@ -34,7 +34,7 @@ const renderTimetable: RenderFunction = (
 ) => {
   render(
     <TimetablePage
-      filepath={options.timetableFilepath}
+      stagesFilepath={options.timetableFilepath}
       headersFilepath={options.timetableHeadersFilepath}
     />,
     element,

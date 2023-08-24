@@ -6,24 +6,27 @@ import { TimetableHeader, TimetableStage } from "./types";
 import AccordionDropdown from "./AccordionDropdown";
 
 interface TimetablePageProps {
-  filepath: string;
+  stagesFilepath: string;
   headersFilepath: string;
 }
 
-const TimetablePage = ({ filepath, headersFilepath }: TimetablePageProps) => {
+const TimetablePage = ({
+  stagesFilepath,
+  headersFilepath,
+}: TimetablePageProps) => {
   const [timetableData, setTimetableData] = useState<TimetableStage[]>();
   const [timetableHeaderData, setTimetableHeaderData] =
     useState<TimetableHeader>();
 
-  async function loadData() {
-    if (/.csv$/.test(filepath)) {
-      await loadCSV(filepath).then((data) => {
+  const loadData = async () => {
+    if (/.csv$/.test(stagesFilepath)) {
+      await loadCSV(stagesFilepath).then((data) => {
         csvToJson()
           .fromString(data)
           .then((jsonObj) => setTimetableData(jsonObj as TimetableStage[]));
       });
-    } else if (/.json$/.test(filepath)) {
-      await loadJson(filepath).then((data) => {
+    } else if (/.json$/.test(stagesFilepath)) {
+      await loadJson(stagesFilepath).then((data) => {
         setTimetableData(data);
       });
     }
@@ -35,11 +38,16 @@ const TimetablePage = ({ filepath, headersFilepath }: TimetablePageProps) => {
           setTimetableHeaderData(jsonObj[0] as TimetableHeader);
         });
     });
-  }
+  };
 
   useEffect(() => {
     loadData();
-  }, [setTimetableData, filepath, setTimetableHeaderData, headersFilepath]);
+  }, [
+    setTimetableData,
+    stagesFilepath,
+    setTimetableHeaderData,
+    headersFilepath,
+  ]);
 
   return (
     <>
