@@ -14,7 +14,7 @@ const DatasetSelect = ({ item, selected, onSelect }: DatasetSelectProps) => {
     <div key={item.dataset} className="flex items-center mb-4">
       <input
         id={id}
-        className="h-5 w-5 cursor-pointer"
+        className="h-5 w-5 flex-none cursor-pointer"
         type="checkbox"
         checked={selected}
         onChange={() => onSelect(item)}
