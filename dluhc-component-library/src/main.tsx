@@ -5,6 +5,7 @@ import SiteSelectionForm from "./components/siteSelectionForm/SiteSelectionForm.
 import TimetablePage from "./components/timetablePage/TimetablePage.tsx";
 
 import "./index.css";
+import DrawingLayer from "./components/maps/drawingLayer.tsx";
 
 type Options = any;
 type RenderFunction = (options: Options, element: HTMLElement) => void;
@@ -48,7 +49,8 @@ const renderMap: RenderFunction = (_options: {}, element: HTMLElement) => {
         lng={-1.65}
         zoom={10}
         style={{ height: "500px", width: "500px" }}
-      ></BaseMap>
+      />
+      <DrawingLayer />
     </MapContainer>,
     element,
   );

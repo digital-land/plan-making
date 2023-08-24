@@ -5,12 +5,7 @@ import { OSM } from "ol/source";
 import { CSSProperties } from "preact/compat";
 import { useEffect, useMemo, useRef } from "preact/hooks";
 import "../../../node_modules/ol/ol.css";
-import { Draw } from "ol/interaction.js";
 import { useMap } from "../../contexts/mapContext";
-import VectorSource, { VectorSourceEvent } from "ol/source/Vector";
-import VectorLayer from "ol/layer/Vector";
-import { Polygon } from "ol/geom";
-import { fetchDataset } from "src/api/api";
 
 interface BaseMapProps {
   lat?: number;
@@ -19,6 +14,7 @@ interface BaseMapProps {
   id?: string;
   className?: string;
   style?: CSSProperties;
+  zIndex?: number;
 }
 
 const BaseMap = ({
@@ -28,6 +24,7 @@ const BaseMap = ({
   id,
   className,
   style,
+  zIndex = 0,
 }: BaseMapProps) => {
   const map = useMap();
   const props = useMemo(
@@ -35,24 +32,15 @@ const BaseMap = ({
     [id, className, style],
   );
   const ref = useRef<HTMLDivElement>(null);
-  const source = new VectorSource();
-  const vector = new VectorLayer({
-    source: source,
-    style: {
-      "fill-color": "rgba(255, 255, 255, 0.2)",
-      "stroke-color": "#ffcc33",
-      "stroke-width": 2,
-      "circle-radius": 7,
-      "circle-fill-color": "#ffcc33",
-    },
-  });
 
   useEffect(() => {
     if (!ref.current) {
       return;
     }
     useGeographic();
-    map.setLayers([new TileLayer({ source: new OSM() }), vector]);
+    const tileLayer = new TileLayer({ source: new OSM() });
+    tileLayer.setZIndex(zIndex);
+    map.addLayer(tileLayer);
     map.setView(
       new View({
         center: [lng, lat],
@@ -60,13 +48,7 @@ const BaseMap = ({
       }),
     );
     map.setTarget(ref.current);
-    map.addInteraction(new Draw({ source: source, type: "Polygon" }));
-    source.on("addfeature", async function (evt: VectorSourceEvent) {
-      let feature = evt.feature;
-      let geometry = feature?.getGeometry() as Polygon;
-      let features = await fetchDataset(geometry);
-    });
-  }, [lng, lat, map, ref, zoom]);
+  }, [lng, lat, map, ref, zoom, zIndex]);
 
   return <div ref={ref} {...props} />;
 };
