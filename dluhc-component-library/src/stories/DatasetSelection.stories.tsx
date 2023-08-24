@@ -41,7 +41,7 @@ const MapComponent = ({
     <>
       <BaseMap lat={lat} lng={lng} zoom={zoom} className="h-full" />
       {selectedDatasets.map((dataset) => (
-        <DatasetLayer dataset={dataset} area={area} />
+        <DatasetLayer dataset={dataset} area={area} key={dataset.dataset} />
       ))}
     </>
   );
