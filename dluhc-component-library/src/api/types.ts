@@ -11,5 +11,5 @@ export interface Dataset {
 
 export interface PaintOptions {
   colour: string;
-  opacity: number;
+  opacity?: number;
 }
