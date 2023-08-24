@@ -9,7 +9,14 @@ export default {
 export const Default = {
   args: {
     data: {
-      required: ["siteUse", "relationshipTo", "address", "name"],
+      required: [
+        "siteUse",
+        "relationshipTo",
+        "address",
+        "name",
+        "age",
+        "isBrownfieldSite",
+      ],
       type: "object",
       properties: {
         siteUse: {
@@ -53,16 +60,16 @@ export const Default = {
           type: "string",
           title: "Please provide the fullest postal address you can",
         },
-        name: {
-          type: "string",
-          title: "Your name",
-        },
         age: {
           type: "number",
           title: "Age in years",
           step: 1,
           min: 18,
           max: 35,
+        },
+        name: {
+          type: "string",
+          title: "Your name",
         },
       },
     },

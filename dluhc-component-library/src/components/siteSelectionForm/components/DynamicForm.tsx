@@ -75,7 +75,7 @@ const DynamicForm = ({
       questionInputComponent = (
         <Input
           type={formPageSchema.type}
-          value={(value as number) ?? 0}
+          value={value as number}
           step={formPageSchema.step}
           min={formPageSchema.min}
           max={formPageSchema.max}

@@ -45,6 +45,11 @@ const SiteSelectionForm = ({ filepath, data }: SiteSelectionForm) => {
     [propertyKeys, currentPage],
   );
 
+  const requiredProperties = useMemo(
+    () => formSchema["required"],
+    [formSchema],
+  );
+
   const handleBackClicked = () => {
     if (!formSchema || currentPage <= 0) {
       // TODO handle error here, button shouldnt be displayed too
@@ -60,7 +65,24 @@ const SiteSelectionForm = ({ filepath, data }: SiteSelectionForm) => {
       return;
     }
 
-    setCurrentPage(currentPage + 1);
+    let continueForm = true;
+
+    if (requiredProperties.includes(currentPageId)) {
+      continueForm = validateRequiredProperty();
+    }
+    if (continueForm) {
+      setCurrentPage(currentPage + 1);
+    } else {
+      alert("Fill in required field");
+    }
+  };
+
+  const validateRequiredProperty = () => {
+    if (!formData[currentPageId]) {
+      return false;
+    }
+
+    return Object.values(formData[currentPageId]).some((val) => val);
   };
 
   const handleFormValueChange = (id: string, value: FormValue) => {
