@@ -1,4 +1,4 @@
-import { Map as OLMap } from "ol";
+import { Map as OLMap, View } from "ol";
 import {
   ComponentChildren,
   cloneElement,
@@ -21,7 +21,9 @@ const MapContainer = ({
   style,
   children,
 }: MapContainerProps) => {
-  const [map] = useState(new OLMap());
+  const [map] = useState(
+    new OLMap({ view: new View({ center: [0, 0], zoom: 0 }) }),
+  );
   const props = useMemo(
     () => ({ id, className, style }),
     [id, className, style],
@@ -35,8 +37,8 @@ const MapContainer = ({
   });
 
   return (
-    <MapProvider map={map} {...props}>
-      {childrenWithProps}
+    <MapProvider map={map}>
+      <div {...props}>{childrenWithProps}</div>
     </MapProvider>
   );
 };
