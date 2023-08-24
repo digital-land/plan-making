@@ -7,6 +7,7 @@ interface DatasetListProps {
   items: Dataset[];
   selectedItems: Dataset[];
   onSelect: (dataset: Dataset) => void;
+  isLoading?: boolean;
 }
 
 const DatasetList = ({
@@ -14,6 +15,7 @@ const DatasetList = ({
   items,
   selectedItems,
   onSelect,
+  isLoading = false,
 }: DatasetListProps) => {
   const isSelected = useCallback(
     (dataset: string) => selectedItems.some((item) => item.dataset === dataset),
@@ -30,10 +32,16 @@ const DatasetList = ({
   ));
 
   return (
-    <div className="grid border max-h-full overflow-hidden">
+    <div className="flex flex-col border max-h-full overflow-hidden">
       <div className="text-xl font-bold border-b p-2">{title}</div>
-      <div className="pt-2 px-2 overflow-y-auto overscroll-none">
-        {datasets}
+      <div className="pt-2 px-2 overflow-y-auto overscroll-none grow flex flex-col">
+        {!isLoading ? (
+          datasets
+        ) : (
+          <div className="text-center flex flex-col justify-center grow">
+            Loading...
+          </div>
+        )}
       </div>
     </div>
   );
