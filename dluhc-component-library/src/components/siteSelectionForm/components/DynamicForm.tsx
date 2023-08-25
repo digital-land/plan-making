@@ -3,6 +3,7 @@ import { FormPageSchema, FormValue } from "../types";
 import MultiSelect from "./MultiSelect";
 import { JSXInternal } from "node_modules/preact/src/jsx";
 import Input from "./Input";
+import RadioButtons from "./RadioButtons";
 
 interface DynamicFormProps {
   id: string;
@@ -14,6 +15,7 @@ interface DynamicFormProps {
 enum InputType {
   TextInput,
   NumberInput,
+  RadioInput,
   MultiSelect,
   None,
 }
@@ -24,6 +26,9 @@ const getInputType = (formPageSchema: FormPageSchema) => {
   }
   if (formPageSchema.type === "number") {
     return InputType.NumberInput;
+  }
+  if (formPageSchema.type === "radio") {
+    return InputType.RadioInput;
   }
 
   return InputType.None;
@@ -78,6 +83,17 @@ const DynamicForm = ({
         />
       );
 
+      break;
+
+    case InputType.RadioInput:
+      questionInputComponent = (
+        <RadioButtons
+          name={formPageSchema.title}
+          options={formPageSchema.enum as ReadonlyArray<string>}
+          value={value as String}
+          onChange={handleFormValueChange}
+        />
+      );
       break;
   }
 

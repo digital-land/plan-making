@@ -44,6 +44,11 @@ export const Default = {
             "none",
           ],
         },
+        isBrownfieldSite: {
+          type: "radio",
+          title: "Is this a Brownfield Site? ",
+          enum: ["Yes", "No"],
+        },
         address: {
           type: "string",
           title: "Please provide the fullest postal address you can",
@@ -58,10 +63,6 @@ export const Default = {
           step: 1,
           min: 18,
           max: 35,
-        },
-        another: {
-          type: "number",
-          title: "Another",
         },
       },
     },

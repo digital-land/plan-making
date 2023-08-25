@@ -2,62 +2,42 @@ import { useEffect, useState } from "preact/hooks";
 import csvToJson from "csvtojson";
 import { loadCSV, loadJson } from "../../utils";
 import Timetable from "./Timetable";
-import { TimetableHeader, TimetableStage } from "./types";
+import { TimetableStage } from "./types";
 import AccordionDropdown from "./AccordionDropdown";
 
 interface TimetablePageProps {
-  stagesFilepath: string;
-  headersFilepath: string;
+  filepath: string;
 }
 
-const TimetablePage = ({
-  stagesFilepath,
-  headersFilepath,
-}: TimetablePageProps) => {
+const TimetablePage = ({ filepath }: TimetablePageProps) => {
   const [timetableData, setTimetableData] = useState<TimetableStage[]>();
-  const [timetableHeaderData, setTimetableHeaderData] =
-    useState<TimetableHeader>();
 
-  const loadData = async () => {
-    if (/.csv$/.test(stagesFilepath)) {
-      await loadCSV(stagesFilepath).then((data) => {
+  useEffect(() => {
+    if (/.csv$/.test(filepath)) {
+      loadCSV(filepath).then((data) => {
         csvToJson()
           .fromString(data)
           .then((jsonObj) => setTimetableData(jsonObj as TimetableStage[]));
       });
-    } else if (/.json$/.test(stagesFilepath)) {
-      await loadJson(stagesFilepath).then((data) => {
+    } else if (/.json$/.test(filepath)) {
+      loadJson(filepath).then((data) => {
         setTimetableData(data);
       });
     }
-
-    await loadCSV(headersFilepath).then((data) => {
-      csvToJson()
-        .fromString(data)
-        .then((jsonObj) => {
-          setTimetableHeaderData(jsonObj[0] as TimetableHeader);
-        });
-    });
-  };
-
-  useEffect(() => {
-    loadData();
-  }, [
-    setTimetableData,
-    stagesFilepath,
-    setTimetableHeaderData,
-    headersFilepath,
-  ]);
+  }, [setTimetableData, filepath]);
 
   return (
     <>
       <div>
         <div>
           <h1 className="my-16 text-3xl font-bold">
-            {timetableHeaderData?.name}
+            Birmingham New Local Plan Timetable
           </h1>
           <p className="w-2/3 text-lg mb-8">
-            {timetableHeaderData?.description}
+            We are working on a new Local Plan for Birmingham which will guide
+            how the city will develop in the future and provide policies to
+            guide decisions on development proposals and planning applications
+            up to 2042.
           </p>
           <p className="w-2/3 mb-8 text-lg">
             This page provides updates on the progress of our New Local Plan.
@@ -66,18 +46,16 @@ const TimetablePage = ({
         <hr className="my-8"></hr>
         <div>
           <div className="my-8">
+            <p className="text-sm">Published 5 january 2023</p>
             <p className="text-sm">
-              Published {timetableHeaderData?.published}
-            </p>
-            <p className="text-sm">
-              last updated {timetableHeaderData?.updated} -
+              last updated 5 january 2023 -
               <span className="text-blue-400 underline"> See all updates</span>
             </p>
           </div>
           <div>
-            <p>Status: {timetableHeaderData?.status}</p>
-            <p>Period: {timetableHeaderData?.periodStartToEnd}</p>
-            <p>Coverage: {timetableHeaderData?.coverage}</p>
+            <p>Status: New Local Plan</p>
+            <p>Period: 2022 - 2042</p>
+            <p>Coverage: City Wide</p>
             <AccordionDropdown></AccordionDropdown>
           </div>
         </div>
