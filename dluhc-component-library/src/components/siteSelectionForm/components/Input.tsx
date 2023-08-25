@@ -15,6 +15,16 @@ const Input = <T extends number | string>({
   max,
   onChange,
 }: InputProps<T>) => {
+  const handleChange = (value: string) => {
+    let parsedValue: number | string = value;
+
+    if (type == "number") {
+      parsedValue = Number(value);
+    }
+
+    onChange(parsedValue as T);
+  };
+
   const InputBox = (
     <div className="flex items-center mb-4">
       <label className="font-semibold flex">
@@ -22,7 +32,7 @@ const Input = <T extends number | string>({
           type={type}
           class="text mr-2"
           value={value}
-          onChange={(event) => onChange(event.currentTarget.value as T)}
+          onChange={(event) => handleChange(event.currentTarget.value)}
           step={step}
           min={min}
           max={max}

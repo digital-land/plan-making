@@ -9,7 +9,7 @@ export default {
 export const Default = {
   args: {
     data: {
-      required: ["siteUse", "relationshipTo", "address", "name"],
+      required: ["siteUse", "relationshipTo", "address", "name", "age"],
       type: "object",
       properties: {
         name: {
@@ -54,16 +54,16 @@ export const Default = {
           title: "Is this a Brownfield Site? ",
           enum: ["Yes", "No"],
         },
-        address: {
-          type: "string",
-          title: "Please provide the fullest postal address you can",
-        },
         age: {
           type: "number",
           title: "Age in years",
           step: 1,
           min: 18,
           max: 35,
+        },
+        address: {
+          type: "string",
+          title: "Please provide the fullest postal address you can",
         },
       },
     },
