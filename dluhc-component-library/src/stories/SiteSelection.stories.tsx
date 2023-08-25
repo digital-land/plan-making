@@ -17,7 +17,8 @@ export const Default = {
           title: "Your name",
         },
         siteUse: {
-          type: "string",
+          type: "array",
+          items: { type: "string" },
           title:
             "What use or uses do you think should be considered for this site?",
           subtitle: "You can choose as many uses as you'd like.",

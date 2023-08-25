@@ -25,7 +25,7 @@ const createValidationSchema = (
       break;
   }
 
-  if (formSchema.required.includes(key)) {
+  if (validationShape && formSchema.required.includes(key)) {
     validationShape = validationShape.required();
   }
 
