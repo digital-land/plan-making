@@ -6,13 +6,3 @@ export type TimetableStage = {
   endDate: string;
   progress: Progress;
 };
-
-export type TimetableHeader = {
-  name: string;
-  description: string;
-  published: string;
-  updated: string;
-  status: string;
-  periodStartToEnd: string;
-  coverage: string;
-};
