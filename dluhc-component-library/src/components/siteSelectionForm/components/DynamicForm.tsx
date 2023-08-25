@@ -71,6 +71,8 @@ const DynamicForm = ({
       );
 
       break;
+
+    // TODO: parse number to int in input field
     case InputType.NumberInput:
       questionInputComponent = (
         <Input

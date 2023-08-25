@@ -12,6 +12,10 @@ export const Default = {
       required: ["siteUse", "relationshipTo", "address", "name"],
       type: "object",
       properties: {
+        name: {
+          type: "string",
+          title: "Your name",
+        },
         siteUse: {
           type: "string",
           title:
@@ -52,10 +56,6 @@ export const Default = {
         address: {
           type: "string",
           title: "Please provide the fullest postal address you can",
-        },
-        name: {
-          type: "string",
-          title: "Your name",
         },
         age: {
           type: "number",

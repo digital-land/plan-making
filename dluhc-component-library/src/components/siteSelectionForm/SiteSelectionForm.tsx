@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from "preact/hooks";
 import { loadJson } from "../../utils";
 import DynamicForm from "./components/DynamicForm";
 import { FormState, FormValue, SiteSelectionFormSchema } from "./types";
-
+import { ObjectShape, ValidationError, object, string } from "yup";
 import "./SiteSelectionForm.css";
 import FormPage from "./components/FormPage";
 
@@ -11,6 +11,27 @@ interface SiteSelectionForm {
   data?: SiteSelectionFormSchema;
 }
 
+const createValidationSchema = (
+  key: string,
+  formSchema: SiteSelectionFormSchema,
+) => {
+  let validationShape: any;
+
+  const property = formSchema.properties[key];
+
+  switch (property.type) {
+    case "string":
+      validationShape = string();
+      break;
+  }
+
+  if (formSchema.required.includes(key)) {
+    validationShape = validationShape.required();
+  }
+
+  return object({ [key]: validationShape } as ObjectShape);
+};
+
 const SiteSelectionForm = ({ filepath, data }: SiteSelectionForm) => {
   const [formSchema, setFormSchema] =
     useState<SiteSelectionFormSchema | null>();
@@ -18,6 +39,10 @@ const SiteSelectionForm = ({ filepath, data }: SiteSelectionForm) => {
   const [formData, setFormData] = useState<FormState>({});
 
   const [currentPage, setCurrentPage] = useState(0);
+
+  const [errors, setErrors] = useState<Record<string, ReadonlyArray<string>>>(
+    {},
+  );
 
   useEffect(() => {
     if (data) {
@@ -45,6 +70,11 @@ const SiteSelectionForm = ({ filepath, data }: SiteSelectionForm) => {
     [propertyKeys, currentPage],
   );
 
+  const currentPageSchema = useMemo(
+    () => createValidationSchema(currentPageId, formSchema),
+    [currentPageId, formSchema],
+  );
+
   const handleBackClicked = () => {
     if (!formSchema || currentPage <= 0) {
       // TODO handle error here, button shouldnt be displayed too
@@ -60,7 +90,17 @@ const SiteSelectionForm = ({ filepath, data }: SiteSelectionForm) => {
       return;
     }
 
-    setCurrentPage(currentPage + 1);
+    try {
+      currentPageSchema.validateSync({
+        [currentPageId]: formData[currentPageId],
+      });
+
+      setCurrentPage(currentPage + 1);
+      setErrors({ [currentPageId]: [] });
+    } catch (error) {
+      const validationError = error as ValidationError;
+      setErrors({ [currentPageId]: validationError.errors });
+    }
   };
 
   const handleFormValueChange = (id: string, value: FormValue) => {
@@ -85,6 +125,7 @@ const SiteSelectionForm = ({ filepath, data }: SiteSelectionForm) => {
         value={formData[currentPageId]}
         onFormValueChange={handleFormValueChange}
       />
+      {!!errors[currentPageId]?.length && <div>{errors[currentPageId][0]}</div>}
     </FormPage>
   );
 };
