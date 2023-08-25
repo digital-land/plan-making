@@ -2,6 +2,7 @@ import { FeatureCollection } from "geojson";
 import WKT from "ol/format/WKT.js";
 import { Geometry } from "ol/geom";
 import { DatasetResponse } from "./types";
+import { useQuery } from "@tanstack/react-query";
 
 const baseURL = "https://www.planning.data.gov.uk";
 
@@ -32,3 +33,8 @@ export const fetchEntities: (
     return Response.json();
   });
 };
+
+export const useFetchEntities = (dataset: string, geometry: Geometry) =>
+  useQuery(["dataset", dataset, geometry], () =>
+    fetchEntities(dataset, geometry),
+  );
