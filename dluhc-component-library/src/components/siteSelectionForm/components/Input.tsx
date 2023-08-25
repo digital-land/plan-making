@@ -16,11 +16,11 @@ const Input = <T extends number | string>({
   onChange,
 }: InputProps<T>) => {
   const InputBox = (
-    <div className="flex items-center mb-4">
+    <div className="flex items-center my-8">
       <label className="font-semibold flex">
         <input
           type={type}
-          class="text mr-2"
+          class="text mr-2 border-2 border-black py-1 px-2"
           value={value}
           onChange={(event) => onChange(event.currentTarget.value as T)}
           step={step}

@@ -69,3 +69,31 @@ export const Default = {
     },
   },
 };
+
+export const ConditionalPage = {
+  args: {
+    data: {
+      required: [],
+      type: "object",
+      properties: {
+        groupedExample: {
+          type: "object",
+          properties: {
+            parentQuestion: {
+              type: "string",
+              title: "Parent question",
+              subtitle: "Adding a value here will add another question",
+            },
+            addedQuestion: {
+              type: "string",
+              title: "Optional question ",
+            },
+          },
+          dependencies: {
+            parentQuestion: ["addedQuestion"],
+          },
+        },
+      },
+    },
+  },
+};
