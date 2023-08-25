@@ -6,8 +6,8 @@ import {
 import { fromExtent } from "ol/geom/Polygon";
 import { useState } from "preact/compat";
 import { ReactNode } from "react";
-import { fetchDatasetList } from "src/api/api";
-import { Dataset } from "src/api/types";
+import { fetchDatasetList } from "src/api/planningData/api";
+import { Dataset } from "src/api/planningData/types";
 import DatasetList from "src/components/datasets/DatasetList";
 import DatasetLayer from "src/components/maps/DatasetLayer";
 import BaseMap from "src/components/maps/baseMap";

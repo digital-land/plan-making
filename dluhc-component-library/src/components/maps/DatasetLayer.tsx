@@ -3,8 +3,8 @@ import { Geometry } from "ol/geom";
 import { Options as FillOptions } from "ol/style/Fill";
 import { Options as StrokeOptions } from "ol/style/Stroke";
 import { useMemo } from "preact/compat";
-import { fetchEntities } from "src/api/api";
-import { Dataset } from "src/api/types";
+import { fetchEntities } from "src/api/planningData/api";
+import { Dataset } from "src/api/planningData/types";
 import MapLayer from "./mapLayer";
 
 interface DatasetlayerProps {

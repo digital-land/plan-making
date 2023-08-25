@@ -1,7 +1,7 @@
 import { FeatureCollection } from "geojson";
 import WKT from "ol/format/WKT.js";
 import { Geometry } from "ol/geom";
-import { DatasetResponse } from "src/api/types";
+import { DatasetResponse } from "./types";
 
 const baseURL = "https://www.planning.data.gov.uk";
 

@@ -1,6 +1,6 @@
 import { useCallback } from "preact/hooks";
 import DatasetSelect from "./DatasetSelect";
-import { Dataset } from "src/api/types";
+import { Dataset } from "src/api/planningData/types";
 
 interface DatasetListProps {
   title?: string;

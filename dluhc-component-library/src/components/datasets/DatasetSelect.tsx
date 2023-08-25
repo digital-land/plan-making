@@ -1,5 +1,5 @@
 import { useMemo } from "preact/compat";
-import { Dataset } from "src/api/types";
+import { Dataset } from "src/api/planningData/types";
 
 interface DatasetSelectProps {
   item: Dataset;
