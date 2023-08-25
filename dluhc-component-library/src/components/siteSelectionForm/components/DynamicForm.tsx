@@ -22,11 +22,17 @@ enum InputType {
 
 const getInputType = (formPageSchema: FormPageSchema) => {
   if (formPageSchema.type === "string") {
-    return formPageSchema.enum ? InputType.MultiSelect : InputType.TextInput;
+    return InputType.TextInput;
   }
+
   if (formPageSchema.type === "number") {
     return InputType.NumberInput;
   }
+
+  if (formPageSchema.type === "array") {
+    return InputType.MultiSelect;
+  }
+
   if (formPageSchema.type === "radio") {
     return InputType.RadioInput;
   }
@@ -71,6 +77,8 @@ const DynamicForm = ({
       );
 
       break;
+
+    // TODO: parse number to int in input field
     case InputType.NumberInput:
       questionInputComponent = (
         <Input

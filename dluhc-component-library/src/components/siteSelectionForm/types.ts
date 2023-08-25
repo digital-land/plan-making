@@ -1,4 +1,5 @@
 export interface SiteSelectionFormSchema {
+  required: Array<string>;
   properties: Record<string, FormPageSchema>;
 }
 

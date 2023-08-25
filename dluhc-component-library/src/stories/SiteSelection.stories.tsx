@@ -12,8 +12,13 @@ export const Default = {
       required: ["siteUse", "relationshipTo", "address", "name"],
       type: "object",
       properties: {
-        siteUse: {
+        name: {
           type: "string",
+          title: "Your name",
+        },
+        siteUse: {
+          type: "array",
+          items: { type: "string" },
           title:
             "What use or uses do you think should be considered for this site?",
           subtitle: "You can choose as many uses as you'd like.",
@@ -52,10 +57,6 @@ export const Default = {
         address: {
           type: "string",
           title: "Please provide the fullest postal address you can",
-        },
-        name: {
-          type: "string",
-          title: "Your name",
         },
         age: {
           type: "number",
