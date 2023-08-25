@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from "preact/hooks";
 import { loadJson } from "../../utils";
 import DynamicForm from "./components/DynamicForm";
 import { FormState, FormValue, SiteSelectionFormSchema } from "./types";
-import { ObjectShape, ValidationError, object, string } from "yup";
+import { StringSchema, ValidationError, object, string } from "yup";
 import "./SiteSelectionForm.css";
 import FormPage from "./components/FormPage";
 
@@ -15,7 +15,7 @@ const createValidationSchema = (
   key: string,
   formSchema: SiteSelectionFormSchema,
 ) => {
-  let validationShape: any;
+  let validationShape: StringSchema;
 
   const property = formSchema.properties[key];
 
@@ -29,7 +29,7 @@ const createValidationSchema = (
     validationShape = validationShape.required(`This field is required.`);
   }
 
-  return object({ [key]: validationShape } as ObjectShape);
+  return object({ [key]: validationShape });
 };
 
 const SiteSelectionForm = ({ filepath, data }: SiteSelectionForm) => {
