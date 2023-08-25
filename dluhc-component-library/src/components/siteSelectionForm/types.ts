@@ -3,7 +3,7 @@ export interface SiteSelectionFormSchema {
   properties: Record<string, FormPageSchema>;
 }
 
-export type QuestionType = "string";
+export type QuestionType = "string" | "number";
 
 export interface FormPageSchema {
   type: QuestionType;
