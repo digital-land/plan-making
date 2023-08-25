@@ -2,7 +2,14 @@ import { useState, useEffect, useMemo } from "preact/hooks";
 import { loadJson } from "../../utils";
 import DynamicForm from "./components/DynamicForm";
 import { FormState, FormValue, SiteSelectionFormSchema } from "./types";
-import { StringSchema, ValidationError, object, string } from "yup";
+import {
+  NumberSchema,
+  StringSchema,
+  ValidationError,
+  number,
+  object,
+  string,
+} from "yup";
 import "./SiteSelectionForm.css";
 import FormPage from "./components/FormPage";
 
@@ -15,13 +22,16 @@ const createValidationSchema = (
   key: string,
   formSchema: SiteSelectionFormSchema,
 ) => {
-  let validationShape: StringSchema;
+  let validationShape: StringSchema | NumberSchema;
 
   const property = formSchema.properties[key];
 
   switch (property.type) {
     case "string":
       validationShape = string();
+      break;
+    case "number":
+      validationShape = number();
       break;
   }
 
