@@ -26,7 +26,7 @@ const createValidationSchema = (
   }
 
   if (validationShape && formSchema.required.includes(key)) {
-    validationShape = validationShape.required();
+    validationShape = validationShape.required(`This field is required.`);
   }
 
   return object({ [key]: validationShape } as ObjectShape);
