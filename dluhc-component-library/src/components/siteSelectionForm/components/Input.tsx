@@ -16,13 +16,7 @@ const Input = <T extends number | string>({
   onChange,
 }: InputProps<T>) => {
   const handleChange = (value: string) => {
-    let parsedValue: number | string = value;
-
-    if (type == "number") {
-      parsedValue = Number(value);
-    }
-
-    onChange(parsedValue as T);
+    onChange((type === "number" ? parseFloat(value) : value) as T);
   };
 
   const InputBox = (
