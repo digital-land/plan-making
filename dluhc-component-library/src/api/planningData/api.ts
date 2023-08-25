@@ -28,7 +28,7 @@ export const fetchEntities: (
   const polygon = format.writeGeometry(geometry);
 
   return await fetch(
-    `${baseURL}/entity.geojson?limit=100&geometry=${polygon}&dataset=${dataset}`,
+    `${baseURL}/entity.geojson?limit=100&geometry=${polygon}&dataset=${dataset}&geometry_relation=intersects`,
   ).then((Response) => {
     return Response.json();
   });
