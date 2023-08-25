@@ -49,10 +49,6 @@ const TimetablePage = ({
     headersFilepath,
   ]);
 
-  console.log("timetableData");
-  console.log(timetableData);
-  console.log("timetableHeaderData");
-  console.log(timetableHeaderData);
   return (
     <>
       <div>
