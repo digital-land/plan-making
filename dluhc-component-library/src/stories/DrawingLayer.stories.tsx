@@ -9,7 +9,7 @@ interface BaseMapProps {
   lat: number;
   lng: number;
   zoom: number;
-  drawingMode: boolean;
+  isDrawingMode: boolean;
 }
 
 interface DrawingMapProps {
@@ -41,7 +41,7 @@ export const Default = {
       lat: 54.97,
       lng: -1.65,
       zoom: 10,
-      drawingMode: true,
+      isDrawingMode: true,
       style: { height: "500px", width: "500px" },
     },
     drawingMapProps: {

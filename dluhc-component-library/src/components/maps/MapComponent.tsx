@@ -15,7 +15,7 @@ interface BaseMapProps {
   lat?: number;
   lng?: number;
   zoom?: number;
-  drawingMode?: boolean;
+  isDrawingMode?: boolean;
 }
 
 interface DrawingMapProps {
@@ -31,7 +31,7 @@ const MapComponent = ({
   className,
   style = { height: "500px", width: "500px" },
   baseMapProps = {
-    drawingMode: true,
+    isDrawingMode: true,
     lat: 54.97,
     lng: -1.65,
     zoom: 10,
@@ -44,20 +44,15 @@ const MapComponent = ({
     circleFillColor: "#ffcc33",
   },
 }: MapComponentProps) => {
-  const props = useMemo(
-    () => ({ id, className, style }),
-    [id, className, style],
-  );
-
   return (
-    <MapContainer {...props}>
+    <MapContainer id={id} className={className} style={style}>
       <BaseMap
         lat={baseMapProps.lat}
         lng={baseMapProps.lng}
         zoom={baseMapProps.zoom}
         style={{ height: "100%", width: "100%" }}
       />
-      {baseMapProps.drawingMode && (
+      {baseMapProps.isDrawingMode && (
         <DrawingLayer
           strokeColor={drawingMapProps.strokeColor}
           fillcolor={drawingMapProps.fillColor}

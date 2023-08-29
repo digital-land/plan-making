@@ -10,7 +10,7 @@ interface BaseMapProps {
   lng: number;
   zoom: number;
   style: CSSProperties;
-  drawingMode: boolean;
+  isDrawingMode: boolean;
 }
 
 const MapInput = ({ baseMapProps }: MapComponentProps) => {
@@ -29,7 +29,7 @@ export const Default = {
       lat: 54.97,
       lng: -1.65,
       zoom: 10,
-      drawingMode: false,
+      isDrawingMode: false,
       style: { height: "500px", width: "500px" },
     },
   },
