@@ -32,7 +32,7 @@ const DatasetList = ({
   ));
 
   return (
-    <div className="flex flex-col border max-h-full overflow-hidden">
+    <div className="flex flex-col border h-full overflow-hidden">
       <div className="text-xl font-bold border-b p-2">{title}</div>
       <div className="pt-2 px-2 overflow-y-auto overscroll-none grow flex flex-col">
         {!isLoading ? (
