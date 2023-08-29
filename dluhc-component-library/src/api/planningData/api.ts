@@ -35,6 +35,6 @@ export const fetchEntities: (
 };
 
 export const useFetchEntities = (dataset: string, geometry: Geometry) =>
-  useQuery(["dataset", dataset, geometry], () =>
+  useQuery(["entities", dataset, geometry], () =>
     fetchEntities(dataset, geometry),
   );
