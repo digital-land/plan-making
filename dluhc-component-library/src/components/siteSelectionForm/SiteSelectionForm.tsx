@@ -1,32 +1,31 @@
 import { useState, useEffect, useMemo } from "preact/hooks";
-import { loadJson } from "../../utils";
-import DynamicForm from "./components/DynamicForm";
-import { FormState, FormValue, SiteSelectionFormSchema } from "./types";
 import {
   NumberSchema,
+  ObjectShape,
   StringSchema,
   ValidationError,
   number,
   object,
   string,
 } from "yup";
-import "./SiteSelectionForm.css";
+import { loadJson } from "src/utils";
+import DynamicForm from "./components/DynamicForm";
 import FormPage from "./components/FormPage";
+import { FormState, FormValue, FormPageSchema } from "./types";
+
+import "./SiteSelectionForm.css";
 
 interface SiteSelectionForm {
   filepath?: string;
-  data?: SiteSelectionFormSchema;
+  data?: FormPageSchema;
 }
 
-const createValidationSchema = (
-  key: string,
-  formSchema: SiteSelectionFormSchema,
-) => {
-  let validationShape: StringSchema | NumberSchema;
+const createValidationSchema = (key: string, formSchema: FormPageSchema) => {
+  let validationShape: StringSchema | NumberSchema | null = null;
 
-  const property = formSchema.properties[key];
+  const property = formSchema.properties?.[key];
 
-  switch (property.type) {
+  switch (property?.type) {
     case "string":
       validationShape = string();
       break;
@@ -35,16 +34,62 @@ const createValidationSchema = (
       break;
   }
 
-  if (validationShape && formSchema.required.includes(key)) {
+  if (validationShape && formSchema.required?.includes(key)) {
     validationShape = validationShape.required(`This field is required.`);
   }
 
-  return object({ [key]: validationShape });
+  return object({ [key]: validationShape } as ObjectShape);
+};
+
+const createFlatFormSchema = (formSchema: FormPageSchema) => {
+  const newSchema: FormPageSchema = {
+    type: formSchema.type,
+    title: formSchema.title,
+    dependencies: formSchema.dependencies,
+    properties: {},
+    required: [],
+  };
+
+  if (formSchema.required?.length) {
+    newSchema.required = formSchema.required;
+  }
+
+  const propertyKeys = Object.keys(formSchema?.properties || {});
+
+  propertyKeys.forEach((propertyKey) => {
+    if (!formSchema.properties?.[propertyKey]) {
+      return;
+    }
+
+    if (formSchema.properties?.[propertyKey]?.type === "object") {
+      const childSchema = createFlatFormSchema(
+        formSchema.properties[propertyKey],
+      );
+
+      newSchema.properties = {
+        ...newSchema.properties,
+        ...childSchema.properties,
+      };
+
+      if (childSchema.required?.length) {
+        newSchema.required = [
+          ...(newSchema.required as string[]),
+          ...childSchema.required,
+        ];
+      }
+    } else {
+      newSchema.properties = {
+        ...newSchema.properties,
+        [propertyKey]: formSchema.properties[propertyKey],
+      };
+    }
+  });
+
+  return newSchema;
 };
 
 const SiteSelectionForm = ({ filepath, data }: SiteSelectionForm) => {
-  const [formSchema, setFormSchema] =
-    useState<SiteSelectionFormSchema | null>();
+  const [baseSchema, setBaseSchema] = useState<FormPageSchema | null>(null);
 
   const [formData, setFormData] = useState<FormState>({});
 
@@ -56,22 +101,27 @@ const SiteSelectionForm = ({ filepath, data }: SiteSelectionForm) => {
 
   useEffect(() => {
     if (data) {
-      setFormSchema(data);
+      setBaseSchema(data);
     } else if (filepath) {
       loadJson(filepath).then((data) => {
-        setFormSchema(data);
+        setBaseSchema(data);
       });
     } else {
-      setFormSchema(null);
+      setBaseSchema(null);
     }
-  }, [setFormSchema, filepath, data]);
+  }, [setBaseSchema, filepath, data]);
 
-  if (!formSchema) {
+  const formSchema: FormPageSchema | null = useMemo(
+    () => baseSchema && createFlatFormSchema(baseSchema),
+    [baseSchema],
+  );
+
+  if (!formSchema || !formSchema?.properties) {
     return null;
   }
 
   const propertyKeys = useMemo(
-    () => Object.keys(formSchema.properties),
+    () => Object.keys(formSchema.properties || {}),
     [formSchema],
   );
 
@@ -87,7 +137,6 @@ const SiteSelectionForm = ({ filepath, data }: SiteSelectionForm) => {
 
   const handleBackClicked = () => {
     if (!formSchema || currentPage <= 0) {
-      // TODO handle error here, button shouldnt be displayed too
       return;
     }
 
@@ -96,7 +145,6 @@ const SiteSelectionForm = ({ filepath, data }: SiteSelectionForm) => {
 
   const handleContinueClicked = () => {
     if (!formSchema || currentPage >= propertyKeys.length - 1) {
-      // TODO handle error here, button shouldnt be displayed too
       return;
     }
 
