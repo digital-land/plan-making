@@ -1,12 +1,8 @@
-import {
-  QueryClient,
-  QueryClientProvider,
-  useQuery,
-} from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { fromExtent } from "ol/geom/Polygon";
 import { useState } from "preact/compat";
 import { ReactNode } from "react";
-import { fetchDatasetList } from "src/api/planningData/api";
+import { useFetchDatasets } from "src/api/planningData/api";
 import { Dataset } from "src/api/planningData/types";
 import DatasetList from "src/components/datasets/DatasetList";
 import DatasetLayer from "src/components/maps/DatasetLayer";
@@ -48,13 +44,7 @@ const MapComponent = ({
 };
 
 const DatasetSelection = ({ lat, lng, zoom }: DatasetSelectionProps) => {
-  const { data: datasets, isLoading } = useQuery({
-    queryKey: ["datasets"],
-    queryFn: () => fetchDatasetList(),
-    select: (data) =>
-      data.datasets.sort((a, b) => a.name.localeCompare(b.name)),
-  });
-
+  const { data: datasets, isLoading } = useFetchDatasets();
   const [selectedDatasets, setSelectedDatasets] = useState<Dataset[]>([]);
 
   const onSelect = (dataset: Dataset) => {

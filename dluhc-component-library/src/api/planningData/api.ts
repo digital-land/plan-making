@@ -17,8 +17,16 @@ export const fetchDataset = async (geometry: Geometry) => {
   });
 };
 
-export const fetchDatasetList: () => Promise<DatasetResponse> = async () =>
+export const fetchDatasets: () => Promise<DatasetResponse> = async () =>
   fetch(`${baseURL}/dataset.json`).then((response) => response.json());
+
+export const useFetchDatasets = () =>
+  useQuery({
+    queryKey: ["datasets"],
+    queryFn: () => fetchDatasets(),
+    select: (data) =>
+      data.datasets.sort((a, b) => a.name.localeCompare(b.name)),
+  });
 
 export const fetchEntities: (
   dataset: string,
