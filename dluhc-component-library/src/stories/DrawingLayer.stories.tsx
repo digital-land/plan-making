@@ -25,6 +25,7 @@ const MapInput = ({ baseMapProps, drawingMapProps }: MapComponentProps) => {
     <MapComponent
       baseMapProps={baseMapProps}
       drawingMapProps={drawingMapProps}
+      showDatasets={false}
     />
   );
 };

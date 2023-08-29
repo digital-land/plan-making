@@ -1,0 +1,24 @@
+.map-container {
+  position: relative;
+}
+
+.map-controls {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  pointer-events: none;
+}
+
+.map-controls > * {
+  pointer-events: all;
+}
+
+.dataset-control {
+  background-color: white;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  height: calc(100% - 30px);
+  width: 300px;
+}

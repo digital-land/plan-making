@@ -14,7 +14,7 @@ interface BaseMapProps {
 }
 
 const MapInput = ({ baseMapProps }: MapComponentProps) => {
-  return <MapComponent baseMapProps={baseMapProps} />;
+  return <MapComponent baseMapProps={baseMapProps} showDatasets={false} />;
 };
 
 export default {

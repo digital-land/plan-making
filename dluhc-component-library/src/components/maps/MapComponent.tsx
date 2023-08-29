@@ -1,12 +1,18 @@
-import MapContainer from "./mapContainer";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import Polygon from "ol/geom/Polygon";
+import { CSSProperties } from "preact/compat";
+import { ReactNode } from "react";
+import DatasetControl from "./DatasetControl";
+import DatasetLayers from "./DatasetLayers";
+import "./MapComponent.css";
 import BaseMap from "./baseMap";
 import DrawingLayer from "./drawingLayer";
-import { CSSProperties } from "preact/compat";
-import Polygon from "ol/geom/Polygon";
+import MapContainer from "./mapContainer";
 
 interface MapComponentProps {
   baseMapProps?: BaseMapProps;
   drawingMapProps?: DrawingMapProps;
+  showDatasets?: boolean;
   id?: string;
   className?: string;
   style?: CSSProperties;
@@ -28,10 +34,13 @@ interface DrawingMapProps {
   circleFillColor?: string;
 }
 
+const queryClient = new QueryClient();
+
 const MapComponent = ({
   id,
-  className,
-  style = { height: "500px", width: "500px" },
+  className = "map-container",
+  style = { height: "700px", width: "100%" },
+  showDatasets = true,
   onChange,
   baseMapProps = {
     isDrawingMode: true,
@@ -48,24 +57,34 @@ const MapComponent = ({
   },
 }: MapComponentProps) => {
   return (
-    <MapContainer id={id} className={className} style={style}>
-      <BaseMap
-        lat={baseMapProps.lat}
-        lng={baseMapProps.lng}
-        zoom={baseMapProps.zoom}
-        style={{ height: "100%", width: "100%" }}
-      />
-      {baseMapProps.isDrawingMode && (
-        <DrawingLayer
-          strokeColor={drawingMapProps.strokeColor}
-          fillcolor={drawingMapProps.fillColor}
-          strokeWidth={drawingMapProps.strokeWidth}
-          circleRadius={drawingMapProps.circleRadius}
-          circleFillColor={drawingMapProps.circleFillColor}
-          onChange={onChange}
-        />
-      )}
-    </MapContainer>
+    <QueryClientProvider client={queryClient}>
+      {
+        (
+          <MapContainer id={id} className={className} style={style}>
+            <BaseMap
+              lat={baseMapProps.lat}
+              lng={baseMapProps.lng}
+              zoom={baseMapProps.zoom}
+              style={{ height: "100%", width: "100%" }}
+            />
+            <div className="map-controls">
+              {showDatasets && <DatasetControl />}
+            </div>
+            {baseMapProps.isDrawingMode && (
+              <DrawingLayer
+                strokeColor={drawingMapProps.strokeColor}
+                fillcolor={drawingMapProps.fillColor}
+                strokeWidth={drawingMapProps.strokeWidth}
+                circleRadius={drawingMapProps.circleRadius}
+                circleFillColor={drawingMapProps.circleFillColor}
+                onChange={onChange}
+              />
+            )}
+            {showDatasets && <DatasetLayers />}
+          </MapContainer>
+        ) as ReactNode
+      }
+    </QueryClientProvider>
   );
 };
 
