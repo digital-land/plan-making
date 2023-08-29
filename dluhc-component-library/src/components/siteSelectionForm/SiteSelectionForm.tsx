@@ -1,8 +1,10 @@
 import { useState, useEffect, useMemo } from "preact/hooks";
 import {
+  NumberSchema,
   ObjectShape,
   StringSchema,
   ValidationError,
+  number,
   object,
   string,
 } from "yup";
@@ -19,13 +21,16 @@ interface SiteSelectionForm {
 }
 
 const createValidationSchema = (key: string, formSchema: FormPageSchema) => {
-  let validationShape: StringSchema | null = null;
+  let validationShape: StringSchema | NumberSchema | null = null;
 
   const property = formSchema.properties?.[key];
 
   switch (property?.type) {
     case "string":
       validationShape = string();
+      break;
+    case "number":
+      validationShape = number();
       break;
   }
 

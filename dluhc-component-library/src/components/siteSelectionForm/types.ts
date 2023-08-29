@@ -1,4 +1,4 @@
-export type QuestionType = "string" | "object";
+export type QuestionType = "string" | "number" | "object";
 
 export interface FormPageSchema {
   type: QuestionType;

@@ -15,6 +15,10 @@ const Input = <T extends number | string>({
   max,
   onChange,
 }: InputProps<T>) => {
+  const handleChange = (value: string) => {
+    onChange((type === "number" ? parseFloat(value) : value) as T);
+  };
+
   const InputBox = (
     <div className="flex items-center my-8">
       <label className="font-semibold flex">
@@ -22,7 +26,7 @@ const Input = <T extends number | string>({
           type={type}
           class="text mr-2 border-2 border-black py-1 px-2"
           value={value}
-          onChange={(event) => onChange(event.currentTarget.value as T)}
+          onChange={(event) => handleChange(event.currentTarget.value)}
           step={step}
           min={min}
           max={max}
