@@ -1,7 +1,7 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { fromExtent } from "ol/geom/Polygon";
 import { useState } from "preact/compat";
-import { ReactNode } from "react";
+import { ReactNode, useMemo } from "react";
 import { useFetchDatasets } from "src/api/planningData/api";
 import { Dataset } from "src/api/planningData/types";
 import DatasetList from "src/components/datasets/DatasetList";
@@ -44,19 +44,25 @@ const MapComponent = ({
 };
 
 const DatasetSelection = ({ lat, lng, zoom }: DatasetSelectionProps) => {
-  const { data: datasets, isLoading } = useFetchDatasets();
-  const [selectedDatasets, setSelectedDatasets] = useState<Dataset[]>([]);
+  const { data, isLoading } = useFetchDatasets();
+  const [selectedDatasets, setSelectedDatasets] = useState<string[]>([]);
 
-  const onSelect = (dataset: Dataset) => {
-    const index = selectedDatasets.findIndex(
-      (d) => d.dataset === dataset.dataset,
-    );
+  const onSelect = (dataset: string) => {
+    const index = selectedDatasets.findIndex((d) => d === dataset);
     if (index === -1) {
       setSelectedDatasets([...selectedDatasets, dataset]);
     } else {
       setSelectedDatasets(selectedDatasets.filter((_, i) => i !== index));
     }
   };
+
+  const datasets = useMemo(() => {
+    return (
+      data?.filter((item) =>
+        selectedDatasets.some((dataset) => item.dataset === dataset),
+      ) || []
+    );
+  }, [data, selectedDatasets]);
 
   return (
     <div
@@ -68,12 +74,12 @@ const DatasetSelection = ({ lat, lng, zoom }: DatasetSelectionProps) => {
           lat={lat}
           lng={lng}
           zoom={zoom}
-          selectedDatasets={selectedDatasets}
+          selectedDatasets={datasets}
         />
       </MapContainer>
       <div className="col-span-3 grid">
         <DatasetList
-          items={datasets || []}
+          items={data || []}
           selectedItems={selectedDatasets}
           onSelect={onSelect}
           isLoading={isLoading}

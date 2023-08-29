@@ -5,8 +5,8 @@ import { Dataset } from "src/api/planningData/types";
 interface DatasetListProps {
   title?: string;
   items: Dataset[];
-  selectedItems: Dataset[];
-  onSelect: (dataset: Dataset) => void;
+  selectedItems: string[];
+  onSelect: (dataset: string) => void;
   isLoading?: boolean;
 }
 
@@ -18,7 +18,7 @@ const DatasetList = ({
   isLoading = false,
 }: DatasetListProps) => {
   const isSelected = useCallback(
-    (dataset: string) => selectedItems.some((item) => item.dataset === dataset),
+    (dataset: string) => selectedItems.some((item) => item === dataset),
     [selectedItems],
   );
 

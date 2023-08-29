@@ -7,6 +7,7 @@ import {
 } from "preact";
 import { CSSProperties, useMemo, useState } from "preact/compat";
 import { MapProvider } from "../../contexts/mapContext";
+import { DatasetProvider } from "src/contexts/DatasetContext";
 
 interface MapContainerProps {
   id?: string;
@@ -38,7 +39,9 @@ const MapContainer = ({
 
   return (
     <MapProvider map={map}>
-      <div {...props}>{childrenWithProps}</div>
+      <DatasetProvider>
+        <div {...props}>{childrenWithProps}</div>
+      </DatasetProvider>
     </MapProvider>
   );
 };
