@@ -6,6 +6,7 @@ import {
   NumberSchema,
   StringSchema,
   ValidationError,
+  array,
   number,
   object,
   string,
@@ -18,11 +19,13 @@ interface SiteSelectionForm {
   data?: SiteSelectionFormSchema;
 }
 
+const requiredMessage: string = "This field is required.";
+
 const createValidationSchema = (
   key: string,
   formSchema: SiteSelectionFormSchema,
 ) => {
-  let validationShape: StringSchema | NumberSchema;
+  let validationShape: StringSchema | NumberSchema | any;
 
   const property = formSchema.properties[key];
 
@@ -33,10 +36,12 @@ const createValidationSchema = (
     case "number":
       validationShape = number();
       break;
+    case "array":
+      validationShape = array().min(1, requiredMessage).of(string().required());
   }
 
   if (validationShape && formSchema.required.includes(key)) {
-    validationShape = validationShape.required(`This field is required.`);
+    validationShape = validationShape.required(requiredMessage);
   }
 
   return object({ [key]: validationShape });
