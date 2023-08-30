@@ -1,7 +1,8 @@
 import MapContainer from "./mapContainer";
 import BaseMap from "./baseMap";
 import DrawingLayer from "./drawingLayer";
-import { CSSProperties, useMemo } from "preact/compat";
+import { CSSProperties } from "preact/compat";
+import Polygon from "ol/geom/Polygon";
 
 interface MapComponentProps {
   baseMapProps?: BaseMapProps;
@@ -9,6 +10,7 @@ interface MapComponentProps {
   id?: string;
   className?: string;
   style?: CSSProperties;
+  onChange?: (boundary: Polygon) => void;
 }
 
 interface BaseMapProps {
@@ -30,6 +32,7 @@ const MapComponent = ({
   id,
   className,
   style = { height: "500px", width: "500px" },
+  onChange,
   baseMapProps = {
     isDrawingMode: true,
     lat: 54.97,
@@ -59,6 +62,7 @@ const MapComponent = ({
           strokeWidth={drawingMapProps.strokeWidth}
           circleRadius={drawingMapProps.circleRadius}
           circleFillColor={drawingMapProps.circleFillColor}
+          onChange={onChange}
         />
       )}
     </MapContainer>

@@ -1,10 +1,8 @@
-import { GeometryCollection } from "ol/geom";
 import Polygon from "ol/geom/Polygon";
 import { Draw } from "ol/interaction";
 import VectorLayer from "ol/layer/Vector";
 import VectorSource, { VectorSourceEvent } from "ol/source/Vector";
 import { useEffect, useRef } from "react";
-import { fetchDataset } from "src/api/api";
 import { useMap } from "src/contexts/mapContext";
 
 interface DrawingLayerProps {
@@ -14,6 +12,7 @@ interface DrawingLayerProps {
   strokeWidth?: number;
   circleRadius?: number;
   circleFillColor?: string;
+  onChange?: (boundary: Polygon) => void;
 }
 
 const DrawingLayer = ({
@@ -23,8 +22,8 @@ const DrawingLayer = ({
   strokeWidth = 2,
   circleRadius = 7,
   circleFillColor = "#ffcc33",
+  onChange,
 }: DrawingLayerProps) => {
-  let features: GeometryCollection | undefined;
   const map = useMap();
   const source = new VectorSource();
   const vector = new VectorLayer({
@@ -51,7 +50,9 @@ const DrawingLayer = ({
     source.on("addfeature", async function (evt: VectorSourceEvent) {
       let feature = evt.feature;
       let geometry = feature?.getGeometry() as Polygon;
-      features = await fetchDataset(geometry);
+      if (onChange) {
+        onChange(geometry);
+      }
     });
   }, [ref, zIndex]);
 
