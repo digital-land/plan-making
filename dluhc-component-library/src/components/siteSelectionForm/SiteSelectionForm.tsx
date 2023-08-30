@@ -1,8 +1,15 @@
 import { useState, useEffect, useMemo } from "preact/hooks";
 import { loadJson } from "../../utils";
 import DynamicForm from "./components/DynamicForm";
-import { FormState, FormValue, SiteSelectionFormSchema } from "./types";
 import {
+  FormState,
+  FormValue,
+  SiteSelectionFormSchema,
+  ValidationShape,
+} from "./types";
+import {
+  AnyObject,
+  ArraySchema,
   NumberSchema,
   StringSchema,
   ValidationError,
@@ -25,7 +32,7 @@ const createValidationSchema = (
   key: string,
   formSchema: SiteSelectionFormSchema,
 ) => {
-  let validationShape: StringSchema | NumberSchema | any;
+  let validationShape: ValidationShape;
 
   const property = formSchema.properties[key];
 

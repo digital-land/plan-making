@@ -1,3 +1,5 @@
+import { AnyObject, ArraySchema, NumberSchema, StringSchema } from "yup";
+
 export interface SiteSelectionFormSchema {
   required: Array<string>;
   properties: Record<string, FormPageSchema>;
@@ -18,3 +20,8 @@ export interface FormPageSchema {
 export type FormValue = string | number | boolean | Array<string>;
 
 export type FormState = Record<string, FormValue>;
+
+export type ValidationShape =
+  | StringSchema
+  | NumberSchema
+  | ArraySchema<string[] | undefined, AnyObject, "", "">;
