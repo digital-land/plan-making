@@ -4,7 +4,7 @@ import { Options as StrokeOptions } from "ol/style/Stroke";
 import BaseMap from "src/components/maps/BaseMap";
 import DrawingLayer from "src/components/maps/DrawingLayer";
 import MapContainer from "src/components/maps/mapContainer";
-import MapLayer from "src/components/maps/mapLayer";
+import MapLayer from "src/components/maps/MapLayer";
 
 interface LayerMapComponentProps {
   features: FeatureCollection;

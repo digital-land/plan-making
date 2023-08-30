@@ -6,7 +6,7 @@ import {
   toChildArray,
 } from "preact";
 import { CSSProperties, useMemo, useState } from "preact/compat";
-import { MapProvider } from "../../contexts/mapContext";
+import { MapProvider } from "src/contexts/mapContext";
 
 interface MapContainerProps {
   id?: string;

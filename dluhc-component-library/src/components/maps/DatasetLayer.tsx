@@ -4,7 +4,7 @@ import { Options as StrokeOptions } from "ol/style/Stroke";
 import { useMemo } from "preact/compat";
 import { useFetchEntities } from "src/api/planningData/api";
 import { Dataset } from "src/api/planningData/types";
-import MapLayer from "./mapLayer";
+import MapLayer from "./MapLayer";
 
 interface DatasetlayerProps {
   area: Geometry;
