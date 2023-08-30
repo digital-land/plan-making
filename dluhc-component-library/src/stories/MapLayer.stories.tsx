@@ -1,10 +1,10 @@
 import { FeatureCollection } from "geojson";
-import BaseMap from "../components/maps/baseMap";
-import MapContainer from "../components/maps/mapContainer";
-import MapLayer from "../components/maps/mapLayer";
-import { Options as StrokeOptions } from "ol/style/Stroke";
 import { Options as FillOptions } from "ol/style/Fill";
+import { Options as StrokeOptions } from "ol/style/Stroke";
+import BaseMap from "src/components/maps/BaseMap";
 import DrawingLayer from "src/components/maps/drawingLayer";
+import MapContainer from "src/components/maps/mapContainer";
+import MapLayer from "src/components/maps/mapLayer";
 
 interface LayerMapComponentProps {
   features: FeatureCollection;

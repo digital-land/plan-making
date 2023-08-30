@@ -5,7 +5,7 @@ import { ReactNode } from "react";
 import DatasetControl from "./DatasetControl";
 import DatasetLayers from "./DatasetLayers";
 import "./MapComponent.css";
-import BaseMap from "./baseMap";
+import BaseMap from "./BaseMap";
 import DrawingLayer from "./drawingLayer";
 import MapContainer from "./mapContainer";
 
