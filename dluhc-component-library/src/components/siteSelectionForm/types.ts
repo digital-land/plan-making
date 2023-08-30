@@ -10,7 +10,7 @@ export interface FormPageSchema {
   max?: string;
   required?: ReadonlyArray<string>;
   properties?: Record<string, FormPageSchema>;
-  dependencies?: Record<string, ReadonlyArray<string>>;
+  dependencies?: Record<string, FormPageSchema>;
 }
 
 export type FormValue = string | number | boolean | Record<string, boolean>;

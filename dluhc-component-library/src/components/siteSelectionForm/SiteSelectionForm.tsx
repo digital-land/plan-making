@@ -41,11 +41,44 @@ const createValidationSchema = (key: string, formSchema: FormPageSchema) => {
   return object({ [key]: validationShape } as ObjectShape);
 };
 
-const createFlatFormSchema = (formSchema: FormPageSchema) => {
-  const newSchema: FormPageSchema = {
+const addChildProperties = (
+  baseFormSchema: FormPageSchema,
+  newFormSchema: FormPageSchema,
+  formValues: FormState,
+) => {
+  const childSchema = createFlatFormSchema(newFormSchema, formValues);
+
+  const newProperties: Record<string, FormPageSchema> = {
+    ...baseFormSchema.properties,
+    ...childSchema.properties,
+  };
+
+  let newRequired: ReadonlyArray<string> = [];
+
+  if (childSchema.required?.length) {
+    newRequired = [
+      ...(baseFormSchema.required as string[]),
+      ...childSchema.required,
+    ];
+  }
+
+  const updatedFormSchema: FormPageSchema = {
+    ...baseFormSchema,
+    properties: newProperties,
+    required: newRequired,
+  };
+
+  return updatedFormSchema;
+};
+
+const createFlatFormSchema = (
+  formSchema: FormPageSchema,
+  formValues: FormState,
+) => {
+  let newSchema: FormPageSchema = {
     type: formSchema.type,
     title: formSchema.title,
-    dependencies: formSchema.dependencies,
+    dependencies: {},
     properties: {},
     required: [],
   };
@@ -62,26 +95,28 @@ const createFlatFormSchema = (formSchema: FormPageSchema) => {
     }
 
     if (formSchema.properties?.[propertyKey]?.type === "object") {
-      const childSchema = createFlatFormSchema(
+      newSchema = addChildProperties(
+        newSchema,
         formSchema.properties[propertyKey],
+        formValues,
       );
-
-      newSchema.properties = {
-        ...newSchema.properties,
-        ...childSchema.properties,
-      };
-
-      if (childSchema.required?.length) {
-        newSchema.required = [
-          ...(newSchema.required as string[]),
-          ...childSchema.required,
-        ];
-      }
     } else {
       newSchema.properties = {
         ...newSchema.properties,
         [propertyKey]: formSchema.properties[propertyKey],
       };
+    }
+
+    if (
+      formSchema.dependencies &&
+      formSchema.dependencies[propertyKey] &&
+      formValues[propertyKey]
+    ) {
+      newSchema = addChildProperties(
+        newSchema,
+        formSchema.dependencies[propertyKey],
+        formValues,
+      );
     }
   });
 
@@ -112,8 +147,8 @@ const SiteSelectionForm = ({ filepath, data }: SiteSelectionForm) => {
   }, [setBaseSchema, filepath, data]);
 
   const formSchema: FormPageSchema | null = useMemo(
-    () => baseSchema && createFlatFormSchema(baseSchema),
-    [baseSchema],
+    () => baseSchema && createFlatFormSchema(baseSchema, formData),
+    [baseSchema, formData],
   );
 
   if (!formSchema || !formSchema?.properties) {
