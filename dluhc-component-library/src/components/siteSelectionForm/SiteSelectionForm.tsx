@@ -46,15 +46,14 @@ const addChildProperties = (
   newFormSchema: FormPageSchema,
   formValues: FormState,
 ) => {
-  let newProperties: Record<string, FormPageSchema> = {};
-  let newRequired: ReadonlyArray<string> = [];
-
   const childSchema = createFlatFormSchema(newFormSchema, formValues);
 
-  newProperties = {
+  const newProperties: Record<string, FormPageSchema> = {
     ...baseFormSchema.properties,
     ...childSchema.properties,
   };
+
+  let newRequired: ReadonlyArray<string> = [];
 
   if (childSchema.required?.length) {
     newRequired = [
