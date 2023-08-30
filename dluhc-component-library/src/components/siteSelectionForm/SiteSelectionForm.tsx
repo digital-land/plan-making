@@ -1,7 +1,4 @@
 import { useState, useEffect, useMemo } from "preact/hooks";
-import { loadJson } from "../../utils";
-import DynamicForm from "./components/DynamicForm";
-import { FormPageSchema, FormState, FormValue, ValidationShape } from "./types";
 import {
   ObjectShape,
   ValidationError,
@@ -10,7 +7,10 @@ import {
   object,
   string,
 } from "yup";
+import { loadJson } from "src/utils";
+import DynamicForm from "./components/DynamicForm";
 import FormPage from "./components/FormPage";
+import { FormState, FormValue, FormPageSchema, ValidationShape } from "./types";
 
 import "./SiteSelectionForm.css";
 
@@ -21,23 +21,33 @@ interface SiteSelectionForm {
 
 const REQUIRED_MESSAGE = "This field is required.";
 
+const getValidationShape = (type?: string) => {
+  switch (type) {
+    case "string":
+      return string();
+    case "number":
+      return number();
+    case "array":
+      return array();
+  }
+  return null;
+};
+
 const createValidationSchema = (key: string, formSchema: FormPageSchema) => {
   let validationShape: ValidationShape | null = null;
 
   const property = formSchema.properties?.[key];
 
-  switch (property?.type) {
-    case "string":
-      validationShape = string();
-      break;
-    case "number":
-      validationShape = number();
-      break;
-    case "array":
-      validationShape = array().min(1, REQUIRED_MESSAGE).of(string());
-  }
+  console.log(property);
+  validationShape = getValidationShape(property?.type);
 
   if (validationShape && formSchema.required?.includes(key)) {
+    if (property?.type === "array") {
+      const arrayValidationShape = getValidationShape(property?.items?.type);
+      validationShape = validationShape
+        .of(arrayValidationShape)
+        .min(1, REQUIRED_MESSAGE);
+    }
     validationShape = validationShape.required(REQUIRED_MESSAGE);
   }
 

@@ -1,6 +1,6 @@
 import { AnyObject, ArraySchema, NumberSchema, StringSchema } from "yup";
 
-export type QuestionType = "string" | "number" | "array" | "object";
+export type QuestionType = "string" | "number" | "array" | "object" | "radio";
 
 export interface FormPageSchema {
   type: QuestionType;
@@ -13,6 +13,7 @@ export interface FormPageSchema {
   required?: ReadonlyArray<string>;
   properties?: Record<string, FormPageSchema>;
   dependencies?: Record<string, FormPageSchema>;
+  items?: Record<string, QuestionType>;
 }
 
 export type FormValue = string | number | boolean | Array<string>;
