@@ -10,16 +10,16 @@ import {
   object,
   string,
 } from "yup";
+import FormPage from "./components/FormPage";
 
 import "./SiteSelectionForm.css";
-import FormPage from "./components/FormPage";
 
 interface SiteSelectionForm {
   filepath?: string;
   data?: FormPageSchema;
 }
 
-const requiredMessage: string = "This field is required.";
+const REQUIRED_MESSAGE = "This field is required.";
 
 const createValidationSchema = (key: string, formSchema: FormPageSchema) => {
   let validationShape: ValidationShape | null = null;
@@ -34,11 +34,11 @@ const createValidationSchema = (key: string, formSchema: FormPageSchema) => {
       validationShape = number();
       break;
     case "array":
-      validationShape = array().min(1, requiredMessage).of(string().required());
+      validationShape = array().min(1, REQUIRED_MESSAGE).of(string());
   }
 
   if (validationShape && formSchema.required?.includes(key)) {
-    validationShape = validationShape.required(requiredMessage);
+    validationShape = validationShape.required(REQUIRED_MESSAGE);
   }
 
   return object({ [key]: validationShape } as ObjectShape);

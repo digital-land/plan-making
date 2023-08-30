@@ -22,4 +22,4 @@ export type FormState = Record<string, FormValue>;
 export type ValidationShape =
   | StringSchema
   | NumberSchema
-  | ArraySchema<string[] | undefined, AnyObject, "", "">;
+  | ArraySchema<(string | undefined)[] | undefined, AnyObject, "", "">;
