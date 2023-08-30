@@ -3,7 +3,7 @@ export interface SiteSelectionFormSchema {
   properties: Record<string, FormPageSchema>;
 }
 
-export type QuestionType = "string" | "number";
+export type QuestionType = "string" | "number" | "array";
 
 export interface FormPageSchema {
   type: QuestionType;
@@ -15,6 +15,6 @@ export interface FormPageSchema {
   max?: string;
 }
 
-export type FormValue = string | number | boolean | Record<string, boolean>;
+export type FormValue = string | number | boolean | Array<string>;
 
 export type FormState = Record<string, FormValue>;

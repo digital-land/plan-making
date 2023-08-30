@@ -62,7 +62,7 @@ const DynamicForm = ({
       questionInputComponent = (
         <MultiSelect
           options={formPageSchema.enum as ReadonlyArray<string>}
-          values={value as Record<string, boolean>}
+          values={value as Array<string>}
           onChange={handleFormValueChange}
         />
       );
