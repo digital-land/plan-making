@@ -1,11 +1,18 @@
-import DrawingLayer from "src/components/maps/drawingLayer";
-import BaseMap from "../components/maps/baseMap";
-import MapContainer from "../components/maps/mapContainer";
+import MapComponent from "src/components/maps/MapComponent";
 
 interface MapComponentProps {
+  baseMapProps: BaseMapProps;
+  drawingMapProps: DrawingMapProps;
+}
+
+interface BaseMapProps {
   lat: number;
   lng: number;
   zoom: number;
+  isDrawingMode: boolean;
+}
+
+interface DrawingMapProps {
   strokeColor: string;
   fillColor: string;
   strokeWidth: number;
@@ -13,50 +20,36 @@ interface MapComponentProps {
   circleFillColor: string;
 }
 
-const MapComponent = ({
-  lat,
-  lng,
-  zoom,
-  strokeColor,
-  fillColor,
-  strokeWidth,
-  circleRadius,
-  circleFillColor,
-}: MapComponentProps) => {
+const MapInput = ({ baseMapProps, drawingMapProps }: MapComponentProps) => {
   return (
-    <MapContainer>
-      <BaseMap
-        lat={lat}
-        lng={lng}
-        zoom={zoom}
-        style={{ height: "500px", width: "500px" }}
-      />
-      <DrawingLayer
-        strokeColor={strokeColor}
-        strokeWidth={strokeWidth}
-        fillcolor={fillColor}
-        circleRadius={circleRadius}
-        circleFillColor={circleFillColor}
-      />
-    </MapContainer>
+    <MapComponent
+      baseMapProps={baseMapProps}
+      drawingMapProps={drawingMapProps}
+    />
   );
 };
 
 export default {
-  component: MapComponent,
+  component: MapInput,
   title: "Components/Map/Drawing Layer",
   tags: ["autodocs"],
 };
 
 export const Default = {
   args: {
-    lat: 54.97,
-    lng: -1.65,
-    zoom: 10,
-    strokeColor: "#ffcc33",
-    fillColor: "rgba(255, 255, 255, 0.2)",
-    strokeWidth: 2,
-    circleRadius: 7,
-    circleFillColor: "#ffcc33",
+    baseMapProps: {
+      lat: 54.97,
+      lng: -1.65,
+      zoom: 10,
+      isDrawingMode: true,
+      style: { height: "500px", width: "500px" },
+    },
+    drawingMapProps: {
+      strokeColor: "#ffcc33",
+      fillColor: "rgba(255, 255, 255, 0.2)",
+      strokeWidth: 2,
+      circleRadius: 7,
+      circleFillColor: "#ffcc33",
+    },
   },
 };

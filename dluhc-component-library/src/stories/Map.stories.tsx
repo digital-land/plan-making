@@ -1,35 +1,36 @@
-import BaseMap from "../components/maps/baseMap";
-import MapContainer from "../components/maps/mapContainer";
+import { CSSProperties } from "preact/compat";
+import MapComponent from "src/components/maps/MapComponent";
 
 interface MapComponentProps {
+  baseMapProps: BaseMapProps;
+}
+
+interface BaseMapProps {
   lat: number;
   lng: number;
   zoom: number;
+  style: CSSProperties;
+  isDrawingMode: boolean;
 }
 
-const MapComponent = ({ lat, lng, zoom }: MapComponentProps) => {
-  return (
-    <MapContainer>
-      <BaseMap
-        lat={lat}
-        lng={lng}
-        zoom={zoom}
-        style={{ height: "500px", width: "500px" }}
-      />
-    </MapContainer>
-  );
+const MapInput = ({ baseMapProps }: MapComponentProps) => {
+  return <MapComponent baseMapProps={baseMapProps} />;
 };
 
 export default {
-  component: MapComponent,
+  component: MapInput,
   title: "Components/Map/Base",
   tags: ["autodocs"],
 };
 
 export const Default = {
   args: {
-    lat: 54.97,
-    lng: -1.65,
-    zoom: 10,
+    baseMapProps: {
+      lat: 54.97,
+      lng: -1.65,
+      zoom: 10,
+      isDrawingMode: false,
+      style: { height: "500px", width: "500px" },
+    },
   },
 };

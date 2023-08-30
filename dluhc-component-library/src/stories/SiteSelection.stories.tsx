@@ -69,3 +69,43 @@ export const Default = {
     },
   },
 };
+
+export const ConditionalPage = {
+  args: {
+    data: {
+      required: [],
+      type: "object",
+      properties: {
+        groupedExample: {
+          type: "object",
+          properties: {
+            parentQuestion: {
+              type: "string",
+              title: "Parent question",
+              subtitle: 'Adding a value here will add an "Additional question"',
+            },
+            unrelatedQuestion: {
+              type: "string",
+              title: "Unrelated question",
+              subtitle:
+                "This question should come after the Parent and Additional questions",
+            },
+          },
+          dependencies: {
+            parentQuestion: {
+              properties: {
+                addedQuestion: {
+                  type: "string",
+                  title: "Additional question",
+                  subtitle:
+                    'This question should only be asked if you answered the "Parent questions"',
+                },
+              },
+              required: ["addedQuestion"],
+            },
+          },
+        },
+      },
+    },
+  },
+};
