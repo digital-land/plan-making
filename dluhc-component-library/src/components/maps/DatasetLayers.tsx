@@ -1,13 +1,15 @@
 import { fromExtent } from "ol/geom/Polygon";
-import { useSelectedDatasets } from "src/contexts/DatasetContext";
-import { useMap } from "src/contexts/mapContext";
-import DatasetLayer from "./DatasetLayer";
 import { useMemo } from "react";
 import { useFetchDatasets } from "src/api/planningData/api";
+import { useMap } from "src/contexts/mapContext";
+import DatasetLayer from "./DatasetLayer";
 
-const DatasetLayers = () => {
+interface DatasetLayersProps {
+  selectedDatasets: string[];
+}
+
+const DatasetLayers = ({ selectedDatasets }: DatasetLayersProps) => {
   const map = useMap();
-  const [selectedDatasets] = useSelectedDatasets();
   const { data } = useFetchDatasets();
 
   const datasets = useMemo(

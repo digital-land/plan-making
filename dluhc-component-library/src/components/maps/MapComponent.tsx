@@ -1,6 +1,6 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Polygon from "ol/geom/Polygon";
-import { CSSProperties } from "preact/compat";
+import { CSSProperties, useState } from "preact/compat";
 import { ReactNode } from "react";
 import DatasetControl from "./DatasetControl";
 import DatasetLayers from "./DatasetLayers";
@@ -56,6 +56,15 @@ const MapComponent = ({
     circleFillColor: "#ffcc33",
   },
 }: MapComponentProps) => {
+  const [datasets, setDatasets] = useState<string[]>([]);
+  const selectDataset = (dataset: string) => {
+    if (!datasets.includes(dataset)) {
+      setDatasets([...datasets, dataset]);
+    } else {
+      setDatasets(datasets.filter((d) => d !== dataset));
+    }
+  };
+
   return (
     <QueryClientProvider client={queryClient}>
       {
@@ -68,7 +77,12 @@ const MapComponent = ({
               style={{ height: "100%", width: "100%" }}
             />
             <div className="map-controls">
-              {showDatasets && <DatasetControl />}
+              {showDatasets && (
+                <DatasetControl
+                  selectedDatasets={datasets}
+                  onSelectDataset={selectDataset}
+                />
+              )}
             </div>
             {baseMapProps.isDrawingMode && (
               <DrawingLayer
@@ -80,7 +94,7 @@ const MapComponent = ({
                 onChange={onChange}
               />
             )}
-            {showDatasets && <DatasetLayers />}
+            {showDatasets && <DatasetLayers selectedDatasets={datasets} />}
           </MapContainer>
         ) as ReactNode
       }

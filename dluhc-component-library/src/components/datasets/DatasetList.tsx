@@ -1,6 +1,6 @@
 import { useCallback } from "preact/hooks";
-import DatasetSelect from "./DatasetSelect";
 import { Dataset } from "src/api/planningData/types";
+import DatasetSelect from "./DatasetSelect";
 
 interface DatasetListProps {
   title?: string;
@@ -18,7 +18,7 @@ const DatasetList = ({
   isLoading = false,
 }: DatasetListProps) => {
   const isSelected = useCallback(
-    (dataset: string) => selectedItems.some((item) => item === dataset),
+    (dataset: string) => selectedItems.includes(dataset),
     [selectedItems],
   );
 
