@@ -1,9 +1,9 @@
-interface BooleanInputProps {
+interface CheckboxInputProps {
   value: boolean;
   onChange: (value: boolean) => void;
 }
 
-const BooleanInput = ({ value, onChange }: BooleanInputProps) => {
+const Checkbox = ({ value, onChange }: CheckboxInputProps) => {
   return (
     <div className="flex items-center">
       <label className="font-semibold flex">
@@ -18,4 +18,4 @@ const BooleanInput = ({ value, onChange }: BooleanInputProps) => {
   );
 };
 
-export default BooleanInput;
+export default Checkbox;

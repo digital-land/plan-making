@@ -4,7 +4,7 @@ import MultiSelect from "./MultiSelect";
 import { JSXInternal } from "node_modules/preact/src/jsx";
 import Input from "./Input";
 import RadioButtons from "./RadioButtons";
-import BooleanInput from "./BooleanInput";
+import BooleanInput from "./Checkbox";
 
 interface DynamicFormProps {
   id: string;
