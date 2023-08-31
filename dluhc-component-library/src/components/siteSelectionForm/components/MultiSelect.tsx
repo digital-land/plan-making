@@ -1,6 +1,6 @@
 interface MultiSelectProps {
   options: ReadonlyArray<string>;
-  values?: Array<string>;
+  values?: ReadonlyArray<string>;
   onChange: (values: Array<string>) => void;
 }
 
@@ -10,13 +10,11 @@ const MultiSelect = ({ options, values = [], onChange }: MultiSelectProps) => {
   }
 
   const handleChange = (value: string, isChecked: boolean) => {
-    let updatedValues;
     if (isChecked) {
-      updatedValues = [...values, value];
+      onChange([...values, value]);
     } else {
-      updatedValues = values.filter((existingValue) => existingValue !== value);
+      onChange(values.filter((existingValue) => existingValue !== value));
     }
-    onChange(updatedValues);
   };
 
   const optionComponents = options.map((key) => {
