@@ -1,4 +1,10 @@
-export type QuestionType = "string" | "number" | "object";
+export type QuestionType =
+  | "string"
+  | "number"
+  | "array"
+  | "object"
+  | "radio"
+  | "boolean";
 
 export interface FormPageSchema {
   type: QuestionType;

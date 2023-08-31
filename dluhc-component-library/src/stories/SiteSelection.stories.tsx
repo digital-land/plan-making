@@ -16,6 +16,10 @@ export const Default = {
           type: "string",
           title: "Your name",
         },
+        consent: {
+          type: "boolean",
+          title: "I confirm consent for my data to be processed",
+        },
         siteUse: {
           type: "array",
           items: { type: "string" },
