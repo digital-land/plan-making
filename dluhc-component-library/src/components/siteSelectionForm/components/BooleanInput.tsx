@@ -4,23 +4,18 @@ interface BooleanInputProps {
 }
 
 const BooleanInput = ({ value, onChange }: BooleanInputProps) => {
-  const checkboxComponent = () => {
-    let isChecked = value;
-    return (
-      <div className="flex items-center">
-        <label className="font-semibold flex">
-          <input
-            type="checkbox"
-            class="checkbox mr-2"
-            checked={isChecked}
-            onClick={() => onChange(!isChecked)}
-          />
-        </label>
-      </div>
-    );
-  };
-
-  return <div>{checkboxComponent()}</div>;
+  return (
+    <div className="flex items-center">
+      <label className="font-semibold flex">
+        <input
+          type="checkbox"
+          class="checkbox mr-2"
+          checked={value}
+          onClick={() => onChange(!value)}
+        />
+      </label>
+    </div>
+  );
 };
 
 export default BooleanInput;
