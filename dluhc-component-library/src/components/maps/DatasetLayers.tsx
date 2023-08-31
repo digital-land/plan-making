@@ -14,7 +14,7 @@ const DatasetLayers = ({ selectedDatasets }: DatasetLayersProps) => {
 
   const datasets = useMemo(
     () =>
-      data?.filter((dataset) => selectedDatasets.includes(dataset.dataset)) ||
+      data?.filter((dataset) => selectedDatasets.includes(dataset.dataset)) ??
       [],
     [selectedDatasets, data],
   );
