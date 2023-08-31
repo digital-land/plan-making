@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { FeatureCollection } from "geojson";
 import WKT from "ol/format/WKT.js";
 import { Geometry } from "ol/geom";
-import { Dataset, DatasetResponse } from "./types";
+import { Dataset, DatasetError, DatasetResponse } from "./types";
 
 const baseURL = "https://www.planning.data.gov.uk";
 
@@ -18,7 +18,7 @@ export const fetchDataset = async (geometry: Geometry) => {
 };
 
 export const useFetchDatasets = () =>
-  useQuery<DatasetResponse, unknown, Dataset[]>(
+  useQuery<DatasetResponse, DatasetError, Dataset[]>(
     ["datasets"],
     () => fetch(`${baseURL}/dataset.json`).then((response) => response.json()),
     {
