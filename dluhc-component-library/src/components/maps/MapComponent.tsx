@@ -33,26 +33,40 @@ interface DrawingMapProps {
   circleFillColor?: string;
 }
 
+const DrawingMapProperties = {
+  strokeColor: "#ffcc33",
+  fillColor: "rgba(255, 255, 255, 0.2)",
+  strokeWidth: 2,
+  circleRadius: 7,
+  circleFillColor: "#ffcc33",
+};
+
+const BaseMapProperties = {
+  isDrawingMode: true,
+  lat: 54.97,
+  lng: -1.65,
+  zoom: 10,
+};
+
 const MapComponent = ({
   id,
   className = "map-container",
   style = { height: "700px", width: "100%" },
   showDatasets = true,
   onChange,
-  baseMapProps = {
-    isDrawingMode: true,
-    lat: 54.97,
-    lng: -1.65,
-    zoom: 10,
-  },
-  drawingMapProps = {
-    strokeColor: "#ffcc33",
-    fillColor: "rgba(255, 255, 255, 0.2)",
-    strokeWidth: 2,
-    circleRadius: 7,
-    circleFillColor: "#ffcc33",
-  },
+  baseMapProps,
+  drawingMapProps,
 }: MapComponentProps) => {
+  const customDrawingProperties = {
+    ...DrawingMapProperties,
+    ...drawingMapProps,
+  };
+
+  const customBaseMapProperties = {
+    ...BaseMapProperties,
+    ...baseMapProps,
+  };
+
   const [datasets, setDatasets] = useState<ReadonlyArray<string>>([]);
   const selectDataset = (dataset: string) => {
     if (!datasets.includes(dataset)) {
@@ -67,9 +81,9 @@ const MapComponent = ({
   return (
     <MapContainer id={id} className={className} style={style}>
       <BaseMap
-        lat={baseMapProps.lat}
-        lng={baseMapProps.lng}
-        zoom={baseMapProps.zoom}
+        lat={customBaseMapProperties.lat}
+        lng={customBaseMapProperties.lng}
+        zoom={customBaseMapProperties.zoom}
         style={{ height: "100%", width: "100%" }}
       />
       <div className="map-controls">
@@ -80,13 +94,13 @@ const MapComponent = ({
           />
         )}
       </div>
-      {baseMapProps.isDrawingMode && (
+      {customBaseMapProperties.isDrawingMode && (
         <DrawingLayer
-          strokeColor={drawingMapProps.strokeColor}
-          fillcolor={drawingMapProps.fillColor}
-          strokeWidth={drawingMapProps.strokeWidth}
-          circleRadius={drawingMapProps.circleRadius}
-          circleFillColor={drawingMapProps.circleFillColor}
+          strokeColor={customDrawingProperties.strokeColor}
+          fillcolor={customDrawingProperties.fillColor}
+          strokeWidth={customDrawingProperties.strokeWidth}
+          circleRadius={customDrawingProperties.circleRadius}
+          circleFillColor={customDrawingProperties.circleFillColor}
           onChange={onChange}
         />
       )}
