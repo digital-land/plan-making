@@ -5,7 +5,7 @@ import { useMap } from "src/contexts/mapContext";
 import DatasetLayer from "./DatasetLayer";
 
 interface DatasetLayersProps {
-  selectedDatasets: string[];
+  selectedDatasets: ReadonlyArray<string>;
 }
 
 const DatasetLayers = ({ selectedDatasets }: DatasetLayersProps) => {

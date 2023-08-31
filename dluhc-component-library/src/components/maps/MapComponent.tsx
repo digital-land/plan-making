@@ -4,8 +4,9 @@ import BaseMap from "./BaseMap";
 import DatasetControl from "./DatasetControl";
 import DatasetLayers from "./DatasetLayers";
 import DrawingLayer from "./DrawingLayer";
-import "./MapComponent.css";
 import MapContainer from "./mapContainer";
+
+import "./MapComponent.css";
 
 interface MapComponentProps {
   baseMapProps?: BaseMapProps;
@@ -52,7 +53,7 @@ const MapComponent = ({
     circleFillColor: "#ffcc33",
   },
 }: MapComponentProps) => {
-  const [datasets, setDatasets] = useState<string[]>([]);
+  const [datasets, setDatasets] = useState<ReadonlyArray<string>>([]);
   const selectDataset = (dataset: string) => {
     if (!datasets.includes(dataset)) {
       setDatasets([...datasets, dataset]);

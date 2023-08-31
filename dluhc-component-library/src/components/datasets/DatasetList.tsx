@@ -5,7 +5,7 @@ import DatasetSelect from "./DatasetSelect";
 interface DatasetListProps {
   title?: string;
   items: Dataset[];
-  selectedItems: string[];
+  selectedItems: ReadonlyArray<string>;
   onSelect: (dataset: string) => void;
   isLoading?: boolean;
 }

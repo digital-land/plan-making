@@ -2,7 +2,7 @@ import { useFetchDatasets } from "src/api/planningData/api";
 import DatasetList from "src/components/datasets/DatasetList";
 
 interface DatasetControlProps {
-  selectedDatasets: string[];
+  selectedDatasets: ReadonlyArray<string>;
   onSelectDataset: (dataset: string) => void;
 }
 
