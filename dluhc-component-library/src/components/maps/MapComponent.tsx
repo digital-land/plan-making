@@ -58,7 +58,9 @@ const MapComponent = ({
     if (!datasets.includes(dataset)) {
       setDatasets([...datasets, dataset]);
     } else {
-      setDatasets(datasets.filter((d) => d !== dataset));
+      setDatasets(
+        datasets.filter((selectedDataset) => selectedDataset !== dataset),
+      );
     }
   };
 
