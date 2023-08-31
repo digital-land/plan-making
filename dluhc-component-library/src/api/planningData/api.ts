@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { FeatureCollection } from "geojson";
 import WKT from "ol/format/WKT.js";
 import { Geometry } from "ol/geom";
-import { DatasetResponse } from "./types";
+import { Dataset, DatasetResponse } from "./types";
 
 const baseURL = "https://www.planning.data.gov.uk";
 
@@ -17,16 +17,15 @@ export const fetchDataset = async (geometry: Geometry) => {
   });
 };
 
-export const fetchDatasets: () => Promise<DatasetResponse> = async () =>
-  fetch(`${baseURL}/dataset.json`).then((response) => response.json());
-
 export const useFetchDatasets = () =>
-  useQuery({
-    queryKey: ["datasets"],
-    queryFn: () => fetchDatasets(),
-    select: (data) =>
-      data.datasets.sort((a, b) => a.name.localeCompare(b.name)),
-  });
+  useQuery<DatasetResponse, unknown, Dataset[]>(
+    ["datasets"],
+    () => fetch(`${baseURL}/dataset.json`).then((response) => response.json()),
+    {
+      select: (data) =>
+        data.datasets.sort((a, b) => a.name.localeCompare(b.name)),
+    },
+  );
 
 export const fetchEntities: (
   dataset: string,
