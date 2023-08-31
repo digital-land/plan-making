@@ -4,6 +4,7 @@ import MultiSelect from "./MultiSelect";
 import { JSXInternal } from "node_modules/preact/src/jsx";
 import Input from "./Input";
 import RadioButtons from "./RadioButtons";
+import BooleanInput from "./Checkbox";
 
 interface DynamicFormProps {
   id: string;
@@ -17,6 +18,7 @@ enum InputType {
   NumberInput,
   RadioInput,
   MultiSelect,
+  BooleanInput,
   None,
 }
 
@@ -35,6 +37,10 @@ const getInputType = (formPageSchema: FormPageSchema) => {
 
   if (formPageSchema.type === "radio") {
     return InputType.RadioInput;
+  }
+
+  if (formPageSchema.type == "boolean") {
+    return InputType.BooleanInput;
   }
 
   return InputType.None;
@@ -98,6 +104,15 @@ const DynamicForm = ({
           name={formPageSchema.title}
           options={formPageSchema.enum as ReadonlyArray<string>}
           value={value as String}
+          onChange={handleFormValueChange}
+        />
+      );
+      break;
+
+    case InputType.BooleanInput:
+      questionInputComponent = (
+        <BooleanInput
+          value={value as boolean}
           onChange={handleFormValueChange}
         />
       );

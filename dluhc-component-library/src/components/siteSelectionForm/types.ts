@@ -1,4 +1,12 @@
-export type QuestionType = "string" | "number" | "object";
+import { StringSchema, NumberSchema, BooleanSchema } from "yup";
+
+export type QuestionType =
+  | "string"
+  | "number"
+  | "array"
+  | "object"
+  | "radio"
+  | "boolean";
 
 export interface FormPageSchema {
   type: QuestionType;
@@ -16,3 +24,5 @@ export interface FormPageSchema {
 export type FormValue = string | number | boolean | Record<string, boolean>;
 
 export type FormState = Record<string, FormValue>;
+
+export type ValidationShape = StringSchema | NumberSchema | BooleanSchema;
