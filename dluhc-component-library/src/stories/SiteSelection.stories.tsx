@@ -9,7 +9,14 @@ export default {
 export const Default = {
   args: {
     data: {
-      required: ["siteUse", "relationshipTo", "address", "name", "age"],
+      required: [
+        "siteUse",
+        "relationshipTo",
+        "address",
+        "name",
+        "age",
+        "consent",
+      ],
       type: "object",
       properties: {
         name: {
