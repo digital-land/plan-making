@@ -1,4 +1,11 @@
-import { AnyObject, ArraySchema, NumberSchema, StringSchema } from "yup";
+import {
+  AnyObject,
+  ArraySchema,
+  ISchema,
+  MixedSchema,
+  NumberSchema,
+  StringSchema,
+} from "yup";
 
 export type QuestionType = "string" | "number" | "array" | "object" | "radio";
 
@@ -20,7 +27,12 @@ export type FormValue = string | number | boolean | Array<string>;
 
 export type FormState = Record<string, FormValue>;
 
+//export type ValidationShape = StringSchema | NumberSchema;
+//  | ArraySchema<any[] | undefined, AnyObject, any, "">;
+
+//export type ValidationShape = ISchema<any, AnyObject, any, "">;
+
 export type ValidationShape =
   | StringSchema
   | NumberSchema
-  | ArraySchema<(string | undefined)[] | undefined, AnyObject, "", "">;
+  | ArraySchema<any[] | undefined, AnyObject, any, "">;

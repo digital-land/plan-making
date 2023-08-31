@@ -21,14 +21,18 @@ interface SiteSelectionForm {
 
 const REQUIRED_MESSAGE = "This field is required.";
 
-const getValidationShape = (type?: string, arrayType?: string): any => {
+const getValidationShape: (
+  type: string,
+  arrayType?: string,
+) => ValidationShape = (type: string, arrayType?: string) => {
   switch (type) {
-    case "string":
-      return string();
     case "number":
       return number();
     case "array":
-      return array(getValidationShape(arrayType));
+      return array().of<any>(getValidationShape(arrayType ?? "string"));
+    case "string":
+    default:
+      return string();
   }
 };
 
@@ -37,7 +41,11 @@ const createValidationSchema = (key: string, formSchema: FormPageSchema) => {
 
   const property = formSchema.properties?.[key];
 
-  validationShape = getValidationShape(property?.type);
+  if (!property) {
+    return object({});
+  }
+
+  validationShape = getValidationShape(property.type, property?.items?.type);
 
   if (validationShape && formSchema.required?.includes(key)) {
     if (property?.type === "array") {
