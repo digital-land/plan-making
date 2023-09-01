@@ -1,8 +1,9 @@
-import Polygon from "ol/geom/Polygon";
+import GeoJSON from "ol/format/GeoJSON";
 import { Draw } from "ol/interaction";
+import { DrawEvent } from "ol/interaction/Draw";
 import VectorLayer from "ol/layer/Vector";
-import VectorSource, { VectorSourceEvent } from "ol/source/Vector";
-import { useEffect, useRef } from "react";
+import VectorSource from "ol/source/Vector";
+import { useEffect, useRef } from "preact/compat";
 import { useMap } from "src/contexts/mapContext";
 
 interface DrawingLayerProps {
@@ -12,8 +13,11 @@ interface DrawingLayerProps {
   strokeWidth?: number;
   circleRadius?: number;
   circleFillColor?: string;
-  onChange?: (boundary: Polygon) => void;
+  value?: string;
+  onChange?: (boundary: string) => void;
 }
+
+const GEOJSON = new GeoJSON();
 
 const DrawingLayer = ({
   zIndex = 2,
@@ -22,41 +26,60 @@ const DrawingLayer = ({
   strokeWidth = 2,
   circleRadius = 7,
   circleFillColor = "#ffcc33",
+  value,
   onChange,
 }: DrawingLayerProps) => {
   const map = useMap();
-  const source = new VectorSource();
-  const vector = new VectorLayer({
-    source: source,
-    style: {
-      "fill-color": fillcolor,
-      "stroke-color": strokeColor,
-      "stroke-width": strokeWidth,
-      "circle-radius": circleRadius,
-      "circle-fill-color": circleFillColor,
-    },
-  });
-  const ref = useRef<HTMLDivElement>(null);
+
+  const source = useRef(new VectorSource());
 
   useEffect(() => {
-    if (!ref.current) {
-      return;
-    }
+    const layer = new VectorLayer({
+      source: source.current,
+      style: {
+        "fill-color": fillcolor,
+        "stroke-color": strokeColor,
+        "stroke-width": strokeWidth,
+        "circle-radius": circleRadius,
+        "circle-fill-color": circleFillColor,
+      },
+      zIndex,
+    });
+    map.addLayer(layer);
+    return () => map?.removeLayer(layer);
+  }, [
+    map,
+    source,
+    fillcolor,
+    strokeColor,
+    strokeWidth,
+    circleRadius,
+    circleFillColor,
+    zIndex,
+  ]);
 
-    map.addInteraction(new Draw({ source: source, type: "Polygon" }));
-    vector.setZIndex(zIndex);
-    map.addLayer(vector);
+  useEffect(() => {
+    source.current.clear(); // for now, only allow 1 boundary to be drawn
+    value && source.current.addFeature(GEOJSON.readFeature(value));
+  }, [value, source]);
 
-    source.on("addfeature", async function (evt: VectorSourceEvent) {
-      let feature = evt.feature;
-      let geometry = feature?.getGeometry() as Polygon;
+  useEffect(() => {
+    const draw = new Draw({ type: "Polygon" });
+    map.addInteraction(draw);
+
+    draw.on("drawend", function (evt: DrawEvent) {
+      const feature = GEOJSON.writeFeature(evt.feature);
       if (onChange) {
-        onChange(geometry);
+        onChange(feature);
       }
     });
-  }, [ref, zIndex]);
 
-  return <div ref={ref} />;
+    return () => {
+      map?.removeInteraction(draw);
+    };
+  }, [map]);
+
+  return null;
 };
 
 export default DrawingLayer;
