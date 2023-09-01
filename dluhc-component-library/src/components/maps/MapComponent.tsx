@@ -4,7 +4,7 @@ import BaseMap from "./BaseMap";
 import DatasetControl from "./DatasetControl";
 import DatasetLayers from "./DatasetLayers";
 import DrawingLayer from "./DrawingLayer";
-import MapContainer from "./mapContainer";
+import MapContainer from "./MapContainer";
 
 import "./MapComponent.css";
 
