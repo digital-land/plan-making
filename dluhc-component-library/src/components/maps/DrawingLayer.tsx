@@ -6,6 +6,7 @@ import VectorLayer from "ol/layer/Vector";
 import VectorSource from "ol/source/Vector";
 import { useEffect, useRef } from "preact/compat";
 import { useMap } from "src/contexts/mapContext";
+import { Polygon as Boundary } from "./types";
 
 interface DrawingLayerProps {
   zIndex?: number;
@@ -14,8 +15,8 @@ interface DrawingLayerProps {
   strokeWidth?: number;
   circleRadius?: number;
   circleFillColor?: string;
-  value?: number[][][];
-  onChange?: (boundary: number[][][]) => void;
+  value?: Boundary;
+  onChange?: (boundary: Boundary) => void;
 }
 
 const DrawingLayer = ({
@@ -60,7 +61,9 @@ const DrawingLayer = ({
   useEffect(() => {
     source.current.clear(); // for now, only allow 1 boundary to be drawn
     if (value) {
-      source.current.addFeature(new Feature({ geometry: new Polygon(value) }));
+      source.current.addFeature(
+        new Feature({ geometry: new Polygon(value as number[][][]) }),
+      );
     }
   }, [value, source]);
 

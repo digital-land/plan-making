@@ -4,6 +4,7 @@ import DatasetControl from "./DatasetControl";
 import DatasetLayers from "./DatasetLayers";
 import DrawingLayer from "./DrawingLayer";
 import MapContainer from "./MapContainer";
+import { Polygon as Boundary } from "./types";
 
 import "./MapComponent.css";
 
@@ -14,8 +15,8 @@ interface MapComponentProps {
   id?: string;
   className?: string;
   style?: CSSProperties;
-  value?: number[][][];
-  onChange?: (boundary: number[][][]) => void;
+  value?: Boundary;
+  onChange?: (boundary: Boundary) => void;
 }
 
 interface BaseMapProps {
