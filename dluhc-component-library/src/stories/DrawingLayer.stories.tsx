@@ -1,6 +1,8 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useState } from "preact/compat";
 import { ReactNode } from "react";
 import MapComponent from "src/components/maps/MapComponent";
+import { Boundary } from "src/components/maps/types";
 
 interface MapComponentProps {
   baseMapProps: BaseMapProps;
@@ -25,18 +27,23 @@ interface DrawingMapProps {
 const queryClient = new QueryClient();
 
 const MapInput = ({ baseMapProps, drawingMapProps }: MapComponentProps) => {
+  const [boundary, setBoundary] = useState<Boundary>();
   return (
-    <QueryClientProvider client={queryClient}>
-      {
-        (
-          <MapComponent
-            baseMapProps={baseMapProps}
-            drawingMapProps={drawingMapProps}
-            showDatasets={false}
-          />
-        ) as ReactNode
-      }
-    </QueryClientProvider>
+    <>
+      <QueryClientProvider client={queryClient}>
+        {
+          (
+            <MapComponent
+              baseMapProps={baseMapProps}
+              drawingMapProps={drawingMapProps}
+              showDatasets={false}
+              value={boundary}
+              onChange={setBoundary}
+            />
+          ) as ReactNode
+        }
+      </QueryClientProvider>
+    </>
   );
 };
 

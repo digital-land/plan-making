@@ -1,10 +1,10 @@
-import Polygon from "ol/geom/Polygon";
 import { CSSProperties, useState } from "preact/compat";
 import BaseMap from "./BaseMap";
 import DatasetControl from "./DatasetControl";
 import DatasetLayers from "./DatasetLayers";
 import DrawingLayer from "./DrawingLayer";
 import MapContainer from "./MapContainer";
+import { Boundary } from "./types";
 
 import "./MapComponent.css";
 
@@ -15,7 +15,8 @@ interface MapComponentProps {
   id?: string;
   className?: string;
   style?: CSSProperties;
-  onChange?: (boundary: Polygon) => void;
+  value?: Boundary;
+  onChange?: (boundary: Boundary) => void;
 }
 
 interface BaseMapProps {
@@ -53,6 +54,7 @@ const MapComponent = ({
   className = "map-container",
   style = { height: "700px", width: "100%" },
   showDatasets = true,
+  value,
   onChange,
   baseMapProps,
   drawingMapProps,
@@ -101,6 +103,7 @@ const MapComponent = ({
           strokeWidth={customDrawingProperties.strokeWidth}
           circleRadius={customDrawingProperties.circleRadius}
           circleFillColor={customDrawingProperties.circleFillColor}
+          value={value}
           onChange={onChange}
         />
       )}
