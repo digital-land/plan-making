@@ -120,3 +120,29 @@ export const ConditionalPage = {
     },
   },
 };
+
+export const MapPage = {
+  args: {
+    data: {
+      required: [],
+      type: "object",
+      properties: {
+        groupedExample: {
+          type: "object",
+          properties: {
+            boundaryDataMap: {
+              type: "map", // This isnt a real type, we should define a real data schema for geo data and have this in a ui schema
+              title: "Where are the boundaries of this site?",
+            },
+            unrelatedQuestion: {
+              type: "string",
+              title: "Unrelated question",
+              subtitle:
+                "This question should come after the Parent and Additional questions",
+            },
+          },
+        },
+      },
+    },
+  },
+};
