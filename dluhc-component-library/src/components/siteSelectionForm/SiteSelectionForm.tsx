@@ -1,3 +1,5 @@
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactNode } from "react";
 import { useState, useEffect, useMemo } from "preact/hooks";
 import {
   ObjectShape,
@@ -13,8 +15,6 @@ import FormPage from "./components/FormPage";
 import { FormState, FormValue, FormPageSchema, ValidationShape } from "./types";
 
 import "./SiteSelectionForm.css";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactNode } from "react";
 
 interface SiteSelectionForm {
   filepath?: string;
