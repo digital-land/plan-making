@@ -1,31 +1,26 @@
-interface RadioButtonsProps {
-  name: string;
-  options: ReadonlyArray<string>;
-  value: String;
-  onChange: (values: string) => void;
+import { RadioOption } from "../types";
+
+interface RadioButtonsProps<T extends string | boolean> {
+  options: ReadonlyArray<RadioOption>;
+  value: T;
+  onChange: (values: T) => void;
 }
 
-const RadioButtons = ({
-  name,
+const RadioButtons = <T extends string | boolean>({
   options,
   value,
   onChange,
-}: RadioButtonsProps) => {
-  if (!options.length) {
-    return null;
-  }
-
-  const optionComponents = options.map((key) => (
-    <div key={key} className="flex items-center mb-4">
+}: RadioButtonsProps<T>) => {
+  const optionComponents = options.map((option) => (
+    <div key={option.value} className="flex items-center mb-4">
       <label className="font-semibold flex">
         <input
           type="radio"
           class="radio mr-2"
-          name={name}
-          checked={value === key}
-          onClick={() => onChange(key)}
+          checked={value === option.value}
+          onClick={() => onChange(option.value)}
         />
-        <span>{key}</span>
+        <span>{option.label}</span>
       </label>
     </div>
   ));
