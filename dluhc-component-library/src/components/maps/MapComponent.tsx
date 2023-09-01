@@ -4,7 +4,7 @@ import DatasetControl from "./DatasetControl";
 import DatasetLayers from "./DatasetLayers";
 import DrawingLayer from "./DrawingLayer";
 import MapContainer from "./MapContainer";
-import { Polygon as Boundary } from "./types";
+import { Boundary } from "./types";
 
 import "./MapComponent.css";
 
