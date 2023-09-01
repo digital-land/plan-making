@@ -1,4 +1,6 @@
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { CSSProperties } from "preact/compat";
+import { ReactNode } from "react";
 import MapComponent from "src/components/maps/MapComponent";
 
 interface MapComponentProps {
@@ -13,8 +15,18 @@ interface BaseMapProps {
   isDrawingMode: boolean;
 }
 
+const queryClient = new QueryClient();
+
 const MapInput = ({ baseMapProps }: MapComponentProps) => {
-  return <MapComponent baseMapProps={baseMapProps} />;
+  return (
+    <QueryClientProvider client={queryClient}>
+      {
+        (
+          <MapComponent baseMapProps={baseMapProps} showDatasets={false} />
+        ) as ReactNode
+      }
+    </QueryClientProvider>
+  );
 };
 
 export default {

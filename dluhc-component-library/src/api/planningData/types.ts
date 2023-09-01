@@ -9,6 +9,8 @@ export interface Dataset {
   "paint-options": PaintOptions | "";
 }
 
+export type DatasetError = unknown;
+
 export interface PaintOptions {
   colour: string;
   opacity?: number;

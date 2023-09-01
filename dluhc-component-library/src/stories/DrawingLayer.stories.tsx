@@ -1,3 +1,5 @@
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactNode } from "react";
 import MapComponent from "src/components/maps/MapComponent";
 
 interface MapComponentProps {
@@ -20,12 +22,21 @@ interface DrawingMapProps {
   circleFillColor: string;
 }
 
+const queryClient = new QueryClient();
+
 const MapInput = ({ baseMapProps, drawingMapProps }: MapComponentProps) => {
   return (
-    <MapComponent
-      baseMapProps={baseMapProps}
-      drawingMapProps={drawingMapProps}
-    />
+    <QueryClientProvider client={queryClient}>
+      {
+        (
+          <MapComponent
+            baseMapProps={baseMapProps}
+            drawingMapProps={drawingMapProps}
+            showDatasets={false}
+          />
+        ) as ReactNode
+      }
+    </QueryClientProvider>
   );
 };
 

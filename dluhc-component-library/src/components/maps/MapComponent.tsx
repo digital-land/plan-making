@@ -1,12 +1,17 @@
-import MapContainer from "./mapContainer";
-import BaseMap from "./baseMap";
-import DrawingLayer from "./drawingLayer";
-import { CSSProperties } from "preact/compat";
 import Polygon from "ol/geom/Polygon";
+import { CSSProperties, useState } from "preact/compat";
+import BaseMap from "./BaseMap";
+import DatasetControl from "./DatasetControl";
+import DatasetLayers from "./DatasetLayers";
+import DrawingLayer from "./DrawingLayer";
+import MapContainer from "./mapContainer";
+
+import "./MapComponent.css";
 
 interface MapComponentProps {
   baseMapProps?: BaseMapProps;
   drawingMapProps?: DrawingMapProps;
+  showDatasets?: boolean;
   id?: string;
   className?: string;
   style?: CSSProperties;
@@ -45,8 +50,9 @@ const BaseMapProperties = {
 
 const MapComponent = ({
   id,
-  className,
-  style = { height: "500px", width: "500px" },
+  className = "map-container",
+  style = { height: "700px", width: "100%" },
+  showDatasets = true,
   onChange,
   baseMapProps,
   drawingMapProps,
@@ -61,6 +67,17 @@ const MapComponent = ({
     ...baseMapProps,
   };
 
+  const [datasets, setDatasets] = useState<ReadonlyArray<string>>([]);
+  const selectDataset = (dataset: string) => {
+    if (!datasets.includes(dataset)) {
+      setDatasets([...datasets, dataset]);
+    } else {
+      setDatasets(
+        datasets.filter((selectedDataset) => selectedDataset !== dataset),
+      );
+    }
+  };
+
   return (
     <MapContainer id={id} className={className} style={style}>
       <BaseMap
@@ -69,6 +86,14 @@ const MapComponent = ({
         zoom={customBaseMapProperties.zoom}
         style={{ height: "100%", width: "100%" }}
       />
+      <div className="map-controls">
+        {showDatasets && (
+          <DatasetControl
+            selectedDatasets={datasets}
+            onSelectDataset={selectDataset}
+          />
+        )}
+      </div>
       {customBaseMapProperties.isDrawingMode && (
         <DrawingLayer
           strokeColor={customDrawingProperties.strokeColor}
@@ -79,6 +104,7 @@ const MapComponent = ({
           onChange={onChange}
         />
       )}
+      {showDatasets && <DatasetLayers selectedDatasets={datasets} />}
     </MapContainer>
   );
 };
