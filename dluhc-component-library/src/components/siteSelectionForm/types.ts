@@ -6,7 +6,8 @@ export type QuestionType =
   | "array"
   | "object"
   | "radio"
-  | "boolean";
+  | "boolean"
+  | "map";
 
 export interface FormPageSchema {
   type: QuestionType;

@@ -3,7 +3,7 @@ import csvToJson from "csvtojson";
 import { loadCSV, loadJson } from "../../utils";
 import Timetable from "./Timetable";
 import { TimetableHeader, TimetableStage } from "./types";
-import AccordionDropdown from "./AccordionDropdown";
+import AccordionDropdown from "../accordianDropdown/AccordionDropdown";
 
 interface TimetablePageProps {
   stagesFilepath: string;
@@ -77,7 +77,7 @@ const TimetablePage = ({
             <p>Status: {timetableHeaderData?.status}</p>
             <p>Period: {timetableHeaderData?.periodStartToEnd}</p>
             <p>Coverage: {timetableHeaderData?.coverage}</p>
-            <AccordionDropdown></AccordionDropdown>
+            <AccordionDropdown text="More information"></AccordionDropdown>
           </div>
         </div>
         <div>

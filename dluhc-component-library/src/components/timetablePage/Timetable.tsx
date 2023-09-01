@@ -3,11 +3,11 @@ import {
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+import AccordionDropdown from "../accordianDropdown/AccordionDropdown";
 import { columnDefinitions } from "./columnDefinitions";
 import { TimetableStage } from "./types";
 
 import "./Timetable.css";
-import AccordionDropdown from "./AccordionDropdown";
 
 interface StagesProps {
   data?: TimetableStage[];
@@ -48,7 +48,7 @@ const Timetable = ({ data }: StagesProps) => {
               </tr>
               <tr className="border-b">
                 <td colSpan={4}>
-                  <AccordionDropdown>
+                  <AccordionDropdown text="More information">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                     do eiusmod tempor incididunt ut labore et dolore magna
                     aliqua. Ut enim ad minim veniam, quis nostrud exercitation

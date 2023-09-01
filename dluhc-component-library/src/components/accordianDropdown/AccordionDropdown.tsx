@@ -3,10 +3,11 @@ import { IndicationArrow } from "../inlinesvgs/IndicationArrow";
 import { ComponentChildren } from "preact";
 
 interface AccordionDropdownProps {
+  text: string;
   children?: ComponentChildren;
 }
 
-const AccordionDropdown = ({ children }: AccordionDropdownProps) => {
+const AccordionDropdown = ({ text, children }: AccordionDropdownProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const handleDropdownClicked = () => {
@@ -23,7 +24,7 @@ const AccordionDropdown = ({ children }: AccordionDropdownProps) => {
       <IndicationArrow
         className={`h-3 w-3 transition-all inline-block ${rotationClass}`}
       />
-      <span className="text-blue-400 underline pl-2">More information</span>
+      <span className="text-blue-400 underline pl-2">{text}</span>
       {isExpanded && <div class="border-l-4 p-4 m-1">{children}</div>}
     </div>
   );

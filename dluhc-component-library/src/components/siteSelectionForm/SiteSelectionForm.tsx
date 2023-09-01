@@ -13,6 +13,8 @@ import FormPage from "./components/FormPage";
 import { FormState, FormValue, FormPageSchema, ValidationShape } from "./types";
 
 import "./SiteSelectionForm.css";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactNode } from "react";
 
 interface SiteSelectionForm {
   filepath?: string;
@@ -125,6 +127,8 @@ const createFlatFormSchema = (
   return newSchema;
 };
 
+const queryClient = new QueryClient();
+
 const SiteSelectionForm = ({ filepath, data }: SiteSelectionForm) => {
   const [baseSchema, setBaseSchema] = useState<FormPageSchema | null>(null);
 
@@ -208,20 +212,28 @@ const SiteSelectionForm = ({ filepath, data }: SiteSelectionForm) => {
   };
 
   return (
-    <FormPage
-      title={formSchema.properties[currentPageId].title}
-      subtitle={formSchema.properties[currentPageId].subtitle}
-      onBackClicked={handleBackClicked}
-      onContinueClicked={handleContinueClicked}
-    >
-      <DynamicForm
-        id={currentPageId}
-        formPageSchema={formSchema.properties[currentPageId]}
-        value={formData[currentPageId]}
-        onFormValueChange={handleFormValueChange}
-      />
-      {!!errors[currentPageId]?.length && <div>{errors[currentPageId][0]}</div>}
-    </FormPage>
+    <QueryClientProvider client={queryClient}>
+      {
+        (
+          <FormPage
+            title={formSchema.properties[currentPageId].title}
+            subtitle={formSchema.properties[currentPageId].subtitle}
+            onBackClicked={handleBackClicked}
+            onContinueClicked={handleContinueClicked}
+          >
+            <DynamicForm
+              id={currentPageId}
+              formPageSchema={formSchema.properties[currentPageId]}
+              value={formData[currentPageId]}
+              onFormValueChange={handleFormValueChange}
+            />
+            {!!errors[currentPageId]?.length && (
+              <div>{errors[currentPageId][0]}</div>
+            )}
+          </FormPage>
+        ) as ReactNode
+      }
+    </QueryClientProvider>
   );
 };
 
