@@ -1,12 +1,13 @@
 import AccordionDropdown from "src/components/accordianDropdown/AccordionDropdown";
 import MapComponent from "src/components/maps/MapComponent";
+import { Boundary } from "src/components/maps/types";
 
 interface MapPageProps {
-  value?: any;
-  onChange: (values: any) => void;
+  value?: Boundary;
+  onChange: (values: Boundary) => void;
 }
 
-const MapPage = ({ onChange }: MapPageProps) => {
+const MapPage = ({ value, onChange }: MapPageProps) => {
   return (
     <div className="flex flex-col mb-4">
       <div className="my-4">
@@ -17,6 +18,7 @@ const MapPage = ({ onChange }: MapPageProps) => {
         className="my-4"
         style={{ height: "470px", width: "100%" }}
         showDatasets={false}
+        value={value}
         onChange={onChange}
       />
       <AccordionDropdown text="Help drawing a site boundary">

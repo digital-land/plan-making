@@ -1,7 +1,7 @@
-import { useMemo } from "preact/hooks";
+import { ComponentChildren } from "preact";
+import { Boundary } from "src/components/maps/types";
 import { FormPageSchema, FormValue, QuestionType } from "../types";
 import MultiSelect from "./MultiSelect";
-import { JSXInternal } from "node_modules/preact/src/jsx";
 import Input from "./Input";
 import RadioButtons from "./RadioButtons";
 import BooleanInput from "./Checkbox";
@@ -40,7 +40,7 @@ const DynamicForm = ({
   value,
   onFormValueChange,
 }: DynamicFormProps) => {
-  let questionInputComponent: JSXInternal.Element | null = null;
+  let questionInputComponent: ComponentChildren | null = null;
 
   const handleFormValueChange = (newValue: FormValue) => {
     onFormValueChange(id, newValue);
@@ -101,10 +101,7 @@ const DynamicForm = ({
 
     case InputType.Map:
       questionInputComponent = (
-        <MapPage
-          value={value as any} // TODO type this
-          onChange={handleFormValueChange}
-        />
+        <MapPage value={value as Boundary} onChange={handleFormValueChange} />
       );
       break;
   }

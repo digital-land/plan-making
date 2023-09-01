@@ -1,4 +1,5 @@
 import { StringSchema, NumberSchema, BooleanSchema } from "yup";
+import { Boundary } from "../maps/types";
 
 export type QuestionType =
   | "string"
@@ -22,7 +23,12 @@ export interface FormPageSchema {
   dependencies?: Record<string, FormPageSchema>;
 }
 
-export type FormValue = string | number | boolean | Record<string, boolean>;
+export type FormValue =
+  | string
+  | number
+  | boolean
+  | Record<string, boolean>
+  | Boundary;
 
 export type FormState = Record<string, FormValue>;
 

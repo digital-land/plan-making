@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { IndicationArrow } from "../inlinesvgs/IndicationArrow";
 import { ComponentChildren } from "preact";
+import { useState } from "preact/hooks";
+import { IndicationArrow } from "../inlinesvgs/IndicationArrow";
 
 interface AccordionDropdownProps {
   text: string;
