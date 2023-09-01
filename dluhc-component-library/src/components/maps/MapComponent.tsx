@@ -14,8 +14,8 @@ interface MapComponentProps {
   id?: string;
   className?: string;
   style?: CSSProperties;
-  value?: string;
-  onChange?: (boundary: string) => void;
+  value?: number[][][];
+  onChange?: (boundary: number[][][]) => void;
 }
 
 interface BaseMapProps {

@@ -1,4 +1,5 @@
-import GeoJSON from "ol/format/GeoJSON";
+import { Feature } from "ol";
+import { Polygon } from "ol/geom";
 import { Draw } from "ol/interaction";
 import { DrawEvent } from "ol/interaction/Draw";
 import VectorLayer from "ol/layer/Vector";
@@ -13,11 +14,9 @@ interface DrawingLayerProps {
   strokeWidth?: number;
   circleRadius?: number;
   circleFillColor?: string;
-  value?: string;
-  onChange?: (boundary: string) => void;
+  value?: number[][][];
+  onChange?: (boundary: number[][][]) => void;
 }
-
-const GEOJSON = new GeoJSON();
 
 const DrawingLayer = ({
   zIndex = 2,
@@ -60,17 +59,22 @@ const DrawingLayer = ({
 
   useEffect(() => {
     source.current.clear(); // for now, only allow 1 boundary to be drawn
-    value && source.current.addFeature(GEOJSON.readFeature(value));
+    if (value) {
+      source.current.addFeature(new Feature({ geometry: new Polygon(value) }));
+    }
   }, [value, source]);
 
   useEffect(() => {
     const draw = new Draw({ type: "Polygon" });
     map.addInteraction(draw);
 
-    draw.on("drawend", function (evt: DrawEvent) {
-      const feature = GEOJSON.writeFeature(evt.feature);
+    draw.on("drawend", (event: DrawEvent) => {
+      const geometry = event.feature.getGeometry();
+      const coordinates = geometry
+        ? (geometry as Polygon).getCoordinates()
+        : [];
       if (onChange) {
-        onChange(feature);
+        onChange(coordinates);
       }
     });
 

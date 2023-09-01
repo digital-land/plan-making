@@ -26,7 +26,7 @@ interface DrawingMapProps {
 const queryClient = new QueryClient();
 
 const MapInput = ({ baseMapProps, drawingMapProps }: MapComponentProps) => {
-  const [boundary, setBoundary] = useState<string>();
+  const [boundary, setBoundary] = useState<number[][][]>();
   return (
     <>
       <QueryClientProvider client={queryClient}>
@@ -37,7 +37,7 @@ const MapInput = ({ baseMapProps, drawingMapProps }: MapComponentProps) => {
               drawingMapProps={drawingMapProps}
               showDatasets={false}
               value={boundary}
-              onChange={(boundary) => setBoundary(boundary)}
+              onChange={setBoundary}
             />
           ) as ReactNode
         }
