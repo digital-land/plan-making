@@ -1,12 +1,13 @@
 import { Feature } from "ol";
 import { FeatureLike } from "ol/Feature";
 import { MultiPoint, Polygon } from "ol/geom";
-import { Draw, Modify } from "ol/interaction";
+import { Draw, Modify, Snap } from "ol/interaction";
 import { DrawEvent } from "ol/interaction/Draw";
 import { ModifyEvent } from "ol/interaction/Modify";
 import VectorLayer from "ol/layer/Vector";
 import VectorSource from "ol/source/Vector";
 import { Fill, RegularShape, Stroke, Style } from "ol/style";
+import CircleStyle from "ol/style/Circle";
 import { useEffect, useMemo, useRef } from "preact/compat";
 import { useMap } from "src/contexts/mapContext";
 import { Boundary } from "../types";
@@ -18,6 +19,9 @@ interface DrawingLayerProps {
   strokeWidth?: number;
   vertexPoints?: number;
   vertexRadius?: number;
+  pointerStrokeColor?: string;
+  pointerFillColor?: string;
+  pointerRadius?: number;
   value?: Boundary;
   onChange?: (boundary: Boundary) => void;
 }
@@ -29,6 +33,9 @@ const DrawingLayer = ({
   strokeWidth = 2,
   vertexPoints = 4,
   vertexRadius = 5,
+  pointerStrokeColor = "white",
+  pointerFillColor = "#DD6970",
+  pointerRadius = 5,
   value,
   onChange,
 }: DrawingLayerProps) => {
@@ -36,23 +43,34 @@ const DrawingLayer = ({
 
   const source = useRef(new VectorSource());
 
-  const outlineStyle = useMemo(() => {
+  const stroke = useMemo(
+    () => new Stroke({ color: strokeColor, width: strokeWidth }),
+    [strokeColor, strokeWidth],
+  );
+  const fill = useMemo(() => new Fill({ color: fillColor }), [fillColor]);
+
+  const pointerStyle = useMemo(() => {
     return new Style({
-      fill: new Fill({ color: fillColor }),
-      stroke: new Stroke({ color: strokeColor, width: strokeWidth }),
+      stroke,
+      fill,
+      image: new CircleStyle({
+        radius: pointerRadius,
+        stroke: new Stroke({ color: pointerStrokeColor }),
+        fill: new Fill({ color: pointerFillColor }),
+      }),
     });
-  }, [fillColor, strokeColor, strokeWidth]);
+  }, [stroke, fill, pointerStrokeColor, pointerFillColor, pointerRadius]);
+
+  const outlineStyle = useMemo(
+    () => new Style({ fill, stroke }),
+    [fillColor, strokeColor, strokeWidth],
+  );
 
   const vertexStyle = useMemo(() => {
     return new Style({
       image: new RegularShape({
-        fill: new Fill({
-          color: fillColor,
-        }),
-        stroke: new Stroke({
-          color: strokeColor,
-          width: strokeWidth,
-        }),
+        fill,
+        stroke,
         points: vertexPoints,
         radius: vertexRadius,
         angle: Math.PI / 4,
@@ -67,7 +85,7 @@ const DrawingLayer = ({
         }
       },
     });
-  }, [fillColor, strokeColor, strokeWidth, vertexPoints, vertexRadius]);
+  }, [fill, stroke, vertexPoints, vertexRadius]);
 
   useEffect(() => {
     const layer = new VectorLayer({
@@ -89,11 +107,13 @@ const DrawingLayer = ({
   }, [value, source]);
 
   useEffect(() => {
-    const draw = new Draw({ type: "Polygon" });
-    const modify = new Modify({ source: source.current });
+    const draw = new Draw({ type: "Polygon", style: pointerStyle });
+    const modify = new Modify({ source: source.current, style: pointerStyle });
+    const snap = new Snap({ source: source.current });
 
     map.addInteraction(draw);
     map.addInteraction(modify);
+    map.addInteraction(snap);
 
     draw.on("drawend", (event: DrawEvent) => {
       const geometry = event.feature.getGeometry();
@@ -118,8 +138,9 @@ const DrawingLayer = ({
     return () => {
       map?.removeInteraction(draw);
       map?.removeInteraction(modify);
+      map?.removeInteraction(snap);
     };
-  }, [map, source]);
+  }, [map, source, pointerStyle]);
 
   return null;
 };

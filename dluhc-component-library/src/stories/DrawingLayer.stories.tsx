@@ -22,6 +22,9 @@ interface DrawingMapProps {
   strokeWidth: number;
   circleRadius: number;
   circleFillColor: string;
+  pointerStrokeColor: string;
+  pointerFillColor: string;
+  pointerRadius: number;
 }
 
 const queryClient = new QueryClient();
@@ -68,6 +71,9 @@ export const Default = {
       strokeWidth: 2,
       vertexPoints: 4,
       vertexRadius: 5,
+      pointerStrokeColor: "white",
+      pointerFillColor: "#DD6970",
+      pointerRadius: 5,
     },
   },
 };
