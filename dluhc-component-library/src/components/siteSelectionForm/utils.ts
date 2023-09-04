@@ -1,4 +1,9 @@
-import { FormPageSchema, RadioOption } from "./types";
+import {
+  FormPageSchema,
+  RadioOption,
+  ValidationArraySchema,
+  ValidationShape,
+} from "./types";
 
 export const convertPropertyToOptions: (
   property: FormPageSchema,
@@ -16,3 +21,8 @@ export const convertPropertyToOptions: (
 
   return [];
 };
+
+export const isArrayValidationShape = (
+  property: FormPageSchema,
+  validationShape: ValidationShape,
+): validationShape is ValidationArraySchema => property?.type === "array";

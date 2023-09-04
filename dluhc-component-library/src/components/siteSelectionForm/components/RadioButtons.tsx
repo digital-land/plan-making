@@ -1,7 +1,7 @@
 import { RadioOption } from "../types";
 
 interface RadioButtonsProps<T extends string | boolean> {
-  options: ReadonlyArray<RadioOption>;
+  options: ReadonlyArray<RadioOption<T>>;
   value: T;
   onChange: (values: T) => void;
 }
