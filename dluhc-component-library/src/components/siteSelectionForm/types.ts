@@ -33,7 +33,7 @@ export type UiPropertySchema = { "ui:widget"?: Widget };
 
 export type UiSchema = Record<string, UiPropertySchema>;
 
-export type RadioOption = {
+export type RadioOption<T extends string | boolean> = {
   label: string;
-  value: string | boolean;
+  value: T;
 };
