@@ -6,8 +6,7 @@ import VectorSource from "ol/source/Vector";
 import Fill, { Options as FillOptions } from "ol/style/Fill";
 import Stroke, { Options as StrokeOptions } from "ol/style/Stroke";
 import Style from "ol/style/Style";
-import { useRef } from "preact/hooks";
-import { useEffect } from "react";
+import { useEffect, useRef } from "preact/hooks";
 import { useMap } from "src/contexts/mapContext";
 
 interface MapLayerProps {

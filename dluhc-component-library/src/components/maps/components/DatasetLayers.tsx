@@ -1,5 +1,5 @@
 import { fromExtent } from "ol/geom/Polygon";
-import { useMemo } from "react";
+import { useMemo } from "preact/hooks";
 import { useFetchDatasets } from "src/api/planningData/api";
 import { useMap } from "src/contexts/mapContext";
 import DatasetLayer from "./DatasetLayer";
