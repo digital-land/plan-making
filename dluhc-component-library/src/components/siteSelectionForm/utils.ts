@@ -7,7 +7,7 @@ import {
 
 export const convertPropertyToOptions: (
   property: FormPageSchema,
-) => ReadonlyArray<RadioOption> = (property) => {
+) => ReadonlyArray<RadioOption<boolean | string>> = (property) => {
   if (property.type === "boolean") {
     return [
       { label: "Yes", value: true },
