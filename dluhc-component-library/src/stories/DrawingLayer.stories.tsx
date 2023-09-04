@@ -66,8 +66,8 @@ export const Default = {
       strokeColor: "#ffcc33",
       fillColor: "rgba(255, 255, 255, 0.2)",
       strokeWidth: 2,
-      circleRadius: 7,
-      circleFillColor: "#ffcc33",
+      vertexPoints: 4,
+      vertexRadius: 5,
     },
   },
 };

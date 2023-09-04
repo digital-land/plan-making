@@ -1,9 +1,12 @@
 import { Feature } from "ol";
-import { Polygon } from "ol/geom";
-import { Draw } from "ol/interaction";
+import { FeatureLike } from "ol/Feature";
+import { MultiPoint, Polygon } from "ol/geom";
+import { Draw, Modify } from "ol/interaction";
 import { DrawEvent } from "ol/interaction/Draw";
+import { ModifyEvent } from "ol/interaction/Modify";
 import VectorLayer from "ol/layer/Vector";
 import VectorSource from "ol/source/Vector";
+import { Fill, RegularShape, Stroke, Style } from "ol/style";
 import { useEffect, useRef } from "preact/compat";
 import { useMap } from "src/contexts/mapContext";
 import { Boundary } from "../types";
@@ -13,8 +16,8 @@ interface DrawingLayerProps {
   strokeColor?: string;
   fillcolor?: string;
   strokeWidth?: number;
-  circleRadius?: number;
-  circleFillColor?: string;
+  vertexPoints?: number;
+  vertexRadius?: number;
   value?: Boundary;
   onChange?: (boundary: Boundary) => void;
 }
@@ -24,8 +27,8 @@ const DrawingLayer = ({
   strokeColor = "#ffcc33",
   fillcolor = "rgba(255, 255, 255, 0.2)",
   strokeWidth = 2,
-  circleRadius = 7,
-  circleFillColor = "#ffcc33",
+  vertexPoints = 4,
+  vertexRadius = 5,
   value,
   onChange,
 }: DrawingLayerProps) => {
@@ -34,15 +37,38 @@ const DrawingLayer = ({
   const source = useRef(new VectorSource());
 
   useEffect(() => {
+    const outlineStyle = new Style({
+      fill: new Fill({ color: fillcolor }),
+      stroke: new Stroke({ color: strokeColor, width: strokeWidth }),
+    });
+
+    const vertexStyle = new Style({
+      image: new RegularShape({
+        fill: new Fill({
+          color: fillcolor,
+        }),
+        stroke: new Stroke({
+          color: strokeColor,
+          width: strokeWidth,
+        }),
+        points: vertexPoints,
+        radius: vertexRadius,
+        angle: Math.PI / 4,
+      }),
+      geometry: (feature: FeatureLike) => {
+        const polygon = feature.getGeometry();
+        if (polygon) {
+          const coordinates: number[][] = (
+            polygon as Polygon
+          ).getCoordinates()[0];
+          return new MultiPoint(coordinates);
+        }
+      },
+    });
+
     const layer = new VectorLayer({
       source: source.current,
-      style: {
-        "fill-color": fillcolor,
-        "stroke-color": strokeColor,
-        "stroke-width": strokeWidth,
-        "circle-radius": circleRadius,
-        "circle-fill-color": circleFillColor,
-      },
+      style: [outlineStyle, vertexStyle],
       zIndex,
     });
     map.addLayer(layer);
@@ -53,8 +79,8 @@ const DrawingLayer = ({
     fillcolor,
     strokeColor,
     strokeWidth,
-    circleRadius,
-    circleFillColor,
+    vertexPoints,
+    vertexRadius,
     zIndex,
   ]);
 
@@ -69,7 +95,10 @@ const DrawingLayer = ({
 
   useEffect(() => {
     const draw = new Draw({ type: "Polygon" });
+    const modify = new Modify({ source: source.current });
+
     map.addInteraction(draw);
+    map.addInteraction(modify);
 
     draw.on("drawend", (event: DrawEvent) => {
       const geometry = event.feature.getGeometry();
@@ -81,10 +110,20 @@ const DrawingLayer = ({
       }
     });
 
+    modify.on("modifyend", (event: ModifyEvent) => {
+      const geometry = event.features.getArray()[0].getGeometry();
+      const coordiantes = geometry
+        ? (geometry as Polygon).getCoordinates()
+        : [];
+      if (onChange) {
+        onChange(coordiantes);
+      }
+    });
+
     return () => {
       map?.removeInteraction(draw);
     };
-  }, [map]);
+  }, [map, source]);
 
   return null;
 };

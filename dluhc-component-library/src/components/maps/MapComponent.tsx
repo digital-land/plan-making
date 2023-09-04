@@ -30,16 +30,16 @@ interface DrawingMapProps {
   strokeColor?: string;
   fillColor?: string;
   strokeWidth?: number;
-  circleRadius?: number;
-  circleFillColor?: string;
+  vertexPoints?: number;
+  vertexRadius?: number;
 }
 
 const DrawingMapProperties = {
   strokeColor: "#ffcc33",
   fillColor: "rgba(255, 255, 255, 0.2)",
   strokeWidth: 2,
-  circleRadius: 7,
-  circleFillColor: "#ffcc33",
+  vertexPoints: 4,
+  vertexRadius: 5,
 };
 
 const BaseMapProperties = {
@@ -101,8 +101,8 @@ const MapComponent = ({
           strokeColor={customDrawingProperties.strokeColor}
           fillcolor={customDrawingProperties.fillColor}
           strokeWidth={customDrawingProperties.strokeWidth}
-          circleRadius={customDrawingProperties.circleRadius}
-          circleFillColor={customDrawingProperties.circleFillColor}
+          vertexPoints={customDrawingProperties.vertexPoints}
+          vertexRadius={customDrawingProperties.vertexRadius}
           value={value}
           onChange={onChange}
         />
