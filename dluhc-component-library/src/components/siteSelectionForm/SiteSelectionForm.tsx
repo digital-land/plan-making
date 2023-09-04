@@ -4,6 +4,7 @@ import { useState, useEffect, useMemo } from "preact/hooks";
 import {
   ObjectShape,
   ValidationError,
+  array,
   boolean,
   number,
   object,
@@ -19,6 +20,7 @@ import {
   ValidationShape,
   UiSchema,
 } from "./types";
+import { isArrayValidationShape } from "./utils";
 
 import "./SiteSelectionForm.css";
 
@@ -28,25 +30,40 @@ interface SiteSelectionForm {
   uiSchema?: UiSchema;
 }
 
+const REQUIRED_MESSAGE = "This field is required.";
+
+const getValidationShape: (property?: FormPageSchema) => ValidationShape = (
+  property,
+) => {
+  switch (property?.type) {
+    case "number":
+      return number();
+    case "boolean":
+      return boolean();
+    case "array":
+      return array().of<any>(getValidationShape(property.items));
+    case "string":
+    default:
+      return string();
+  }
+};
+
 const createValidationSchema = (key: string, formSchema: FormPageSchema) => {
-  let validationShape: ValidationShape | null = null;
+  let validationShape: ValidationShape;
 
   const property = formSchema.properties?.[key];
 
-  switch (property?.type) {
-    case "string":
-      validationShape = string();
-      break;
-    case "number":
-      validationShape = number();
-      break;
-    case "boolean":
-      validationShape = boolean();
-      break;
+  if (!property) {
+    return object({});
   }
 
+  validationShape = getValidationShape(property);
+
   if (validationShape && formSchema.required?.includes(key)) {
-    validationShape = validationShape.required(`This field is required.`);
+    if (isArrayValidationShape(property, validationShape)) {
+      validationShape = validationShape.min(1, REQUIRED_MESSAGE);
+    }
+    validationShape = validationShape.required(REQUIRED_MESSAGE);
   }
 
   return object({ [key]: validationShape } as ObjectShape);
