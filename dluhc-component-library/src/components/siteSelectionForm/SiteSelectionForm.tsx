@@ -1,73 +1,20 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactNode } from "react";
 import { useState, useEffect, useMemo } from "preact/hooks";
-import {
-  ObjectShape,
-  ValidationError,
-  array,
-  boolean,
-  number,
-  object,
-  string,
-} from "yup";
+import { ValidationError } from "yup";
 import { loadJson } from "src/utils";
 import DynamicForm from "./components/DynamicForm";
 import FormPage from "./components/FormPage";
-import {
-  FormState,
-  FormValue,
-  FormPageSchema,
-  ValidationShape,
-  UiSchema,
-} from "./types";
-import { isArrayValidationShape } from "./utils";
+import { FormState, FormValue, FormPageSchema, UiSchema } from "./types";
 
 import "./SiteSelectionForm.css";
+import { createValidationSchema } from "./utils";
 
 interface SiteSelectionForm {
   filepath?: string;
   data?: FormPageSchema;
   uiSchema?: UiSchema;
 }
-
-const REQUIRED_MESSAGE = "This field is required.";
-
-const getValidationShape: (property?: FormPageSchema) => ValidationShape = (
-  property,
-) => {
-  switch (property?.type) {
-    case "number":
-      return number();
-    case "boolean":
-      return boolean();
-    case "array":
-      return array().of<any>(getValidationShape(property.items));
-    case "string":
-    default:
-      return string();
-  }
-};
-
-const createValidationSchema = (key: string, formSchema: FormPageSchema) => {
-  let validationShape: ValidationShape;
-
-  const property = formSchema.properties?.[key];
-
-  if (!property) {
-    return object({});
-  }
-
-  validationShape = getValidationShape(property);
-
-  if (validationShape && formSchema.required?.includes(key)) {
-    if (isArrayValidationShape(property, validationShape)) {
-      validationShape = validationShape.min(1, REQUIRED_MESSAGE);
-    }
-    validationShape = validationShape.required(REQUIRED_MESSAGE);
-  }
-
-  return object({ [key]: validationShape } as ObjectShape);
-};
 
 const addChildProperties = (
   baseFormSchema: FormPageSchema,
