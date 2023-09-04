@@ -5,7 +5,8 @@ import { OSM } from "ol/source";
 import { CSSProperties } from "preact/compat";
 import { useEffect, useMemo, useRef } from "preact/hooks";
 import { useMap } from "src/contexts/mapContext";
-import "../../../../node_modules/ol/ol.css";
+
+import "ol/ol.css";
 
 interface BaseMapProps {
   lat?: number;
