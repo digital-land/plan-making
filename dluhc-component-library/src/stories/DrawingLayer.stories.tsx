@@ -63,8 +63,8 @@ export const Default = {
       style: { height: "500px", width: "500px" },
     },
     drawingMapProps: {
-      strokeColor: "#ffcc33",
-      fillColor: "rgba(255, 255, 255, 0.2)",
+      strokeColor: "#DD6970",
+      fillColor: "rgba(221, 105, 112, 0.1)",
       strokeWidth: 2,
       vertexPoints: 4,
       vertexRadius: 5,

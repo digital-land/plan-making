@@ -35,8 +35,8 @@ interface DrawingMapProps {
 }
 
 const DrawingMapProperties = {
-  strokeColor: "#ffcc33",
-  fillColor: "rgba(255, 255, 255, 0.2)",
+  strokeColor: "#DD6970",
+  fillColor: "rgba(221, 105, 112, 0.1)",
   strokeWidth: 2,
   vertexPoints: 4,
   vertexRadius: 5,
@@ -99,7 +99,7 @@ const MapComponent = ({
       {customBaseMapProperties.isDrawingMode && (
         <DrawingLayer
           strokeColor={customDrawingProperties.strokeColor}
-          fillcolor={customDrawingProperties.fillColor}
+          fillColor={customDrawingProperties.fillColor}
           strokeWidth={customDrawingProperties.strokeWidth}
           vertexPoints={customDrawingProperties.vertexPoints}
           vertexRadius={customDrawingProperties.vertexRadius}

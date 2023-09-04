@@ -14,7 +14,7 @@ import { Boundary } from "../types";
 interface DrawingLayerProps {
   zIndex?: number;
   strokeColor?: string;
-  fillcolor?: string;
+  fillColor?: string;
   strokeWidth?: number;
   vertexPoints?: number;
   vertexRadius?: number;
@@ -24,8 +24,8 @@ interface DrawingLayerProps {
 
 const DrawingLayer = ({
   zIndex = 2,
-  strokeColor = "#ffcc33",
-  fillcolor = "rgba(255, 255, 255, 0.2)",
+  strokeColor = "#DD6970",
+  fillColor = "rgba(221, 105, 112, 0.1)",
   strokeWidth = 2,
   vertexPoints = 4,
   vertexRadius = 5,
@@ -38,14 +38,14 @@ const DrawingLayer = ({
 
   useEffect(() => {
     const outlineStyle = new Style({
-      fill: new Fill({ color: fillcolor }),
+      fill: new Fill({ color: fillColor }),
       stroke: new Stroke({ color: strokeColor, width: strokeWidth }),
     });
 
     const vertexStyle = new Style({
       image: new RegularShape({
         fill: new Fill({
-          color: fillcolor,
+          color: fillColor,
         }),
         stroke: new Stroke({
           color: strokeColor,
@@ -76,7 +76,7 @@ const DrawingLayer = ({
   }, [
     map,
     source,
-    fillcolor,
+    fillColor,
     strokeColor,
     strokeWidth,
     vertexPoints,
