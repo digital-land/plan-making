@@ -81,13 +81,10 @@ const addChildProperties = (
     ...childSchema.properties,
   };
 
-  let newRequired: ReadonlyArray<string> = [];
+  let newRequired: ReadonlyArray<string> = [...(baseFormSchema.required ?? [])];
 
   if (childSchema.required?.length) {
-    newRequired = [
-      ...(baseFormSchema.required as string[]),
-      ...childSchema.required,
-    ];
+    newRequired = [...newRequired, ...childSchema.required];
   }
 
   const updatedFormSchema: FormPageSchema = {
@@ -108,12 +105,8 @@ const createFlatFormSchema = (
     title: formSchema.title,
     dependencies: {},
     properties: {},
-    required: [],
+    required: formSchema.required ?? [],
   };
-
-  if (formSchema.required?.length) {
-    newSchema.required = formSchema.required;
-  }
 
   const propertyKeys = Object.keys(formSchema?.properties || {});
 
