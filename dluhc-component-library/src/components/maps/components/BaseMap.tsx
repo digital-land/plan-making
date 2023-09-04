@@ -4,8 +4,8 @@ import { useGeographic } from "ol/proj";
 import { OSM } from "ol/source";
 import { CSSProperties } from "preact/compat";
 import { useEffect, useMemo, useRef } from "preact/hooks";
-import "../../../node_modules/ol/ol.css";
-import { useMap } from "../../contexts/mapContext";
+import { useMap } from "src/contexts/mapContext";
+import "../../../../node_modules/ol/ol.css";
 
 interface BaseMapProps {
   lat?: number;

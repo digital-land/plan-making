@@ -1,7 +1,7 @@
 import { render } from "preact";
-import BaseMap from "src/components/maps/BaseMap.tsx";
-import DrawingLayer from "src/components/maps/DrawingLayer.tsx";
-import MapContainer from "src/components/maps/MapContainer.tsx";
+import BaseMap from "src/components/maps/components/BaseMap";
+import DrawingLayer from "src/components/maps/components/DrawingLayer.tsx";
+import MapContainer from "src/components/maps/components/MapContainer";
 import SiteSelectionForm from "src/components/siteSelectionForm/SiteSelectionForm.tsx";
 import TimetablePage from "src/components/timetablePage/TimetablePage.tsx";
 

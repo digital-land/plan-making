@@ -1,14 +1,14 @@
-import { useEffect } from "react";
-import { useMap } from "../../contexts/mapContext";
 import { FeatureCollection } from "geojson";
-import VectorSource from "ol/source/Vector";
 import GeoJSON from "ol/format/GeoJSON";
+import BaseLayer from "ol/layer/Base";
 import VectorImageLayer from "ol/layer/VectorImage";
-import Style from "ol/style/Style";
+import VectorSource from "ol/source/Vector";
 import Fill, { Options as FillOptions } from "ol/style/Fill";
 import Stroke, { Options as StrokeOptions } from "ol/style/Stroke";
+import Style from "ol/style/Style";
 import { useRef } from "preact/hooks";
-import BaseLayer from "ol/layer/Base";
+import { useEffect } from "react";
+import { useMap } from "src/contexts/mapContext";
 
 interface MapLayerProps {
   features: FeatureCollection;

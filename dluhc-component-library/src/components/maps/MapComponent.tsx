@@ -1,9 +1,9 @@
 import { CSSProperties, useState } from "preact/compat";
-import BaseMap from "./BaseMap";
-import DatasetControl from "./DatasetControl";
-import DatasetLayers from "./DatasetLayers";
-import DrawingLayer from "./DrawingLayer";
-import MapContainer from "./MapContainer";
+import BaseMap from "./components/BaseMap";
+import DatasetControl from "./components/DatasetControl";
+import DatasetLayers from "./components/DatasetLayers";
+import DrawingLayer from "./components/DrawingLayer";
+import MapContainer from "./components/MapContainer";
 import { Boundary } from "./types";
 
 import "./MapComponent.css";
