@@ -20,6 +20,7 @@ import {
   ValidationShape,
   UiSchema,
 } from "./types";
+import { isArrayValidationShape } from "./utils";
 
 import "./SiteSelectionForm.css";
 
@@ -31,17 +32,16 @@ interface SiteSelectionForm {
 
 const REQUIRED_MESSAGE = "This field is required.";
 
-const getValidationShape: (
-  type: string,
-  arrayType?: string,
-) => ValidationShape = (type: string, arrayType?: string) => {
-  switch (type) {
+const getValidationShape: (property?: FormPageSchema) => ValidationShape = (
+  property,
+) => {
+  switch (property?.type) {
     case "number":
       return number();
     case "boolean":
       return boolean();
     case "array":
-      return array().of<any>(getValidationShape(arrayType ?? "string"));
+      return array().of<any>(getValidationShape(property.items));
     case "string":
     default:
       return string();
@@ -49,7 +49,7 @@ const getValidationShape: (
 };
 
 const createValidationSchema = (key: string, formSchema: FormPageSchema) => {
-  let validationShape: ValidationShape | null = null;
+  let validationShape: ValidationShape;
 
   const property = formSchema.properties?.[key];
 
@@ -57,10 +57,10 @@ const createValidationSchema = (key: string, formSchema: FormPageSchema) => {
     return object({});
   }
 
-  validationShape = getValidationShape(property.type, property?.items?.type);
+  validationShape = getValidationShape(property);
 
   if (validationShape && formSchema.required?.includes(key)) {
-    if (property?.type === "array") {
+    if (isArrayValidationShape(property, validationShape)) {
       validationShape = validationShape.min(1, REQUIRED_MESSAGE);
     }
     validationShape = validationShape.required(REQUIRED_MESSAGE);

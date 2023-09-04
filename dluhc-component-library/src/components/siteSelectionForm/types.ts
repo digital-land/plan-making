@@ -21,18 +21,25 @@ export interface FormPageSchema {
   required?: ReadonlyArray<string>;
   properties?: Record<string, FormPageSchema>;
   dependencies?: Record<string, FormPageSchema>;
-  items?: Record<string, QuestionType>;
+  items?: FormPageSchema;
 }
 
 export type FormValue = string | number | boolean | Array<string> | Boundary;
 
 export type FormState = Record<string, FormValue>;
 
+export type ValidationArraySchema = ArraySchema<
+  any[] | undefined,
+  AnyObject,
+  any,
+  ""
+>;
+
 export type ValidationShape =
   | StringSchema
   | NumberSchema
   | BooleanSchema
-  | ArraySchema<any[] | undefined, AnyObject, any, "">;
+  | ValidationArraySchema;
 
 export type Widget = "map" | "radio";
 
