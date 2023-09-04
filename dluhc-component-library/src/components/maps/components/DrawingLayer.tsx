@@ -11,6 +11,7 @@ import CircleStyle from "ol/style/Circle";
 import { useEffect, useMemo, useRef } from "preact/compat";
 import { useMap } from "src/contexts/mapContext";
 import { Boundary } from "../types";
+import { isPolygon } from "../utils";
 
 interface DrawingLayerProps {
   zIndex?: number;
@@ -77,11 +78,9 @@ const DrawingLayer = ({
       }),
       geometry: (feature: FeatureLike) => {
         const polygon = feature.getGeometry();
-        if (polygon) {
-          const coordinates: number[][] = (
-            polygon as Polygon
-          ).getCoordinates()[0];
-          return new MultiPoint(coordinates);
+
+        if (isPolygon(polygon)) {
+          return new MultiPoint(polygon.getCoordinates()[0]);
         }
       },
     });
