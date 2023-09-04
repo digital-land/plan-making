@@ -7,7 +7,7 @@ import { ModifyEvent } from "ol/interaction/Modify";
 import VectorLayer from "ol/layer/Vector";
 import VectorSource from "ol/source/Vector";
 import { Fill, RegularShape, Stroke, Style } from "ol/style";
-import { useEffect, useRef } from "preact/compat";
+import { useEffect, useMemo, useRef } from "preact/compat";
 import { useMap } from "src/contexts/mapContext";
 import { Boundary } from "../types";
 
@@ -36,13 +36,15 @@ const DrawingLayer = ({
 
   const source = useRef(new VectorSource());
 
-  useEffect(() => {
-    const outlineStyle = new Style({
+  const outlineStyle = useMemo(() => {
+    return new Style({
       fill: new Fill({ color: fillColor }),
       stroke: new Stroke({ color: strokeColor, width: strokeWidth }),
     });
+  }, [fillColor, strokeColor, strokeWidth]);
 
-    const vertexStyle = new Style({
+  const vertexStyle = useMemo(() => {
+    return new Style({
       image: new RegularShape({
         fill: new Fill({
           color: fillColor,
@@ -65,7 +67,9 @@ const DrawingLayer = ({
         }
       },
     });
+  }, [fillColor, strokeColor, strokeWidth, vertexPoints, vertexRadius]);
 
+  useEffect(() => {
     const layer = new VectorLayer({
       source: source.current,
       style: [outlineStyle, vertexStyle],
@@ -73,16 +77,7 @@ const DrawingLayer = ({
     });
     map.addLayer(layer);
     return () => map?.removeLayer(layer);
-  }, [
-    map,
-    source,
-    fillColor,
-    strokeColor,
-    strokeWidth,
-    vertexPoints,
-    vertexRadius,
-    zIndex,
-  ]);
+  }, [map, source, outlineStyle, vertexStyle, zIndex]);
 
   useEffect(() => {
     source.current.clear(); // for now, only allow 1 boundary to be drawn
