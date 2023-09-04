@@ -12,13 +12,20 @@ import {
 import { loadJson } from "src/utils";
 import DynamicForm from "./components/DynamicForm";
 import FormPage from "./components/FormPage";
-import { FormState, FormValue, FormPageSchema, ValidationShape } from "./types";
+import {
+  FormState,
+  FormValue,
+  FormPageSchema,
+  ValidationShape,
+  UiSchema,
+} from "./types";
 
 import "./SiteSelectionForm.css";
 
 interface SiteSelectionForm {
   filepath?: string;
   data?: FormPageSchema;
+  uiSchema?: UiSchema;
 }
 
 const createValidationSchema = (key: string, formSchema: FormPageSchema) => {
@@ -129,7 +136,7 @@ const createFlatFormSchema = (
 
 const queryClient = new QueryClient();
 
-const SiteSelectionForm = ({ filepath, data }: SiteSelectionForm) => {
+const SiteSelectionForm = ({ filepath, data, uiSchema }: SiteSelectionForm) => {
   const [baseSchema, setBaseSchema] = useState<FormPageSchema | null>(null);
 
   const [formData, setFormData] = useState<FormState>({});
@@ -224,6 +231,7 @@ const SiteSelectionForm = ({ filepath, data }: SiteSelectionForm) => {
             <DynamicForm
               id={currentPageId}
               formPageSchema={formSchema.properties[currentPageId]}
+              uiSchema={uiSchema?.[currentPageId]}
               value={formData[currentPageId]}
               onFormValueChange={handleFormValueChange}
             />

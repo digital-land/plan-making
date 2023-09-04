@@ -1,14 +1,7 @@
 import { StringSchema, NumberSchema, BooleanSchema } from "yup";
 import { Boundary } from "../maps/types";
 
-export type QuestionType =
-  | "string"
-  | "number"
-  | "array"
-  | "object"
-  | "radio"
-  | "boolean"
-  | "map";
+export type QuestionType = "string" | "number" | "array" | "object" | "boolean";
 
 export interface FormPageSchema {
   type: QuestionType;
@@ -33,3 +26,14 @@ export type FormValue =
 export type FormState = Record<string, FormValue>;
 
 export type ValidationShape = StringSchema | NumberSchema | BooleanSchema;
+
+export type Widget = "map" | "radio";
+
+export type UiPropertySchema = { "ui:widget"?: Widget };
+
+export type UiSchema = Record<string, UiPropertySchema>;
+
+export type RadioOption = {
+  label: string;
+  value: string | boolean;
+};

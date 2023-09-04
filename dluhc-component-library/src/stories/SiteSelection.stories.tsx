@@ -53,17 +53,16 @@ export const Default = {
           type: "string",
           title: "Your relationship to the site",
           enum: [
-            "landowner",
-            "developer",
-            "local-authority",
-            "planning-agent",
-            "none",
+            "Landowner",
+            "Developer",
+            "Local Authority",
+            "Planning Agent",
+            "None",
           ],
         },
         isBrownfieldSite: {
-          type: "radio",
+          type: "boolean",
           title: "Is this a Brownfield Site? ",
-          enum: ["Yes", "No"],
         },
         age: {
           type: "number",
@@ -76,6 +75,14 @@ export const Default = {
           type: "string",
           title: "Please provide the fullest postal address you can",
         },
+      },
+    },
+    uiSchema: {
+      relationshipTo: {
+        "ui:widget": "radio",
+      },
+      isBrownfieldSite: {
+        "ui:widget": "radio",
       },
     },
   },
@@ -131,7 +138,7 @@ export const MapPage = {
           type: "object",
           properties: {
             boundaryDataMap: {
-              type: "map", // This isnt a real type, we should define a real data schema for geo data and have this in a ui schema
+              type: "map", // This isnt a real type should be number[][][], this can be changed when the array PR is merged
               title: "Where are the boundaries of this site?",
             },
             unrelatedQuestion: {
@@ -142,6 +149,11 @@ export const MapPage = {
             },
           },
         },
+      },
+    },
+    uiSchema: {
+      boundaryDataMap: {
+        "ui:widget": "map",
       },
     },
   },

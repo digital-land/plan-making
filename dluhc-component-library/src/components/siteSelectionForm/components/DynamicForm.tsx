@@ -1,15 +1,23 @@
 import { ComponentChildren } from "preact";
 import { Boundary } from "src/components/maps/types";
-import { FormPageSchema, FormValue, QuestionType } from "../types";
+import {
+  FormPageSchema,
+  FormValue,
+  QuestionType,
+  UiPropertySchema,
+  Widget,
+} from "../types";
 import MultiSelect from "./MultiSelect";
 import Input from "./Input";
 import RadioButtons from "./RadioButtons";
-import BooleanInput from "./Checkbox";
+import Checkbox from "./Checkbox";
 import MapPage from "./MapPage";
+import { convertPropertyToOptions } from "../utils";
 
 interface DynamicFormProps {
   id: string;
   formPageSchema: FormPageSchema;
+  uiSchema?: UiPropertySchema;
   value: FormValue;
   onFormValueChange: (id: string, value: FormValue) => void;
 }
@@ -19,7 +27,7 @@ enum InputType {
   NumberInput,
   RadioInput,
   MultiSelect,
-  BooleanInput,
+  Checkbox,
   Map,
   None,
 }
@@ -28,15 +36,27 @@ const InputTypeMap: Record<QuestionType, InputType> = {
   string: InputType.TextInput,
   number: InputType.NumberInput,
   array: InputType.MultiSelect,
-  radio: InputType.RadioInput,
-  boolean: InputType.BooleanInput,
-  map: InputType.Map,
+  boolean: InputType.Checkbox,
   object: InputType.None,
+};
+
+const widgetMap: Record<Widget, InputType> = {
+  radio: InputType.RadioInput,
+  map: InputType.Map,
+};
+
+const getInputType = (dataType: QuestionType, widgetType?: Widget) => {
+  if (widgetType) {
+    return widgetMap[widgetType];
+  }
+
+  return InputTypeMap[dataType];
 };
 
 const DynamicForm = ({
   id,
   formPageSchema,
+  uiSchema,
   value,
   onFormValueChange,
 }: DynamicFormProps) => {
@@ -46,7 +66,7 @@ const DynamicForm = ({
     onFormValueChange(id, newValue);
   };
 
-  switch (InputTypeMap[formPageSchema.type]) {
+  switch (getInputType(formPageSchema.type, uiSchema?.["ui:widget"])) {
     case InputType.MultiSelect:
       questionInputComponent = (
         <MultiSelect
@@ -82,20 +102,16 @@ const DynamicForm = ({
     case InputType.RadioInput:
       questionInputComponent = (
         <RadioButtons
-          name={formPageSchema.title}
-          options={formPageSchema.enum as ReadonlyArray<string>}
-          value={value as String}
+          options={convertPropertyToOptions(formPageSchema)}
+          value={value as string | boolean}
           onChange={handleFormValueChange}
         />
       );
       break;
 
-    case InputType.BooleanInput:
+    case InputType.Checkbox:
       questionInputComponent = (
-        <BooleanInput
-          value={value as boolean}
-          onChange={handleFormValueChange}
-        />
+        <Checkbox value={value as boolean} onChange={handleFormValueChange} />
       );
       break;
 
