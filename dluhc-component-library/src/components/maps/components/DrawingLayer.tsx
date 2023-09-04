@@ -63,7 +63,7 @@ const DrawingLayer = ({
 
   const outlineStyle = useMemo(
     () => new Style({ fill, stroke }),
-    [fillColor, strokeColor, strokeWidth],
+    [fill, stroke],
   );
 
   const vertexStyle = useMemo(() => {
