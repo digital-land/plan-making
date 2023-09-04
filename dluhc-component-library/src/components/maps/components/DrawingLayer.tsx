@@ -122,6 +122,7 @@ const DrawingLayer = ({
 
     return () => {
       map?.removeInteraction(draw);
+      map?.removeInteraction(modify);
     };
   }, [map, source]);
 
