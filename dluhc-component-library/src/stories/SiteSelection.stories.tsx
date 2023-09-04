@@ -9,12 +9,23 @@ export default {
 export const Default = {
   args: {
     data: {
-      required: ["siteUse", "relationshipTo", "address", "name", "age"],
+      required: [
+        "siteUse",
+        "relationshipTo",
+        "address",
+        "name",
+        "age",
+        "consent",
+      ],
       type: "object",
       properties: {
         name: {
           type: "string",
           title: "Your name",
+        },
+        consent: {
+          type: "boolean",
+          title: "I confirm consent for my data to be processed",
         },
         siteUse: {
           type: "array",
@@ -102,6 +113,32 @@ export const ConditionalPage = {
                 },
               },
               required: ["addedQuestion"],
+            },
+          },
+        },
+      },
+    },
+  },
+};
+
+export const MapPage = {
+  args: {
+    data: {
+      required: [],
+      type: "object",
+      properties: {
+        groupedExample: {
+          type: "object",
+          properties: {
+            boundaryDataMap: {
+              type: "map", // This isnt a real type, we should define a real data schema for geo data and have this in a ui schema
+              title: "Where are the boundaries of this site?",
+            },
+            unrelatedQuestion: {
+              type: "string",
+              title: "Unrelated question",
+              subtitle:
+                "This question should come after the Parent and Additional questions",
             },
           },
         },

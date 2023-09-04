@@ -21,7 +21,7 @@ const FormPage = ({
         <h1 className="my-2 text-4xl font-bold">{title}</h1>
         {subtitle && <p>{subtitle}</p>}
       </div>
-      <div className="form-page-body mb-4">{children}</div>
+      <div className="form-page-body my-4">{children}</div>
       <div className="form-page-footer mt-10 flex space-x-6">
         <button
           className="bg-gray-200 hover:bg-gray-300 text-black py-1 px-2"

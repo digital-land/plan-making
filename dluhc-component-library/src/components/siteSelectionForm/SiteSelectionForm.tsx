@@ -1,8 +1,11 @@
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactNode } from "react";
 import { useState, useEffect, useMemo } from "preact/hooks";
 import {
   ObjectShape,
   ValidationError,
   array,
+  boolean,
   number,
   object,
   string,
@@ -28,6 +31,8 @@ const getValidationShape: (
   switch (type) {
     case "number":
       return number();
+    case "boolean":
+      return boolean();
     case "array":
       return array().of<any>(getValidationShape(arrayType ?? "string"));
     case "string":
@@ -139,6 +144,8 @@ const createFlatFormSchema = (
   return newSchema;
 };
 
+const queryClient = new QueryClient();
+
 const SiteSelectionForm = ({ filepath, data }: SiteSelectionForm) => {
   const [baseSchema, setBaseSchema] = useState<FormPageSchema | null>(null);
 
@@ -222,20 +229,28 @@ const SiteSelectionForm = ({ filepath, data }: SiteSelectionForm) => {
   };
 
   return (
-    <FormPage
-      title={formSchema.properties[currentPageId].title}
-      subtitle={formSchema.properties[currentPageId].subtitle}
-      onBackClicked={handleBackClicked}
-      onContinueClicked={handleContinueClicked}
-    >
-      <DynamicForm
-        id={currentPageId}
-        formPageSchema={formSchema.properties[currentPageId]}
-        value={formData[currentPageId]}
-        onFormValueChange={handleFormValueChange}
-      />
-      {!!errors[currentPageId]?.length && <div>{errors[currentPageId][0]}</div>}
-    </FormPage>
+    <QueryClientProvider client={queryClient}>
+      {
+        (
+          <FormPage
+            title={formSchema.properties[currentPageId].title}
+            subtitle={formSchema.properties[currentPageId].subtitle}
+            onBackClicked={handleBackClicked}
+            onContinueClicked={handleContinueClicked}
+          >
+            <DynamicForm
+              id={currentPageId}
+              formPageSchema={formSchema.properties[currentPageId]}
+              value={formData[currentPageId]}
+              onFormValueChange={handleFormValueChange}
+            />
+            {!!errors[currentPageId]?.length && (
+              <div>{errors[currentPageId][0]}</div>
+            )}
+          </FormPage>
+        ) as ReactNode
+      }
+    </QueryClientProvider>
   );
 };
 

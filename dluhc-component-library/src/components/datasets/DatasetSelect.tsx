@@ -1,10 +1,10 @@
 import { useMemo } from "preact/compat";
-import { Dataset } from "src/api/types";
+import { Dataset } from "src/api/planningData/types";
 
 interface DatasetSelectProps {
   item: Dataset;
   selected: boolean;
-  onSelect: (item: Dataset) => void;
+  onSelect: (item: string) => void;
 }
 
 const DatasetSelect = ({ item, selected, onSelect }: DatasetSelectProps) => {
@@ -17,7 +17,7 @@ const DatasetSelect = ({ item, selected, onSelect }: DatasetSelectProps) => {
         className="h-5 w-5 flex-none cursor-pointer"
         type="checkbox"
         checked={selected}
-        onChange={() => onSelect(item)}
+        onChange={() => onSelect(item.dataset)}
       />
       <label htmlFor={id} className="ml-2 font-semibold cursor-pointer">
         {item.name}

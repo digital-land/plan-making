@@ -1,9 +1,11 @@
-import { useMemo } from "preact/hooks";
-import { FormPageSchema, FormValue } from "../types";
+import { ComponentChildren } from "preact";
+import { Boundary } from "src/components/maps/types";
+import { FormPageSchema, FormValue, QuestionType } from "../types";
 import MultiSelect from "./MultiSelect";
-import { JSXInternal } from "node_modules/preact/src/jsx";
 import Input from "./Input";
 import RadioButtons from "./RadioButtons";
+import BooleanInput from "./Checkbox";
+import MapPage from "./MapPage";
 
 interface DynamicFormProps {
   id: string;
@@ -17,27 +19,19 @@ enum InputType {
   NumberInput,
   RadioInput,
   MultiSelect,
+  BooleanInput,
+  Map,
   None,
 }
 
-const getInputType = (formPageSchema: FormPageSchema) => {
-  if (formPageSchema.type === "string") {
-    return InputType.TextInput;
-  }
-
-  if (formPageSchema.type === "number") {
-    return InputType.NumberInput;
-  }
-
-  if (formPageSchema.type === "array") {
-    return InputType.MultiSelect;
-  }
-
-  if (formPageSchema.type === "radio") {
-    return InputType.RadioInput;
-  }
-
-  return InputType.None;
+const InputTypeMap: Record<QuestionType, InputType> = {
+  string: InputType.TextInput,
+  number: InputType.NumberInput,
+  array: InputType.MultiSelect,
+  radio: InputType.RadioInput,
+  boolean: InputType.BooleanInput,
+  map: InputType.Map,
+  object: InputType.None,
 };
 
 const DynamicForm = ({
@@ -46,18 +40,13 @@ const DynamicForm = ({
   value,
   onFormValueChange,
 }: DynamicFormProps) => {
-  let questionInputComponent: JSXInternal.Element | null = null;
-
-  const inputType = useMemo(
-    () => getInputType(formPageSchema),
-    [formPageSchema],
-  );
+  let questionInputComponent: ComponentChildren | null = null;
 
   const handleFormValueChange = (newValue: FormValue) => {
     onFormValueChange(id, newValue);
   };
 
-  switch (inputType) {
+  switch (InputTypeMap[formPageSchema.type]) {
     case InputType.MultiSelect:
       questionInputComponent = (
         <MultiSelect
@@ -75,7 +64,6 @@ const DynamicForm = ({
           onChange={handleFormValueChange}
         />
       );
-
       break;
 
     case InputType.NumberInput:
@@ -89,7 +77,6 @@ const DynamicForm = ({
           onChange={handleFormValueChange}
         />
       );
-
       break;
 
     case InputType.RadioInput:
@@ -100,6 +87,21 @@ const DynamicForm = ({
           value={value as String}
           onChange={handleFormValueChange}
         />
+      );
+      break;
+
+    case InputType.BooleanInput:
+      questionInputComponent = (
+        <BooleanInput
+          value={value as boolean}
+          onChange={handleFormValueChange}
+        />
+      );
+      break;
+
+    case InputType.Map:
+      questionInputComponent = (
+        <MapPage value={value as Boundary} onChange={handleFormValueChange} />
       );
       break;
   }

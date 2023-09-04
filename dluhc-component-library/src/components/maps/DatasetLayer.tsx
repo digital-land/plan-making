@@ -1,11 +1,10 @@
-import { useQuery } from "@tanstack/react-query";
 import { Geometry } from "ol/geom";
 import { Options as FillOptions } from "ol/style/Fill";
 import { Options as StrokeOptions } from "ol/style/Stroke";
 import { useMemo } from "preact/compat";
-import { fetchEntities } from "src/api/api";
-import { Dataset } from "src/api/types";
-import MapLayer from "./mapLayer";
+import { useFetchEntities } from "src/api/planningData/api";
+import { Dataset } from "src/api/planningData/types";
+import MapLayer from "./MapLayer";
 
 interface DatasetlayerProps {
   area: Geometry;
@@ -14,10 +13,7 @@ interface DatasetlayerProps {
 }
 
 const DatasetLayer = ({ area, dataset, zIndex = 1 }: DatasetlayerProps) => {
-  const { data, isLoading, isError } = useQuery(
-    ["dataset", area, dataset],
-    () => fetchEntities(dataset.dataset, area),
-  );
+  const { data, isLoading, isError } = useFetchEntities(dataset.dataset, area);
 
   if (isLoading || isError) {
     return null;
