@@ -131,23 +131,22 @@ export const ConditionalPage = {
 export const MapPage = {
   args: {
     data: {
-      required: [],
+      required: ["boundaryDataMap"],
       type: "object",
       properties: {
-        groupedExample: {
-          type: "object",
-          properties: {
-            boundaryDataMap: {
-              type: "map", // This isnt a real type should be number[][][], this can be changed when the array PR is merged
-              title: "Where are the boundaries of this site?",
-            },
-            unrelatedQuestion: {
-              type: "string",
-              title: "Unrelated question",
-              subtitle:
-                "This question should come after the Parent and Additional questions",
-            },
+        boundaryDataMap: {
+          type: "array",
+          title: "Where are the boundaries of this site?",
+          items: {
+            type: "array",
+            items: { type: "array", items: { type: "number" } },
           },
+        },
+        unrelatedQuestion: {
+          type: "string",
+          title: "Unrelated question",
+          subtitle:
+            "This question should come after the Parent and Additional questions",
         },
       },
     },
