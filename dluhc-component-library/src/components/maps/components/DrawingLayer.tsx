@@ -6,7 +6,7 @@ import VectorLayer from "ol/layer/Vector";
 import VectorSource from "ol/source/Vector";
 import { useEffect, useRef } from "preact/compat";
 import { useMap } from "src/contexts/mapContext";
-import { Boundary } from "./types";
+import { Boundary } from "../types";
 
 interface DrawingLayerProps {
   zIndex?: number;
