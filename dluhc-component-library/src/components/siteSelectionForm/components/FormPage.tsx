@@ -6,6 +6,7 @@ interface FormPageProps {
   subtitle?: string;
   onBackClicked: () => void;
   onContinueClicked: () => void;
+  onSubmitClicked: () => void;
 }
 
 const FormPage = ({
@@ -14,6 +15,7 @@ const FormPage = ({
   subtitle,
   onBackClicked,
   onContinueClicked,
+  onSubmitClicked,
 }: FormPageProps) => {
   return (
     <div>
@@ -34,6 +36,12 @@ const FormPage = ({
           onClick={onContinueClicked}
         >
           Save and continue
+        </button>
+        <button
+          className="bg-green-700 hover:bg-green-800 text-white py-1 px-2"
+          onClick={onSubmitClicked}
+        >
+          Submit
         </button>
       </div>
     </div>
