@@ -10,6 +10,7 @@ import { FormState, FormValue, FormPageSchema, UiSchema } from "./types";
 import "./SiteSelectionForm.css";
 import { createValidationSchema } from "./utils";
 import { uploadFile } from "./s3";
+import CheckAnswers from "./components/CheckAnswers";
 
 interface SiteSelectionForm {
   filepath?: string;
@@ -168,7 +169,7 @@ const SiteSelectionForm = ({ filepath, data, uiSchema }: SiteSelectionForm) => {
   };
 
   const handleSubmitClicked = () => {
-    uploadFile("test_key", formData);
+    uploadFile("local_plan", formData);
   };
 
   const handleFormValueChange = (id: string, value: FormValue) => {
@@ -190,6 +191,7 @@ const SiteSelectionForm = ({ filepath, data, uiSchema }: SiteSelectionForm) => {
             onBackClicked={handleBackClicked}
             onContinueClicked={handleContinueClicked}
             onSubmitClicked={handleSubmitClicked}
+            isLastQuestion={currentPage === propertyKeys.length - 1}
           >
             <DynamicForm
               id={currentPageId}

@@ -29,7 +29,8 @@ export const uploadFile = async (key: string, body: FormState) => {
     .on("httpUploadProgress", () => console.log("Uploading file"))
     .promise();
 
-  await upload.then((err: any) => {
+  await upload.then((err) => {
+    // need to deal with errors
     console.log(err);
     alert("Form uploaded successfully.");
   });

@@ -7,6 +7,7 @@ interface FormPageProps {
   onBackClicked: () => void;
   onContinueClicked: () => void;
   onSubmitClicked: () => void;
+  isLastQuestion: boolean;
 }
 
 const FormPage = ({
@@ -16,6 +17,7 @@ const FormPage = ({
   onBackClicked,
   onContinueClicked,
   onSubmitClicked,
+  isLastQuestion,
 }: FormPageProps) => {
   return (
     <div>
@@ -31,18 +33,21 @@ const FormPage = ({
         >
           Back
         </button>
-        <button
-          className="bg-green-700 hover:bg-green-800 text-white py-1 px-2"
-          onClick={onContinueClicked}
-        >
-          Save and continue
-        </button>
-        <button
-          className="bg-green-700 hover:bg-green-800 text-white py-1 px-2"
-          onClick={onSubmitClicked}
-        >
-          Submit
-        </button>
+        {isLastQuestion ? (
+          <button
+            className="bg-green-700 hover:bg-green-800 text-white py-1 px-2"
+            onClick={onSubmitClicked}
+          >
+            Submit
+          </button>
+        ) : (
+          <button
+            className="bg-green-700 hover:bg-green-800 text-white py-1 px-2"
+            onClick={onContinueClicked}
+          >
+            Save and continue
+          </button>
+        )}
       </div>
     </div>
   );

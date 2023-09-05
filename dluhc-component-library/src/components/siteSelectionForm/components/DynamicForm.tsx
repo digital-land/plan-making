@@ -30,6 +30,7 @@ enum InputType {
   Checkbox,
   Map,
   None,
+  CheckAnswers,
 }
 
 const InputTypeMap: Record<QuestionType, InputType> = {
