@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { FeatureCollection } from "geojson";
 import WKT from "ol/format/WKT.js";
-import { Geometry } from "ol/geom";
+import { Geometry, Polygon } from "ol/geom";
 import { Dataset, DatasetError, DatasetResponse } from "./types";
 
 const baseURL = "https://www.planning.data.gov.uk";
@@ -27,21 +27,30 @@ export const useFetchDatasets = () =>
     },
   );
 
-export const fetchEntities: (
-  dataset: string,
-  geometry: Geometry,
-) => Promise<FeatureCollection> = async (dataset, geometry) => {
+const fetchEntities: (
+  geometry?: Geometry,
+  dataset?: string,
+) => Promise<FeatureCollection> = async (geometry, dataset) => {
+  if (!geometry) {
+    return { features: [] };
+  }
+
   const format = new WKT();
   const polygon = format.writeGeometry(geometry);
 
+  let datasetQuery = dataset ? `&dataset=${dataset}` : "";
+
   return await fetch(
-    `${baseURL}/entity.geojson?limit=100&geometry=${polygon}&dataset=${dataset}&geometry_relation=intersects`,
+    `${baseURL}/entity.geojson?limit=100&geometry=${polygon}${datasetQuery}&geometry_relation=intersects`,
   ).then((Response) => {
     return Response.json();
   });
 };
 
-export const useFetchEntities = (dataset: string, geometry: Geometry) =>
+export const useFetchEntities = (
+  geometry: Geometry | undefined,
+  dataset?: string,
+) =>
   useQuery(["entities", dataset, geometry], () =>
-    fetchEntities(dataset, geometry),
+    fetchEntities(geometry, dataset),
   );

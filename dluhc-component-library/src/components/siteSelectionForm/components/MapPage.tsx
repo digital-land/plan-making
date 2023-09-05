@@ -1,3 +1,6 @@
+import { Polygon } from "ol/geom";
+import { useMemo } from "react";
+import { useFetchEntities } from "src/api/planningData/api";
 import AccordionDropdown from "src/components/accordianDropdown/AccordionDropdown";
 import MapComponent from "src/components/maps/MapComponent";
 import { Boundary } from "src/components/maps/types";
@@ -7,7 +10,40 @@ interface MapPageProps {
   onChange: (values: Boundary) => void;
 }
 
+const RISKS = ["green-belt"];
+
 const MapPage = ({ value, onChange }: MapPageProps) => {
+  const polygon = useMemo(
+    () => (value ? new Polygon(value as number[][][]) : undefined),
+    [value],
+  );
+
+  const { data: riskData, isFetching, isError } = useFetchEntities(polygon);
+
+  const activeRisks = useMemo(() => {
+    const allRisks = riskData?.features.reduce<ReadonlyArray<string>>(
+      (riskList, feature) => {
+        const dataset = feature.properties?.dataset;
+
+        if (!riskList.includes(dataset) && RISKS.includes(dataset)) {
+          return [...riskList, dataset];
+        }
+
+        return riskList;
+      },
+      [],
+    );
+
+    return allRisks;
+  }, [riskData]);
+
+  const riskSection =
+    isFetching || !activeRisks ? (
+      <p>Loading...</p>
+    ) : (
+      activeRisks.map((risk) => <p className="my-2">{risk}</p>)
+    );
+
   return (
     <div className="flex flex-col mb-4">
       <div className="my-4">
@@ -65,6 +101,8 @@ const MapPage = ({ value, onChange }: MapPageProps) => {
         touch if we have any questions about where the boundary line is intended
         to be.
       </p>
+      <h2 className="my-4 text-3xl font-bold">Risks</h2>
+      {riskSection}
     </div>
   );
 };
