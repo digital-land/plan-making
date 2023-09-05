@@ -134,19 +134,24 @@ export const MapPage = {
       required: ["boundaryDataMap"],
       type: "object",
       properties: {
-        boundaryDataMap: {
-          type: "array",
-          title: "Where are the boundaries of this site?",
-          items: {
-            type: "array",
-            items: { type: "array", items: { type: "number" } },
+        groupedExample: {
+          type: "object",
+          properties: {
+            boundaryDataMap: {
+              type: "array",
+              title: "Where are the boundaries of this site?",
+              items: {
+                type: "array",
+                items: { type: "array", items: { type: "number" } },
+              },
+            },
+            unrelatedQuestion: {
+              type: "string",
+              title: "Unrelated question",
+              subtitle:
+                "This question should come after the Parent and Additional questions",
+            },
           },
-        },
-        unrelatedQuestion: {
-          type: "string",
-          title: "Unrelated question",
-          subtitle:
-            "This question should come after the Parent and Additional questions",
         },
       },
     },
