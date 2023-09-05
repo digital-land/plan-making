@@ -17,7 +17,6 @@ const MapPage = ({ value, onChange }: MapPageProps) => {
       <MapComponent
         className="my-4"
         style={{ height: "470px", width: "100%" }}
-        showDatasets={false}
         value={value}
         onChange={onChange}
       />
