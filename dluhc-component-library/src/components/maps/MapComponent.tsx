@@ -30,16 +30,22 @@ interface DrawingMapProps {
   strokeColor?: string;
   fillColor?: string;
   strokeWidth?: number;
-  circleRadius?: number;
-  circleFillColor?: string;
+  vertexPoints?: number;
+  vertexRadius?: number;
+  pointerStrokeColor?: string;
+  pointerFillColor?: string;
+  pointerRadius?: number;
 }
 
 const DrawingMapProperties = {
-  strokeColor: "#ffcc33",
-  fillColor: "rgba(255, 255, 255, 0.2)",
+  strokeColor: "#DD6970",
+  fillColor: "rgba(221, 105, 112, 0.1)",
   strokeWidth: 2,
-  circleRadius: 7,
-  circleFillColor: "#ffcc33",
+  vertexPoints: 4,
+  vertexRadius: 5,
+  pointerStrokeColor: "white",
+  pointerFillColor: "#DD6970",
+  pointerRadius: 5,
 };
 
 const BaseMapProperties = {
@@ -98,11 +104,7 @@ const MapComponent = ({
       </div>
       {customBaseMapProperties.isDrawingMode && (
         <DrawingLayer
-          strokeColor={customDrawingProperties.strokeColor}
-          fillcolor={customDrawingProperties.fillColor}
-          strokeWidth={customDrawingProperties.strokeWidth}
-          circleRadius={customDrawingProperties.circleRadius}
-          circleFillColor={customDrawingProperties.circleFillColor}
+          {...customDrawingProperties}
           value={value}
           onChange={onChange}
         />
