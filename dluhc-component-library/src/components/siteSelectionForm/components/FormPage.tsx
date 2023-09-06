@@ -33,21 +33,12 @@ const FormPage = ({
         >
           Back
         </button>
-        {isLastQuestion ? (
-          <button
-            className="bg-green-700 hover:bg-green-800 text-white py-1 px-2"
-            onClick={onSubmitClicked}
-          >
-            Submit
-          </button>
-        ) : (
-          <button
-            className="bg-green-700 hover:bg-green-800 text-white py-1 px-2"
-            onClick={onContinueClicked}
-          >
-            Save and continue
-          </button>
-        )}
+        <button
+          className="bg-green-700 hover:bg-green-800 text-white py-1 px-2"
+          onClick={isLastQuestion ? onSubmitClicked : onContinueClicked}
+        >
+          {isLastQuestion ? "Submit" : "Save and Continue"}
+        </button>
       </div>
     </div>
   );
