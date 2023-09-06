@@ -10,11 +10,13 @@ interface MapPageProps {
   onChange: (values: Boundary) => void;
 }
 
+// TODO we probably should move these to an API constants file or a PDP model file
 const GREEN_BELT = "green-belt";
 const ANCIENT_WOODLAND = "ancient-woodland";
 
 const RISKS = [GREEN_BELT, ANCIENT_WOODLAND];
 
+// TODO these should probably come from a network request to PDP like the datalist does
 const RISK_LABELS: Record<string, string> = {
   [GREEN_BELT]: "Green belt",
   [ANCIENT_WOODLAND]: "Ancient woodland",
@@ -32,24 +34,19 @@ const MapPage = ({ value, onChange }: MapPageProps) => {
 
   const { data: riskData, isFetching } = useFetchEntities(polygon);
 
-  const activeRisks = useMemo(() => {
-    const allRisks = riskData?.features.reduce<ReadonlyArray<string>>(
-      (riskList, feature) => {
+  const activeRisks = useMemo(
+    () =>
+      riskData?.features.reduce<ReadonlyArray<string>>((riskList, feature) => {
         const dataset = feature.properties?.dataset;
-
-        console.log(dataset);
 
         if (!riskList.includes(dataset) && RISKS.includes(dataset)) {
           return [...riskList, dataset];
         }
 
         return riskList;
-      },
-      [],
-    );
-
-    return allRisks;
-  }, [riskData]);
+      }, []),
+    [riskData],
+  );
 
   const hasRisks = value && !isFetching && !!activeRisks?.length;
 
