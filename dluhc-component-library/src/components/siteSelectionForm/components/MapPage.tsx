@@ -10,7 +10,19 @@ interface MapPageProps {
   onChange: (values: Boundary) => void;
 }
 
-const RISKS = ["green-belt"];
+const GREEN_BELT = "green-belt";
+const ANCIENT_WOODLAND = "ancient-woodland";
+
+const RISKS = [GREEN_BELT, ANCIENT_WOODLAND];
+
+const RISK_LABELS: Record<string, string> = {
+  [GREEN_BELT]: "Green belt",
+  [ANCIENT_WOODLAND]: "Ancient woodland",
+};
+
+const renderRisks = (activeRisks: ReadonlyArray<string>) => {
+  return activeRisks.map((risk) => <li>{RISK_LABELS[risk]}</li>);
+};
 
 const MapPage = ({ value, onChange }: MapPageProps) => {
   const polygon = useMemo(
@@ -18,12 +30,14 @@ const MapPage = ({ value, onChange }: MapPageProps) => {
     [value],
   );
 
-  const { data: riskData, isFetching, isError } = useFetchEntities(polygon);
+  const { data: riskData, isFetching } = useFetchEntities(polygon);
 
   const activeRisks = useMemo(() => {
     const allRisks = riskData?.features.reduce<ReadonlyArray<string>>(
       (riskList, feature) => {
         const dataset = feature.properties?.dataset;
+
+        console.log(dataset);
 
         if (!riskList.includes(dataset) && RISKS.includes(dataset)) {
           return [...riskList, dataset];
@@ -37,12 +51,7 @@ const MapPage = ({ value, onChange }: MapPageProps) => {
     return allRisks;
   }, [riskData]);
 
-  const riskSection =
-    isFetching || !activeRisks ? (
-      <p>Loading...</p>
-    ) : (
-      activeRisks.map((risk) => <p className="my-2">{risk}</p>)
-    );
+  const hasRisks = value && !isFetching && !!activeRisks?.length;
 
   return (
     <div className="flex flex-col mb-4">
@@ -91,7 +100,7 @@ const MapPage = ({ value, onChange }: MapPageProps) => {
       <h2 className="my-4 text-3xl font-bold">
         After you've drawn your boundary
       </h2>
-      <p className="mt-4 mb-2">
+      <p className="my-2">
         It's helpful for us if you draw a boundary that's as accurate as
         possible - but there's no need to do it over and over to get it exactly
         right.
@@ -101,8 +110,25 @@ const MapPage = ({ value, onChange }: MapPageProps) => {
         touch if we have any questions about where the boundary line is intended
         to be.
       </p>
-      <h2 className="my-4 text-3xl font-bold">Risks</h2>
-      {riskSection}
+      {isFetching && <p className="my-8">Loading...</p>}
+      {hasRisks && (
+        <>
+          <h2 className="my-4 text-3xl font-bold">
+            Your site has flagged some risks
+          </h2>
+          <p className="my-2">
+            Planning data shows that some or all of your site is located in a
+            restricted area.
+          </p>
+          <p className="my-2">You can:</p>
+          <ul className="list-disc pl-8">
+            <li>Tell us how to mitigate the risks on the next screens</li>
+            <li>Change the site boundary on the map</li>
+          </ul>
+          <p className="my-2">Identified risks:</p>
+          <ul className="list-disc pl-8">{renderRisks(activeRisks)}</ul>
+        </>
+      )}
     </div>
   );
 };
