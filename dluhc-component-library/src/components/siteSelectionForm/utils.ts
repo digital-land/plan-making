@@ -1,7 +1,7 @@
 import { number, boolean, array, string, object, ObjectShape } from "yup";
+import { RadioOption } from "src/components/formComponents/types";
 import {
   FormPageSchema,
-  RadioOption,
   ValidationArraySchema,
   ValidationShape,
 } from "./types";

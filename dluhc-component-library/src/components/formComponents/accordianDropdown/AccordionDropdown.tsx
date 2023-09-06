@@ -1,6 +1,6 @@
 import { ComponentChildren } from "preact";
 import { useState } from "preact/hooks";
-import { IndicationArrow } from "../inlinesvgs/IndicationArrow";
+import { IndicationArrow } from "src/components/inlinesvgs/IndicationArrow";
 
 interface AccordionDropdownProps {
   text: string;

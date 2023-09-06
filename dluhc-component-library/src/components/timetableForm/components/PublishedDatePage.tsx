@@ -1,4 +1,4 @@
-import DateInput from "src/components/dateInput/DateInput";
+import { DateInput } from "src/components/formComponents";
 
 const PublishedDatePage = () => {
   return (

@@ -1,4 +1,4 @@
-import Textarea from "src/components/textarea/Textarea";
+import { Textarea } from "src/components/formComponents";
 
 const TitlePage = () => {
   return (
