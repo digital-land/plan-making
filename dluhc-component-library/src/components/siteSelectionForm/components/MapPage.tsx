@@ -1,4 +1,4 @@
-import AccordionDropdown from "src/components/accordianDropdown/AccordionDropdown";
+import { AccordionDropdown } from "src/components/formComponents";
 import MapComponent from "src/components/maps/MapComponent";
 import { Boundary } from "src/components/maps/types";
 
