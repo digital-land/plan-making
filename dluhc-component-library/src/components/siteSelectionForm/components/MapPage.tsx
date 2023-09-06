@@ -17,7 +17,6 @@ const MapPage = ({ value, onChange }: MapPageProps) => {
       <MapComponent
         className="my-4"
         style={{ height: "470px", width: "100%" }}
-        showDatasets={false}
         value={value}
         onChange={onChange}
       />
@@ -62,7 +61,7 @@ const MapPage = ({ value, onChange }: MapPageProps) => {
         right.
       </p>
       <p className="my-2">
-        We'll ask for your contact detaiuls later in the form, and we'll get in
+        We'll ask for your contact details later in the form, and we'll get in
         touch if we have any questions about where the boundary line is intended
         to be.
       </p>

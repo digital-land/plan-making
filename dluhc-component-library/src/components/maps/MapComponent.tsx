@@ -57,7 +57,7 @@ const BaseMapProperties = {
 
 const MapComponent = ({
   id,
-  className = "map-container",
+  className,
   style = { height: "700px", width: "100%" },
   showDatasets = true,
   value,
@@ -86,8 +86,10 @@ const MapComponent = ({
     }
   };
 
+  const containerClassName = `map-container ${className}`;
+
   return (
-    <MapContainer id={id} className={className} style={style}>
+    <MapContainer id={id} className={containerClassName} style={style}>
       <BaseMap
         lat={customBaseMapProperties.lat}
         lng={customBaseMapProperties.lng}
