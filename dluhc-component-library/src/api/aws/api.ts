@@ -8,7 +8,7 @@ AWS.config.apiVersions = {
 const S3_BUCKET = "dluhc-poc";
 
 const s3_config = {
-  accessKeyId: "testaccessasdskey",
+  accessKeyId: "testaccesskey",
   secretAccessKey: "testsecretkey",
   endpoint: "http://127.0.0.1:9000",
   s3ForcePathStyle: true,
