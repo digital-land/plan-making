@@ -1,5 +1,5 @@
 import AWS from "aws-sdk";
-import { FormState } from "./types";
+import { FormState } from "../../components/siteSelectionForm/types";
 
 AWS.config.apiVersions = {
   s3: "2006-03-01",
