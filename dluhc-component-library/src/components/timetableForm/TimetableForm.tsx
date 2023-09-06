@@ -1,12 +1,24 @@
 import { useMemo, useState } from "preact/hooks";
 import DescriptionPage from "./components/DescriptionPage";
 import PublishedDatePage from "./components/PublishedDatePage";
+import StagesPage from "./components/StagePage";
 import TitlePage from "./components/TitlePage";
+import { TimetablePage } from "./types";
 
-const TIMETABLE_FORM_PAGES = [
+const TIMETABLE_FORM_PAGES: ReadonlyArray<TimetablePage> = [
   { id: "title", component: TitlePage },
   { id: "description", component: DescriptionPage },
   { id: "publishedDate", component: PublishedDatePage },
+  {
+    id: "scoping",
+    component: StagesPage,
+    props: { stageName: "Scoping and early participation" },
+  },
+  {
+    id: "gateway1",
+    component: StagesPage,
+    props: { stageName: "Gateway 1. Check-point" },
+  },
 ];
 
 const TimetableForm = () => {
@@ -34,7 +46,7 @@ const TimetableForm = () => {
       >
         Back
       </button>
-      <div>{page && <page.component />}</div>
+      <div>{page && <page.component {...page?.props} />}</div>
       <button
         className="bg-green-700 hover:bg-green-800 text-white py-1 px-2"
         onClick={handleContinueClicked}
