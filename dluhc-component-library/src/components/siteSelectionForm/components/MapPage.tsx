@@ -1,5 +1,5 @@
 import { Polygon } from "ol/geom";
-import { useMemo } from "react";
+import { useMemo } from "preact/hooks";
 import { useFetchEntities } from "src/api/planningData/api";
 import AccordionDropdown from "src/components/accordianDropdown/AccordionDropdown";
 import MapComponent from "src/components/maps/MapComponent";
