@@ -12,6 +12,7 @@ interface MapComponentProps {
   baseMapProps?: BaseMapProps;
   drawingMapProps?: DrawingMapProps;
   showDatasets?: boolean;
+  datasetFilterList?: ReadonlyArray<string>;
   id?: string;
   className?: string;
   style?: CSSProperties;
@@ -60,6 +61,7 @@ const MapComponent = ({
   className,
   style = { height: "700px", width: "100%" },
   showDatasets = true,
+  datasetFilterList,
   value,
   onChange,
   baseMapProps,
@@ -101,6 +103,7 @@ const MapComponent = ({
           <DatasetControl
             selectedDatasets={datasets}
             onSelectDataset={selectDataset}
+            datasetFilterList={datasetFilterList}
           />
         )}
       </div>

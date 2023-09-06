@@ -32,7 +32,7 @@ const MapPage = ({ value, onChange }: MapPageProps) => {
     [value],
   );
 
-  const { data: riskData, isFetching } = useFetchEntities(polygon);
+  const { data: riskData, isLoading } = useFetchEntities(polygon);
 
   const activeRisks = useMemo(
     () =>
@@ -48,7 +48,7 @@ const MapPage = ({ value, onChange }: MapPageProps) => {
     [riskData],
   );
 
-  const hasRisks = value && !isFetching && !!activeRisks?.length;
+  const hasRisks = value && !isLoading && !!activeRisks?.length;
 
   return (
     <div className="flex flex-col mb-4">
@@ -59,6 +59,7 @@ const MapPage = ({ value, onChange }: MapPageProps) => {
       <MapComponent
         className="my-4"
         style={{ height: "470px", width: "100%" }}
+        datasetFilterList={RISKS}
         value={value}
         onChange={onChange}
       />
@@ -107,7 +108,7 @@ const MapPage = ({ value, onChange }: MapPageProps) => {
         touch if we have any questions about where the boundary line is intended
         to be.
       </p>
-      {isFetching && <p className="my-8">Loading...</p>}
+      {isLoading && <p className="my-8">Loading...</p>}
       {hasRisks && (
         <>
           <h2 className="my-4 text-3xl font-bold">
