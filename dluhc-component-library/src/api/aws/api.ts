@@ -8,7 +8,7 @@ AWS.config.apiVersions = {
 const S3_BUCKET = "dluhc-poc";
 
 const s3_config = {
-  accessKeyId: "testaccesskey",
+  accessKeyId: "testaccessasdskey",
   secretAccessKey: "testsecretkey",
   endpoint: "http://127.0.0.1:9000",
   s3ForcePathStyle: true,
@@ -25,13 +25,13 @@ export const uploadFile = async (key: string, body: FormState) => {
     ContentType: "application/json; charset=utf-8",
   };
 
-  const upload = S3_CLIENT.putObject(params)
+  S3_CLIENT.putObject(params)
     .on("httpUploadProgress", () => console.log("Uploading file"))
-    .promise();
-
-  await upload.then((err) => {
-    // need to deal with errors
-    console.log(err);
-    alert("Form uploaded successfully.");
-  });
+    .promise()
+    .then(() => {
+      alert("Form uploaded successfully.");
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 };
