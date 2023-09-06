@@ -10,6 +10,7 @@ import { FormState, FormValue, FormPageSchema, UiSchema } from "./types";
 import "./SiteSelectionForm.css";
 import { createValidationSchema } from "./utils";
 import { uploadFile } from "../../api/aws/api";
+import CheckAnswers from "./components/CheckAnswers";
 
 interface SiteSelectionForm {
   filepath?: string;
@@ -105,6 +106,8 @@ const SiteSelectionForm = ({ filepath, data, uiSchema }: SiteSelectionForm) => {
     {},
   );
 
+  const [isSubmitPage, setIsSubmitPage] = useState(false);
+
   useEffect(() => {
     if (data) {
       setBaseSchema(data);
@@ -145,12 +148,19 @@ const SiteSelectionForm = ({ filepath, data, uiSchema }: SiteSelectionForm) => {
     if (!formSchema || currentPage <= 0) {
       return;
     }
+    setIsSubmitPage(false);
 
     setCurrentPage(currentPage - 1);
   };
 
   const handleContinueClicked = () => {
-    if (!formSchema || currentPage >= propertyKeys.length - 1) {
+    if (!formSchema || currentPage >= propertyKeys.length) {
+      return;
+    }
+
+    if (currentPage >= propertyKeys.length - 1) {
+      setIsSubmitPage(true);
+      setCurrentPage(currentPage + 1);
       return;
     }
 
@@ -182,29 +192,32 @@ const SiteSelectionForm = ({ filepath, data, uiSchema }: SiteSelectionForm) => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {
-        (
-          <FormPage
-            title={formSchema.properties[currentPageId].title}
-            subtitle={formSchema.properties[currentPageId].subtitle}
-            onBackClicked={handleBackClicked}
-            onContinueClicked={handleContinueClicked}
-            onSubmitClicked={handleSubmitClicked}
-            isLastQuestion={currentPage === propertyKeys.length - 1}
-          >
-            <DynamicForm
-              id={currentPageId}
-              formPageSchema={formSchema.properties[currentPageId]}
-              uiSchema={uiSchema?.[currentPageId]}
-              value={formData[currentPageId]}
-              onFormValueChange={handleFormValueChange}
-            />
-            {!!errors[currentPageId]?.length && (
-              <div>{errors[currentPageId][0]}</div>
-            )}
-          </FormPage>
-        ) as ReactNode
-      }
+      {!isSubmitPage
+        ? ((
+            <FormPage
+              title={formSchema.properties[currentPageId].title}
+              subtitle={formSchema.properties[currentPageId].subtitle}
+              onBackClicked={handleBackClicked}
+              onContinueClicked={handleContinueClicked}
+            >
+              <DynamicForm
+                id={currentPageId}
+                formPageSchema={formSchema.properties[currentPageId]}
+                uiSchema={uiSchema?.[currentPageId]}
+                value={formData[currentPageId]}
+                onFormValueChange={handleFormValueChange}
+              />
+              {!!errors[currentPageId]?.length && (
+                <div>{errors[currentPageId][0]}</div>
+              )}
+            </FormPage>
+          ) as ReactNode)
+        : ((
+            <CheckAnswers
+              onBackClicked={handleBackClicked}
+              onSubmitClicked={handleSubmitClicked}
+            ></CheckAnswers>
+          ) as ReactNode)}
     </QueryClientProvider>
   );
 };
