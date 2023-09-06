@@ -1,4 +1,4 @@
-import Textarea from "./Textarea";
+import Textarea from "src/components/textarea/Textarea";
 
 const DescriptionPage = () => {
   return (
