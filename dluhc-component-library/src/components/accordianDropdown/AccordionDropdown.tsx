@@ -5,9 +5,14 @@ import { IndicationArrow } from "../inlinesvgs/IndicationArrow";
 interface AccordionDropdownProps {
   text: string;
   children?: ComponentChildren;
+  className?: string;
 }
 
-const AccordionDropdown = ({ text, children }: AccordionDropdownProps) => {
+const AccordionDropdown = ({
+  text,
+  children,
+  className,
+}: AccordionDropdownProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const handleDropdownClicked = () => {
@@ -16,11 +21,10 @@ const AccordionDropdown = ({ text, children }: AccordionDropdownProps) => {
 
   const rotationClass = isExpanded ? "rotate-90" : "";
 
+  const containerClass = `pt-1 pb-3 cursor-pointer w-fit ${className}`;
+
   return (
-    <div
-      className="pt-1 pb-3 cursor-pointer w-fit"
-      onClick={handleDropdownClicked}
-    >
+    <div className={containerClass} onClick={handleDropdownClicked}>
       <IndicationArrow
         className={`h-3 w-3 transition-all inline-block ${rotationClass}`}
       />
