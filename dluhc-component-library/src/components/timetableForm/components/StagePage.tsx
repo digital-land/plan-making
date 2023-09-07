@@ -12,7 +12,7 @@ import {
   PROGRESS_TEXT_MAP,
 } from "src/models/timetable/constants";
 
-export interface StagePageProps {
+interface StagePageProps {
   stageName: string;
 }
 
