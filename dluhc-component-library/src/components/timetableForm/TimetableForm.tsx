@@ -4,37 +4,26 @@ import PublishedDatePage from "./components/PublishedDatePage";
 import StagesPage from "./components/StagePage";
 import TitlePage from "./components/TitlePage";
 
-const TIMETABLE_FORM_PAGES = [
-  { id: "title", component: TitlePage },
-  { id: "description", component: DescriptionPage },
-  { id: "publishedDate", component: PublishedDatePage },
-  {
-    id: "scoping",
-    component: StagesPage,
-    props: { stageName: "Scoping and early participation" },
-  },
-  {
-    id: "gateway1",
-    component: StagesPage,
-    props: { stageName: "Gateway 1. Check-point" },
-  },
-];
+const TOTAL_PAGES = 5;
 
 const TimetableForm = () => {
   const [currentPage, setCurrentPage] = useState(0);
 
-  const page = useMemo(() => {
-    const formPage = TIMETABLE_FORM_PAGES[currentPage];
-
-    if (!formPage) {
-      return;
+  const Page = useMemo(() => {
+    switch (currentPage) {
+      case 0:
+        return <TitlePage />;
+      case 1:
+        return <DescriptionPage />;
+      case 2:
+        return <PublishedDatePage />;
+      case 3:
+        return <StagesPage stageName="Scoping and early participation" />;
+      case 4:
+        return <StagesPage stageName="Gateway 1. Check-point" />;
+      default:
+        return null;
     }
-
-    return formPage.props ? (
-      <formPage.component {...formPage.props} />
-    ) : (
-      <formPage.component />
-    );
   }, [currentPage]);
 
   const handleBackClicked = () => {
@@ -44,7 +33,7 @@ const TimetableForm = () => {
   };
 
   const handleContinueClicked = () => {
-    if (currentPage < TIMETABLE_FORM_PAGES.length - 1) {
+    if (currentPage < TOTAL_PAGES - 1) {
       setCurrentPage(currentPage + 1);
     }
   };
@@ -57,7 +46,7 @@ const TimetableForm = () => {
       >
         Back
       </button>
-      <div>{page}</div>
+      <div>{Page}</div>
       <button
         className="bg-green-700 hover:bg-green-800 text-white py-1 px-2"
         onClick={handleContinueClicked}
