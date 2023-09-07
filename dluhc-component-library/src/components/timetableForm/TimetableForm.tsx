@@ -28,12 +28,15 @@ const TimetableForm = () => {
 
   return (
     <div>
-      <button
-        className="bg-gray-200 hover:bg-gray-300 py-1 px-2"
-        onClick={handleBackClicked}
-      >
-        Back
-      </button>
+      <div>
+        &lt;
+        <p
+          className="underline hover:decoration-2 py-1 px-2 inline-block cursor-pointer"
+          onClick={handleBackClicked}
+        >
+          Back
+        </p>
+      </div>
       <div>{page && <page.component />}</div>
       <button
         className="bg-green-700 hover:bg-green-800 text-white py-1 px-2"

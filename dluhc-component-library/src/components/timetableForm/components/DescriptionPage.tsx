@@ -3,8 +3,10 @@ import { Textarea } from "src/components/formComponents";
 const DescriptionPage = () => {
   return (
     <div className="flex flex-col">
-      <h1 className="my-2 text-4xl font-bold">Summary text</h1>
-      <p>Keep this specific to your own Local Plan</p>
+      <h1 className="my-6 text-3xl font-bold">Summary text</h1>
+      <p className="text-sm mb-2 text-gray-600">
+        Keep this specific to your own Local Plan
+      </p>
       <Textarea value="" onChange={() => {}} maxLength={400} />
     </div>
   );
