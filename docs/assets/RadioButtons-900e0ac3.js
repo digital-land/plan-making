@@ -1,0 +1,2 @@
+import{o as e}from"./jsxRuntime.module-8e7d8b33.js";const i=({options:a,value:s,onChange:c})=>{const n=a.map(l=>e("div",{className:"flex items-center mb-4",children:e("label",{className:"font-semibold flex",children:[e("input",{type:"radio",class:"radio mr-2",checked:s===l.value,onClick:()=>c(l.value)}),e("span",{children:l.label})]})},l.value));return e("div",{children:n})};export{i as R};
+//# sourceMappingURL=RadioButtons-900e0ac3.js.map
