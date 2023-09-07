@@ -1,9 +1,9 @@
-import { useEffect, useState } from "preact/hooks";
 import csvToJson from "csvtojson";
+import { useEffect, useState } from "preact/hooks";
+import { AccordionDropdown } from "src/components/formComponents";
 import { loadCSV, loadJson } from "../../utils";
 import Timetable from "./Timetable";
 import { TimetableHeader, TimetableStage } from "./types";
-import AccordionDropdown from "../accordianDropdown/AccordionDropdown";
 
 interface TimetablePageProps {
   stagesFilepath: string;
