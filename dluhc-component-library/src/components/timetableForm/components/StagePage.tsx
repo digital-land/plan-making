@@ -17,10 +17,10 @@ interface StagePageProps {
 }
 
 const PROGRESS_OPTIONS: ReadonlyArray<RadioOption<string>> = [
-  { label: NOT_STARTED, value: PROGRESS_TEXT_MAP[NOT_STARTED] },
-  { label: DELAYED, value: PROGRESS_TEXT_MAP[DELAYED] },
-  { label: IN_PROGRESS, value: PROGRESS_TEXT_MAP[IN_PROGRESS] },
-  { label: FINISHED, value: PROGRESS_TEXT_MAP[FINISHED] },
+  { label: PROGRESS_TEXT_MAP[NOT_STARTED], value: NOT_STARTED },
+  { label: PROGRESS_TEXT_MAP[DELAYED], value: DELAYED },
+  { label: PROGRESS_TEXT_MAP[IN_PROGRESS], value: IN_PROGRESS },
+  { label: PROGRESS_TEXT_MAP[FINISHED], value: FINISHED },
 ];
 
 const StagesPage = ({ stageName }: StagePageProps) => {
