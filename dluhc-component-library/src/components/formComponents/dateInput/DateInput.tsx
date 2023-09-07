@@ -1,10 +1,16 @@
-const DateInput = () => {
+interface DateInputProps {
+  showDays?: boolean;
+}
+
+const DateInput = ({ showDays = true }: DateInputProps) => {
   return (
     <div>
-      <label>
-        Day
-        <input type="text" className="border-2 border-black w-10" />
-      </label>
+      {showDays && (
+        <label>
+          Day
+          <input type="text" className="border-2 border-black w-10" />
+        </label>
+      )}
 
       <label>
         Month
