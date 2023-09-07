@@ -1,7 +1,7 @@
 import { Polygon } from "ol/geom";
 import { useMemo } from "preact/hooks";
 import { useFetchEntities } from "src/api/planningData/api";
-import AccordionDropdown from "src/components/accordianDropdown/AccordionDropdown";
+import { AccordionDropdown } from "src/components/formComponents";
 import LoadingSpinner from "src/components/loadingSpinner/LoadingSpinner";
 import MapComponent from "src/components/maps/MapComponent";
 import { Boundary } from "src/components/maps/types";

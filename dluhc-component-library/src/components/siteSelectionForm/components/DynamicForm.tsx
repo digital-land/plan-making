@@ -1,4 +1,10 @@
 import { ComponentChildren } from "preact";
+import {
+  Checkbox,
+  Input,
+  MultiSelect,
+  RadioButtons,
+} from "src/components/formComponents";
 import { Boundary } from "src/components/maps/types";
 import {
   FormPageSchema,
@@ -7,12 +13,8 @@ import {
   UiPropertySchema,
   Widget,
 } from "../types";
-import MultiSelect from "./MultiSelect";
-import Input from "./Input";
-import RadioButtons from "./RadioButtons";
-import Checkbox from "./Checkbox";
-import MapPage from "./MapPage";
 import { convertPropertyToOptions } from "../utils";
+import MapPage from "./MapPage";
 
 interface DynamicFormProps {
   id: string;

@@ -3,7 +3,7 @@ import {
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import AccordionDropdown from "../accordianDropdown/AccordionDropdown";
+import { AccordionDropdown } from "src/components/formComponents";
 import { columnDefinitions } from "./columnDefinitions";
 import { TimetableStage } from "./types";
 
