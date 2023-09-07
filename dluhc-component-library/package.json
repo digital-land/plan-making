@@ -18,7 +18,8 @@
     "csvtojson": "^2.0.10",
     "ol": "^7.5.0",
     "preact": "^10.16.0",
-    "yup": "^1.2.0"
+    "yup": "^1.2.0",
+    "@aws-sdk/client-s3": "^3.32.0"
   },
   "devDependencies": {
     "@preact/preset-vite": "^2.5.0",
