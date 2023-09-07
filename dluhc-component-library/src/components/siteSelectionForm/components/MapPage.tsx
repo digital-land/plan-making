@@ -2,6 +2,7 @@ import { Polygon } from "ol/geom";
 import { useMemo } from "preact/hooks";
 import { useFetchEntities } from "src/api/planningData/api";
 import AccordionDropdown from "src/components/accordianDropdown/AccordionDropdown";
+import LoadingSpinner from "src/components/loadingSpinner/LoadingSpinner";
 import MapComponent from "src/components/maps/MapComponent";
 import { Boundary } from "src/components/maps/types";
 
@@ -108,7 +109,7 @@ const MapPage = ({ value, onChange }: MapPageProps) => {
         touch if we have any questions about where the boundary line is intended
         to be.
       </p>
-      {isLoading && <p className="my-8">Loading...</p>}
+      {isLoading && <LoadingSpinner className="my-4" />}
       {hasRisks && (
         <>
           <h2 className="my-4 text-3xl font-bold">
