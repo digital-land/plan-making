@@ -4,15 +4,24 @@ import {
   Textarea,
 } from "src/components/formComponents";
 import { RadioOption } from "src/components/formComponents/types";
-import { NOT_STARTED, PROGRESS_TEXT_MAP } from "src/models/timetable/constants";
+import {
+  DELAYED,
+  FINISHED,
+  IN_PROGRESS,
+  NOT_STARTED,
+  PROGRESS_TEXT_MAP,
+} from "src/models/timetable/constants";
 
 export interface StagePageProps {
   stageName: string;
 }
 
-const PROGRESS_OPTIONS: ReadonlyArray<RadioOption<string>> = Object.entries(
-  PROGRESS_TEXT_MAP,
-).map(([value, label]) => ({ label, value }));
+const PROGRESS_OPTIONS: ReadonlyArray<RadioOption<string>> = [
+  { label: NOT_STARTED, value: PROGRESS_TEXT_MAP[NOT_STARTED] },
+  { label: DELAYED, value: PROGRESS_TEXT_MAP[DELAYED] },
+  { label: IN_PROGRESS, value: PROGRESS_TEXT_MAP[IN_PROGRESS] },
+  { label: FINISHED, value: PROGRESS_TEXT_MAP[FINISHED] },
+];
 
 const StagesPage = ({ stageName }: StagePageProps) => {
   return (
