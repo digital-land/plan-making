@@ -1,21 +1,16 @@
-import AWS from "aws-sdk";
-import { FormState } from "../../components/siteSelectionForm/types";
-
-AWS.config.apiVersions = {
-  s3: "2006-03-01",
-};
+import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
+import { FormState } from "src/components/siteSelectionForm/types";
 
 const S3_BUCKET = "dluhc-poc";
 
-const s3_config = {
-  accessKeyId: "testaccessasdskey",
-  secretAccessKey: "testsecretkey",
+const s3Client = new S3Client({
+  region: "us-east-1",
+  credentials: {
+    accessKeyId: "testaccesskey",
+    secretAccessKey: "testsecretkey",
+  },
   endpoint: "http://127.0.0.1:9000",
-  s3ForcePathStyle: true,
-  signatureVersion: "v4",
-};
-
-const S3_CLIENT = new AWS.S3(s3_config);
+});
 
 export const uploadFile = async (key: string, body: FormState) => {
   const params = {
@@ -25,9 +20,8 @@ export const uploadFile = async (key: string, body: FormState) => {
     ContentType: "application/json; charset=utf-8",
   };
 
-  S3_CLIENT.putObject(params)
-    .on("httpUploadProgress", () => console.log("Uploading file"))
-    .promise()
+  s3Client
+    .send(new PutObjectCommand(params))
     .then(() => {
       alert("Form uploaded successfully.");
     })

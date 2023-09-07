@@ -9,7 +9,7 @@ import { FormState, FormValue, FormPageSchema, UiSchema } from "./types";
 
 import "./SiteSelectionForm.css";
 import { createValidationSchema } from "./utils";
-import { uploadFile } from "../../api/aws/api";
+import { uploadFile } from "src/api/aws/api";
 
 interface SiteSelectionForm {
   filepath?: string;

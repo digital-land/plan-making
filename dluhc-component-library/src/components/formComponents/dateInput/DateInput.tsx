@@ -1,4 +1,8 @@
-const DateInput = () => {
+interface DateInputProps {
+  showDays?: boolean;
+}
+
+const DateInput = ({ showDays = true }: DateInputProps) => {
   return (
     <div className="flex mb-4">
       <label className="mr-2">

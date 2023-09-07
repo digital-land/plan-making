@@ -1,4 +1,4 @@
-export type Progress = "notStarted" | "delayed" | "inProgress" | "finished";
+import { Progress } from "src/models/timetable/types";
 
 export type TimetableStage = {
   developmentPlanEvent: string;
