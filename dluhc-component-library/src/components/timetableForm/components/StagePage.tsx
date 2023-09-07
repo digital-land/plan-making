@@ -6,7 +6,7 @@ import {
 import { RadioOption } from "src/components/formComponents/types";
 import { NOT_STARTED, PROGRESS_TEXT_MAP } from "src/models/timetable/constants";
 
-interface StagePageProps {
+export interface StagePageProps {
   stageName: string;
 }
 
