@@ -1,4 +1,8 @@
+import { Polygon } from "ol/geom";
+import { useMemo } from "preact/hooks";
+import { useFetchEntities } from "src/api/planningData/api";
 import { AccordionDropdown } from "src/components/formComponents";
+import LoadingSpinner from "src/components/loadingSpinner/LoadingSpinner";
 import MapComponent from "src/components/maps/MapComponent";
 import { Boundary } from "src/components/maps/types";
 
@@ -7,7 +11,46 @@ interface MapPageProps {
   onChange: (values: Boundary) => void;
 }
 
+// TODO we probably should move these to an API constants file or a PDP model file
+const GREEN_BELT = "green-belt";
+const ANCIENT_WOODLAND = "ancient-woodland";
+
+const RISKS = [GREEN_BELT, ANCIENT_WOODLAND];
+
+// TODO these should probably come from a network request to PDP like the datalist does
+const RISK_LABELS: Record<string, string> = {
+  [GREEN_BELT]: "Green belt",
+  [ANCIENT_WOODLAND]: "Ancient woodland",
+};
+
+const renderRisks = (activeRisks: ReadonlyArray<string>) => {
+  return activeRisks.map((risk) => <li>{RISK_LABELS[risk]}</li>);
+};
+
 const MapPage = ({ value, onChange }: MapPageProps) => {
+  const polygon = useMemo(
+    () => (value ? new Polygon(value as number[][][]) : undefined),
+    [value],
+  );
+
+  const { data: riskData, isLoading } = useFetchEntities(polygon);
+
+  const activeRisks = useMemo(
+    () =>
+      riskData?.features.reduce<ReadonlyArray<string>>((riskList, feature) => {
+        const dataset = feature.properties?.dataset;
+
+        if (!riskList.includes(dataset) && RISKS.includes(dataset)) {
+          return [...riskList, dataset];
+        }
+
+        return riskList;
+      }, []),
+    [riskData],
+  );
+
+  const hasRisks = value && !isLoading && !!activeRisks?.length;
+
   return (
     <div className="flex flex-col mb-4">
       <div className="my-4">
@@ -17,6 +60,7 @@ const MapPage = ({ value, onChange }: MapPageProps) => {
       <MapComponent
         className="my-4"
         style={{ height: "470px", width: "100%" }}
+        datasetFilterList={RISKS}
         value={value}
         onChange={onChange}
       />
@@ -55,7 +99,7 @@ const MapPage = ({ value, onChange }: MapPageProps) => {
       <h2 className="my-4 text-3xl font-bold">
         After you've drawn your boundary
       </h2>
-      <p className="mt-4 mb-2">
+      <p className="my-2">
         It's helpful for us if you draw a boundary that's as accurate as
         possible - but there's no need to do it over and over to get it exactly
         right.
@@ -65,6 +109,25 @@ const MapPage = ({ value, onChange }: MapPageProps) => {
         touch if we have any questions about where the boundary line is intended
         to be.
       </p>
+      {isLoading && <LoadingSpinner className="my-4" />}
+      {hasRisks && (
+        <>
+          <h2 className="my-4 text-3xl font-bold">
+            Your site has flagged some risks
+          </h2>
+          <p className="my-2">
+            Planning data shows that some or all of your site is located in a
+            restricted area.
+          </p>
+          <p className="my-2">You can:</p>
+          <ul className="list-disc pl-8">
+            <li>Tell us how to mitigate the risks on the next screens</li>
+            <li>Change the site boundary on the map</li>
+          </ul>
+          <p className="my-2">Identified risks:</p>
+          <ul className="list-disc pl-8">{renderRisks(activeRisks)}</ul>
+        </>
+      )}
     </div>
   );
 };

@@ -13,7 +13,7 @@ interface DatasetlayerProps {
 }
 
 const DatasetLayer = ({ area, dataset, zIndex = 1 }: DatasetlayerProps) => {
-  const { data, isLoading, isError } = useFetchEntities(dataset.dataset, area);
+  const { data, isLoading, isError } = useFetchEntities(area, dataset.dataset);
 
   if (isLoading || isError) {
     return null;
