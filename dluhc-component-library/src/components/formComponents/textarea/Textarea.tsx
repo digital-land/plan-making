@@ -11,10 +11,12 @@ const Textarea = ({ value, onChange, maxLength }: TextareaProps) => {
         value={value}
         onChange={(event) => onChange(event.currentTarget.value)}
         maxLength={maxLength}
-        className="border-2 border-black"
+        className="border-2 border-black w-8/12 h-32 focus:outline-offset-2 focus:outline-2 focus:outline-yellow-400"
       />
       {maxLength && (
-        <p>You have {maxLength - value.length} characters remaining</p>
+        <p className="text-sm mb-8 text-gray-600">
+          You have {maxLength - value.length} characters remaining
+        </p>
       )}
     </div>
   );

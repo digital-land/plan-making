@@ -24,7 +24,7 @@ const Input = <T extends number | string>({
       <label className="font-semibold flex">
         <input
           type={type}
-          class="text mr-2 border-2 border-black py-1 px-2"
+          class="text mr-2 border-2 border-black py-1 px-2 focus:outline-offset-2 focus:outline-2 focus:outline-yellow-400"
           value={value}
           onChange={(event) => handleChange(event.currentTarget.value)}
           step={step}
