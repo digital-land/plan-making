@@ -1,7 +1,7 @@
 import { Textarea } from "src/components/formComponents";
 
 interface TitlePageProps {
-  value: string | undefined;
+  value: string;
   onChange: (value: string) => void;
 }
 
@@ -12,7 +12,7 @@ const TitlePage = ({ value, onChange }: TitlePageProps) => {
       <p className="text-sm mb-2 text-gray-600">
         Such as Birmingham City 2025-2040 Local Plan timetable
       </p>
-      <Textarea value={value || ""} onChange={onChange} maxLength={100} />
+      <Textarea value={value} onChange={onChange} maxLength={100} />
     </div>
   );
 };

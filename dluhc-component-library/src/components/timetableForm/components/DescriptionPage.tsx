@@ -1,7 +1,7 @@
 import { Textarea } from "src/components/formComponents";
 
 interface DescriptionPageProps {
-  value: string | undefined;
+  value: string;
   onChange: (value: string) => void;
 }
 
@@ -12,7 +12,7 @@ const DescriptionPage = ({ value, onChange }: DescriptionPageProps) => {
       <p className="text-sm mb-2 text-gray-600">
         Keep this specific to your own Local Plan
       </p>
-      <Textarea value={value || ""} onChange={onChange} maxLength={400} />
+      <Textarea value={value} onChange={onChange} maxLength={400} />
     </div>
   );
 };

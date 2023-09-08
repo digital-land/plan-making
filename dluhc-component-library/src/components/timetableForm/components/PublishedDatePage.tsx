@@ -2,7 +2,7 @@ import { DateInput } from "src/components/formComponents";
 import { DateValue } from "src/components/formComponents/dateInput/types";
 
 interface PublishedDatePageProps {
-  value: DateValue | undefined;
+  value: DateValue;
   onChange: (value: DateValue) => void;
 }
 
@@ -15,7 +15,7 @@ const PublishedDatePage = ({ value, onChange }: PublishedDatePageProps) => {
         publicly online
       </p>
       <p className="text-sm mt-4 mb-2 text-gray-600">For example, 21 3 2025</p>
-      <DateInput value={value || {}} onChange={onChange} />
+      <DateInput value={value} onChange={onChange} />
     </div>
   );
 };

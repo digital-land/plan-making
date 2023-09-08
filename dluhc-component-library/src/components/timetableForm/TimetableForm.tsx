@@ -3,41 +3,43 @@ import DescriptionPage from "./components/DescriptionPage";
 import PublishedDatePage from "./components/PublishedDatePage";
 import StagePage from "./components/StagePage";
 import TitlePage from "./components/TitlePage";
-import { TimetableFormData } from "./types";
+import {
+  DESCRIPTION_KEY,
+  GATEWAY_1_KEY,
+  INITIAL_STATE,
+  PUBLISH_DATE_KEY,
+  SCOPING_KEY,
+  TITLE_KEY,
+} from "./constants";
+import { FormState, FormValue } from "./types";
 
 const TOTAL_PAGES = 5;
 
-const TITLE_KEY = "title";
-const DESCRIPTION_KEY = "description";
-const PUBLISH_DATE_KEY = "publishDate";
-const SCOPING_KEY = "scoping";
-const GATEWAY_1_KEY = "gateway1";
-
 const renderPage = (
   key: string,
-  value: TimetableFormData,
-  handleValueChange: (value: TimetableFormData) => void,
+  value: FormState,
+  handleValueChange: (key: keyof FormState, value: FormValue) => void,
 ) => {
   switch (key) {
     case TITLE_KEY:
       return (
         <TitlePage
           value={value[key]}
-          onChange={(title) => handleValueChange({ [key]: title })}
+          onChange={(title) => handleValueChange(key, title)}
         />
       );
     case DESCRIPTION_KEY:
       return (
         <DescriptionPage
           value={value[key]}
-          onChange={(description) => handleValueChange({ [key]: description })}
+          onChange={(description) => handleValueChange(key, description)}
         />
       );
     case PUBLISH_DATE_KEY:
       return (
         <PublishedDatePage
           value={value[key]}
-          onChange={(publishDate) => handleValueChange({ [key]: publishDate })}
+          onChange={(publishDate) => handleValueChange(key, publishDate)}
         />
       );
     case SCOPING_KEY:
@@ -45,7 +47,7 @@ const renderPage = (
         <StagePage
           stageName="Scoping and early participation"
           value={value[key]}
-          onChange={(stage) => handleValueChange({ [key]: stage })}
+          onChange={(stage) => handleValueChange(key, stage)}
         />
       );
     case GATEWAY_1_KEY:
@@ -53,7 +55,7 @@ const renderPage = (
         <StagePage
           stageName="Gateway 1. Check-point"
           value={value[key]}
-          onChange={(stage) => handleValueChange({ [key]: stage })}
+          onChange={(stage) => handleValueChange(key, stage)}
         />
       );
     default:
@@ -70,13 +72,13 @@ const FORM_KEY_LIST = [
 ];
 
 const TimetableForm = () => {
-  const [data, setData] = useState<TimetableFormData>({});
+  const [data, setData] = useState<FormState>(INITIAL_STATE);
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
 
   const currentPage = FORM_KEY_LIST[currentPageIndex];
 
-  const handleValueChange = (value: TimetableFormData) => {
-    setData({ ...data, ...value });
+  const handleValueChange = (key: keyof FormState, value: FormValue) => {
+    setData({ ...data, [key]: value });
   };
 
   const Page = renderPage(currentPage, data, handleValueChange);

@@ -16,8 +16,8 @@ import { Stage } from "../types";
 
 interface StagePageProps {
   stageName: string;
-  value: Partial<Stage> | undefined;
-  onChange: (value: Partial<Stage>) => void;
+  value: Stage;
+  onChange: (value: Stage) => void;
 }
 
 const PROGRESS_OPTIONS: ReadonlyArray<RadioOption<string>> = [
@@ -36,7 +36,7 @@ const StagePage = ({ stageName, value, onChange }: StagePageProps) => {
         <h2 className="text-2xl font-bold">Start date</h2>
         <p>For example, 3 2025</p>
         <DateInput
-          value={value?.startDate || {}}
+          value={value.startDate}
           onChange={(startDate) => onChange({ ...value, startDate })}
           showDays={false}
         />
@@ -45,7 +45,7 @@ const StagePage = ({ stageName, value, onChange }: StagePageProps) => {
       <div className="my-2">
         <h2 className="text-2xl font-bold">End date</h2>
         <DateInput
-          value={value?.endDate || {}}
+          value={value.endDate}
           onChange={(endDate) => onChange({ ...value, endDate })}
           showDays={false}
         />
@@ -55,7 +55,7 @@ const StagePage = ({ stageName, value, onChange }: StagePageProps) => {
         <h2 className="text-2xl font-bold">Progress</h2>
         <RadioButtons
           options={PROGRESS_OPTIONS}
-          value={value?.progress}
+          value={value.progress}
           onChange={(progress) =>
             onChange({ ...value, progress: progress as Progress })
           }
@@ -67,7 +67,7 @@ const StagePage = ({ stageName, value, onChange }: StagePageProps) => {
           Additional information (optional)
         </h2>
         <Textarea
-          value={value?.additionalInformation || ""}
+          value={value.additionalInformation}
           onChange={(additionalInformation) =>
             onChange({ ...value, additionalInformation })
           }
