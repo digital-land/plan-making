@@ -78,8 +78,6 @@ const TimetableForm = () => {
     setData({ ...data, ...value });
   };
 
-  console.log(data);
-
   const Page = renderPage(currentPage, data, handleValueChange);
 
   const handleBackClicked = () => {
