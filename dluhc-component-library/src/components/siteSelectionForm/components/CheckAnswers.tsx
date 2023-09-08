@@ -19,12 +19,15 @@ const CheckAnswers = ({
         <h1 className="my-2 text-4xl font-bold">Check your answers</h1>
       </div>
       <div>
-        {Object.keys(formData).map((key) => (
+        {Object.keys(formSchema?.properties).map((key) => (
           <div key={key}>
             {formSchema.properties[key].title} |{formData[key]}
+            {/* fix type error */}
           </div>
         ))}
       </div>
+
+      <div>{formSchema}</div>
       <div className="form-page-footer mt-10 flex space-x-6">
         <button
           className="bg-gray-200 hover:bg-gray-300 text-black py-1 px-2"
