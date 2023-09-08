@@ -55,7 +55,7 @@ const StagePage = ({ stageName, value, onChange }: StagePageProps) => {
         <h2 className="text-2xl font-bold">Progress</h2>
         <RadioButtons
           options={PROGRESS_OPTIONS}
-          value={value?.progress || NOT_STARTED}
+          value={value?.progress}
           onChange={(progress) =>
             onChange({ ...value, progress: progress as Progress })
           }

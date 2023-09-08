@@ -2,7 +2,7 @@ import { RadioOption } from "../types";
 
 interface RadioButtonsProps<T extends string | boolean> {
   options: ReadonlyArray<RadioOption<T>>;
-  value: T;
+  value: T | undefined;
   onChange: (values: T) => void;
 }
 
