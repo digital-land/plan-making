@@ -3,7 +3,7 @@ import {
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { FormPageSchema, FormState, FormValue } from "../types";
+import { FormPageSchema, FormState, FormAnswers } from "../types";
 import { createColumnHelper } from "@tanstack/table-core";
 
 interface CheckAnswersProps {
@@ -13,23 +13,32 @@ interface CheckAnswersProps {
   onSubmitClicked: () => void;
 }
 
-type CheckAnswers = {
-  question: string;
-  answer: FormValue;
-};
+const columnHelper = createColumnHelper<FormAnswers>();
 
-const columnHelper = createColumnHelper<CheckAnswers>();
-
-export const columnDefinitions = [
+const columnDefinitions = [
   columnHelper.accessor("question", {
     cell: (data) => <span className="font-bold">{data.getValue()}</span>,
-    // header: () => <span>Stage</span>,
   }),
   columnHelper.accessor("answer", {
-    cell: (data) => data.getValue(),
-    // header: () => <span>Start Date</span>,
+    cell: (data) => {
+      const value = data.getValue();
+      if (Array.isArray(value) && value.length > 0) {
+        return value.join(", ");
+      }
+      return value;
+    },
   }),
 ];
+
+const getAnswers = (
+  properties: Record<string, FormPageSchema>,
+  formData: FormState,
+) => {
+  return Object.keys(properties).map((key) => ({
+    question: properties[key].title,
+    answer: formData[key],
+  }));
+};
 
 const CheckAnswers = ({
   formSchema,
@@ -37,16 +46,12 @@ const CheckAnswers = ({
   onBackClicked,
   onSubmitClicked,
 }: CheckAnswersProps) => {
-  const data = Object.keys(formSchema?.properties).map((key) => ({
-    question: formSchema.properties[key].title,
-    answer: formData[key],
-  }));
-
-  console.log("data");
-  console.log(data);
+  const data = formSchema.properties
+    ? getAnswers(formSchema.properties, formData)
+    : [];
 
   const table = useReactTable({
-    data: data ?? [],
+    data: data,
     columns: columnDefinitions,
     getCoreRowModel: getCoreRowModel(),
   });
