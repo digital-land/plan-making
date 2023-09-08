@@ -11,9 +11,13 @@ import {
   NOT_STARTED,
   PROGRESS_TEXT_MAP,
 } from "src/models/timetable/constants";
+import { Progress } from "src/models/timetable/types";
+import { Stage } from "../types";
 
 interface StagePageProps {
   stageName: string;
+  value?: Partial<Stage>;
+  onChange: (value: Partial<Stage>) => void;
 }
 
 const PROGRESS_OPTIONS: ReadonlyArray<RadioOption<string>> = [
@@ -23,7 +27,7 @@ const PROGRESS_OPTIONS: ReadonlyArray<RadioOption<string>> = [
   { label: PROGRESS_TEXT_MAP[FINISHED], value: FINISHED },
 ];
 
-const StagesPage = ({ stageName }: StagePageProps) => {
+const StagesPage = ({ stageName, value, onChange }: StagePageProps) => {
   return (
     <div className="flex flex-col">
       <h1 className="my-2 text-4xl font-bold">{stageName}</h1>
@@ -31,20 +35,30 @@ const StagesPage = ({ stageName }: StagePageProps) => {
       <div className="my-2">
         <h2 className="text-2xl font-bold">Start date</h2>
         <p>For example, 3 2025</p>
-        <DateInput showDays={false} />
+        <DateInput
+          value={value?.startDate || {}}
+          onChange={(startDate) => onChange({ ...value, startDate })}
+          showDays={false}
+        />
       </div>
 
       <div className="my-2">
         <h2 className="text-2xl font-bold">End date</h2>
-        <DateInput showDays={false} />
+        <DateInput
+          value={value?.endDate || {}}
+          onChange={(endDate) => onChange({ ...value, endDate })}
+          showDays={false}
+        />
       </div>
 
       <div className="my-2">
         <h2 className="text-2xl font-bold">Progress</h2>
         <RadioButtons
           options={PROGRESS_OPTIONS}
-          value={NOT_STARTED}
-          onChange={() => {}}
+          value={value?.progress || NOT_STARTED}
+          onChange={(progress) =>
+            onChange({ ...value, progress: progress as Progress })
+          }
         />
       </div>
 
@@ -52,7 +66,13 @@ const StagesPage = ({ stageName }: StagePageProps) => {
         <h2 className="text-2xl font-bold">
           Additional information (optional)
         </h2>
-        <Textarea value="" onChange={() => {}} maxLength={100} />
+        <Textarea
+          value={value?.additionalInformation || ""}
+          onChange={(additionalInformation) =>
+            onChange({ ...value, additionalInformation })
+          }
+          maxLength={100}
+        />
       </div>
     </div>
   );
