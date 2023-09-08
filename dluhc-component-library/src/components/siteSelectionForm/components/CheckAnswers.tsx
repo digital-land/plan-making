@@ -1,9 +1,15 @@
+import { FormPageSchema, FormState } from "../types";
+
 interface CheckAnswersProps {
+  formSchema: FormPageSchema;
+  formData: FormState;
   onBackClicked: () => void;
   onSubmitClicked: () => void;
 }
 
 const CheckAnswers = ({
+  formSchema,
+  formData,
   onBackClicked,
   onSubmitClicked,
 }: CheckAnswersProps) => {
@@ -11,6 +17,13 @@ const CheckAnswers = ({
     <div>
       <div className="form-page-header mb-4">
         <h1 className="my-2 text-4xl font-bold">Check your answers</h1>
+      </div>
+      <div>
+        {Object.keys(formData).map((key) => (
+          <div key={key}>
+            {formSchema.properties[key].title} |{formData[key]}
+          </div>
+        ))}
       </div>
       <div className="form-page-footer mt-10 flex space-x-6">
         <button
