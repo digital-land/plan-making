@@ -3,6 +3,7 @@ import DescriptionPage from "./components/DescriptionPage";
 import PublishedDatePage from "./components/PublishedDatePage";
 import StagePage from "./components/StagePage";
 import TitlePage from "./components/TitlePage";
+import { TimetableFormData } from "./types";
 
 const TOTAL_PAGES = 5;
 
@@ -14,8 +15,8 @@ const GATEWAY_1_KEY = "gateway1";
 
 const renderPage = (
   key: string,
-  value: Record<string, any>,
-  handleValueChange: (value: any) => void,
+  value: TimetableFormData,
+  handleValueChange: (value: TimetableFormData) => void,
 ) => {
   switch (key) {
     case TITLE_KEY:
@@ -69,12 +70,12 @@ const FORM_KEY_LIST = [
 ];
 
 const TimetableForm = () => {
-  const [data, setData] = useState<Record<string, any>>({});
+  const [data, setData] = useState<TimetableFormData>({});
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
 
   const currentPage = FORM_KEY_LIST[currentPageIndex];
 
-  const handleValueChange = (value: any) => {
+  const handleValueChange = (value: TimetableFormData) => {
     setData({ ...data, ...value });
   };
 
