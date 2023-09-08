@@ -125,8 +125,6 @@ const SiteSelectionForm = ({ filepath, data, uiSchema }: SiteSelectionForm) => {
     [baseSchema, formData],
   );
 
-  console.log(formSchema);
-
   if (!formSchema || !formSchema?.properties) {
     return null;
   }
