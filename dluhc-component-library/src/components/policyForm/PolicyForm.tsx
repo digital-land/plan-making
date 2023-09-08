@@ -14,7 +14,7 @@ import { FormState, FormValue } from "./types";
 const PolicyForm = () => {
   const [formState, setFormState] = useState<FormState>(INITIAL_FORM_STATE);
 
-  const handleValueChange = (key: string, value: FormValue) => {
+  const handleValueChange = (key: keyof FormState, value: FormValue) => {
     setFormState({
       ...formState,
       [key]: value,
