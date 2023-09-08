@@ -1,35 +1,15 @@
 import { useState } from "preact/hooks";
 import { Input, Textarea } from "../formComponents";
 import MapComponent from "../maps/MapComponent";
-import { Boundary } from "../maps/types";
-
-const TITLE_KEY = "title";
-const DESCRIPTION_KEY = "description";
-const REQUIREMENTS = "requirements";
-const BOUNDARY_KEY = "boundary";
-
-interface FormState {
-  [TITLE_KEY]: string;
-  [DESCRIPTION_KEY]: string;
-  [REQUIREMENTS]: string;
-  [BOUNDARY_KEY]: Boundary;
-}
-
-type FormValue = string | Boundary;
-
-const FORM_lABELS = {
-  [TITLE_KEY]: "Title",
-  [DESCRIPTION_KEY]: "Description",
-  [REQUIREMENTS]: "Requirements",
-  [BOUNDARY_KEY]: "Draw a boundary",
-};
-
-const INITIAL_FORM_STATE: FormState = {
-  [TITLE_KEY]: "",
-  [DESCRIPTION_KEY]: "",
-  [REQUIREMENTS]: "",
-  [BOUNDARY_KEY]: [],
-};
+import {
+  BOUNDARY_KEY,
+  DESCRIPTION_KEY,
+  FORM_lABELS,
+  INITIAL_FORM_STATE,
+  REQUIREMENTS,
+  TITLE_KEY,
+} from "./constants";
+import { FormState, FormValue } from "./types";
 
 const PolicyForm = () => {
   const [formState, setFormState] = useState<FormState>(INITIAL_FORM_STATE);
