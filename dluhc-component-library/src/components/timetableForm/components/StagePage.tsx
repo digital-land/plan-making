@@ -16,7 +16,7 @@ import { Stage } from "../types";
 
 interface StagePageProps {
   stageName: string;
-  value?: Partial<Stage>;
+  value: Partial<Stage> | undefined;
   onChange: (value: Partial<Stage>) => void;
 }
 
@@ -27,7 +27,7 @@ const PROGRESS_OPTIONS: ReadonlyArray<RadioOption<string>> = [
   { label: PROGRESS_TEXT_MAP[FINISHED], value: FINISHED },
 ];
 
-const StagesPage = ({ stageName, value, onChange }: StagePageProps) => {
+const StagePage = ({ stageName, value, onChange }: StagePageProps) => {
   return (
     <div className="flex flex-col">
       <h1 className="my-2 text-4xl font-bold">{stageName}</h1>
@@ -78,4 +78,4 @@ const StagesPage = ({ stageName, value, onChange }: StagePageProps) => {
   );
 };
 
-export default StagesPage;
+export default StagePage;

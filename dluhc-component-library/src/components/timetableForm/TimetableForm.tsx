@@ -1,7 +1,7 @@
 import { useState } from "preact/hooks";
 import DescriptionPage from "./components/DescriptionPage";
 import PublishedDatePage from "./components/PublishedDatePage";
-import StagesPage from "./components/StagePage";
+import StagePage from "./components/StagePage";
 import TitlePage from "./components/TitlePage";
 
 const TOTAL_PAGES = 5;
@@ -41,7 +41,7 @@ const renderPage = (
       );
     case SCOPING_KEY:
       return (
-        <StagesPage
+        <StagePage
           stageName="Scoping and early participation"
           value={value[key]}
           onChange={(stage) => handleValueChange({ [key]: stage })}
@@ -49,7 +49,7 @@ const renderPage = (
       );
     case GATEWAY_1_KEY:
       return (
-        <StagesPage
+        <StagePage
           stageName="Gateway 1. Check-point"
           value={value[key]}
           onChange={(stage) => handleValueChange({ [key]: stage })}
@@ -77,6 +77,8 @@ const TimetableForm = () => {
   const handleValueChange = (value: any) => {
     setData({ ...data, ...value });
   };
+
+  console.log(data);
 
   const Page = renderPage(currentPage, data, handleValueChange);
 
