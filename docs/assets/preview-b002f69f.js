@@ -1,2 +1,2 @@
 const e={parameters:{actions:{argTypesRegex:"^on[A-Z].*"},controls:{matchers:{color:/(background|color)$/i,date:/Date$/}}}};export{e as default};
-//# sourceMappingURL=preview-77539e2f.js.map
+//# sourceMappingURL=preview-b002f69f.js.map
