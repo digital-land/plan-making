@@ -16,7 +16,6 @@ const INITIAL_STAGE: Stage = {
 };
 
 export const INITIAL_STATE: FormState = {
-  [LANDING_KEY]: "",
   [TITLE_KEY]: "",
   [DESCRIPTION_KEY]: "",
   [PUBLISH_DATE_KEY]: { day: "", month: "", year: "" },

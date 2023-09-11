@@ -15,16 +15,17 @@ import {
 import { FormState, FormValue } from "./types";
 import LandingPage from "./components/LandingPage";
 
-const TOTAL_PAGES = 5;
+const TOTAL_PAGES = 6;
 
 const renderPage = (
   key: string,
   value: FormState,
   handleValueChange: (key: keyof FormState, value: FormValue) => void,
+  handleContinueClicked: () => void,
 ) => {
   switch (key) {
     case LANDING_KEY:
-      return <LandingPage />;
+      return <LandingPage continueClick={handleContinueClicked} />;
     case TITLE_KEY:
       return (
         <TitlePage
@@ -86,7 +87,9 @@ const TimetableForm = () => {
     setData({ ...data, [key]: value });
   };
 
-  const Page = renderPage(currentPage, data, handleValueChange);
+  const Page = renderPage(currentPage, data, handleValueChange, () =>
+    handleContinueClicked(),
+  );
 
   const handleBackClicked = () => {
     if (currentPageIndex !== 0) {
@@ -122,22 +125,7 @@ const TimetableForm = () => {
           </button>
         </div>
       ) : (
-        <div>
-          <div>{Page}</div>
-          <div>
-            <button
-              className="bg-green-700 hover:bg-green-800 text-white py-1 px-2 my-4"
-              onClick={handleContinueClicked}
-            >
-              Start a new timetable
-            </button>
-          </div>
-          <div>
-            <button className="bg-green-700 hover:bg-green-800 text-white py-1 px-2">
-              Upload and edit an exisiting timetable
-            </button>
-          </div>
-        </div>
+        <div>{Page}</div>
       )}
     </div>
   );
