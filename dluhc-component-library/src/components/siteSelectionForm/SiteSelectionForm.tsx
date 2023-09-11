@@ -3,13 +3,11 @@ import { ReactNode } from "react";
 import { useState, useEffect, useMemo } from "preact/hooks";
 import { ValidationError } from "yup";
 import { loadJson } from "src/utils";
+import { uploadFile } from "src/api/aws/api";
 import DynamicForm from "./components/DynamicForm";
 import FormPage from "./components/FormPage";
 import { FormState, FormValue, FormPageSchema, UiSchema } from "./types";
-
-import "./SiteSelectionForm.css";
 import { createValidationSchema } from "./utils";
-import { uploadFile } from "src/api/aws/api";
 
 interface SiteSelectionForm {
   filepath?: string;
