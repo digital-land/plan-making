@@ -1,10 +1,14 @@
 import { NOT_STARTED, DELAYED, IN_PROGRESS, FINISHED } from "./constants";
 
-export interface Timetable {
+export interface TimetableData {
   title: string;
   description: string;
   publishDate: Date;
-  stages: ReadonlyArray<Stage>;
+  updated: string;
+  status: string;
+  periodStartToEnd: string;
+  coverage: string;
+  stages: Stage[];
 }
 
 export interface Stage {

@@ -16,7 +16,7 @@ export interface FormState {
   [GATEWAY_1_KEY]: FormStage;
 }
 
-export type FormValue = String | DateValue | FormStage;
+export type FormValue = FormState[keyof FormState];
 
 export interface FormStage {
   startDate: DateValue;
