@@ -1,6 +1,7 @@
 import { NOT_STARTED } from "src/models/timetable/constants";
 import { FormState, Stage } from "./types";
 
+export const LANDING_KEY = "landing";
 export const TITLE_KEY = "title";
 export const DESCRIPTION_KEY = "description";
 export const PUBLISH_DATE_KEY = "publishDate";
@@ -15,6 +16,7 @@ const INITIAL_STAGE: Stage = {
 };
 
 export const INITIAL_STATE: FormState = {
+  [LANDING_KEY]: "",
   [TITLE_KEY]: "",
   [DESCRIPTION_KEY]: "",
   [PUBLISH_DATE_KEY]: { day: "", month: "", year: "" },

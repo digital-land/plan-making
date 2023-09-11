@@ -4,6 +4,7 @@ import PublishedDatePage from "./components/PublishedDatePage";
 import StagePage from "./components/StagePage";
 import TitlePage from "./components/TitlePage";
 import {
+  LANDING_KEY,
   DESCRIPTION_KEY,
   GATEWAY_1_KEY,
   INITIAL_STATE,
@@ -12,6 +13,7 @@ import {
   TITLE_KEY,
 } from "./constants";
 import { FormState, FormValue } from "./types";
+import LandingPage from "./components/LandingPage";
 
 const TOTAL_PAGES = 5;
 
@@ -21,6 +23,8 @@ const renderPage = (
   handleValueChange: (key: keyof FormState, value: FormValue) => void,
 ) => {
   switch (key) {
+    case LANDING_KEY:
+      return <LandingPage />;
     case TITLE_KEY:
       return (
         <TitlePage
@@ -64,6 +68,7 @@ const renderPage = (
 };
 
 const FORM_KEY_LIST = [
+  LANDING_KEY,
   TITLE_KEY,
   DESCRIPTION_KEY,
   PUBLISH_DATE_KEY,
@@ -97,22 +102,44 @@ const TimetableForm = () => {
 
   return (
     <div>
-      <div>
-        &lt;
-        <p
-          className="underline hover:decoration-2 py-1 px-2 inline-block cursor-pointer"
-          onClick={handleBackClicked}
-        >
-          Back
-        </p>
-      </div>
-      <div>{Page}</div>
-      <button
-        className="bg-green-700 hover:bg-green-800 text-white py-1 px-2"
-        onClick={handleContinueClicked}
-      >
-        Continue
-      </button>
+      {currentPage !== LANDING_KEY ? (
+        <div>
+          <div>
+            &lt;
+            <p
+              className="underline hover:decoration-2 py-1 px-2 inline-block cursor-pointer"
+              onClick={handleBackClicked}
+            >
+              Back
+            </p>
+          </div>
+          <div>{Page}</div>
+          <button
+            className="bg-green-700 hover:bg-green-800 text-white py-1 px-2"
+            onClick={handleContinueClicked}
+          >
+            Continue
+          </button>
+        </div>
+      ) : (
+        <div>
+          <div>{Page}</div>
+          <div>
+            <button
+              className="bg-green-700 hover:bg-green-800 text-white py-1 px-2 my-4"
+              onClick={handleContinueClicked}
+            >
+              Start a new timetable
+            </button>
+          </div>
+          {/* <br /> */}
+          <div>
+            <button className="bg-green-700 hover:bg-green-800 text-white py-1 px-2">
+              Upload and edit an exisiting timetable
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
