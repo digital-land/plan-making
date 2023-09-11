@@ -132,7 +132,6 @@ const TimetableForm = () => {
               Start a new timetable
             </button>
           </div>
-          {/* <br /> */}
           <div>
             <button className="bg-green-700 hover:bg-green-800 text-white py-1 px-2">
               Upload and edit an exisiting timetable
