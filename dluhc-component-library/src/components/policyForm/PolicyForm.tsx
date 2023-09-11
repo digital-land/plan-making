@@ -8,11 +8,13 @@ import {
   INITIAL_FORM_STATE,
   REFERENCE_KEY,
   REQUIREMENTS,
+  SUPPLEMENTARY_TEXT_KEY,
   THEMES_KEY,
   THEME_OPTIONS,
   TITLE_KEY,
 } from "./constants";
 import { FormState, FormValue } from "./types";
+import MultiItem from "./components/MultiItem";
 
 const PolicyForm = () => {
   const [formState, setFormState] = useState<FormState>(INITIAL_FORM_STATE);
@@ -32,21 +34,10 @@ const PolicyForm = () => {
     <div>
       <h1 className="my-2 text-4xl font-bold">Create a Policy</h1>
       <form onSubmit={handleFormSubmit}>
-        <Input
-          label={FORM_lABELS[REFERENCE_KEY]}
-          value={formState[REFERENCE_KEY]}
-          onChange={(value) => handleValueChange(REFERENCE_KEY, value)}
-        />
+        <h2 className="my-8 text-3xl font-bold">Policy details</h2>
 
-        <Input
-          label={FORM_lABELS[TITLE_KEY]}
-          value={formState[TITLE_KEY]}
-          onChange={(value) => handleValueChange(TITLE_KEY, value)}
-        />
-        <div className="my-8">
-          <label className="text-2xl font-bold">
-            {FORM_lABELS[THEMES_KEY]}
-          </label>
+        <div className="my-4">
+          <label className="text-xl font-bold">{FORM_lABELS[THEMES_KEY]}</label>
           <MultiSelect
             className="mt-2"
             options={THEME_OPTIONS}
@@ -54,6 +45,20 @@ const PolicyForm = () => {
             onChange={(value) => handleValueChange(THEMES_KEY, value)}
           />
         </div>
+
+        <Input
+          label={FORM_lABELS[TITLE_KEY]}
+          value={formState[TITLE_KEY]}
+          onChange={(value) => handleValueChange(TITLE_KEY, value)}
+        />
+
+        <Input
+          label={FORM_lABELS[REFERENCE_KEY]}
+          value={formState[REFERENCE_KEY]}
+          onChange={(value) => handleValueChange(REFERENCE_KEY, value)}
+        />
+
+        <h2 className="my-2 text-3xl font-bold">Policy box</h2>
 
         <Textarea
           label={FORM_lABELS[DESCRIPTION_KEY]}
@@ -63,15 +68,16 @@ const PolicyForm = () => {
           maxLength={350}
         />
 
-        <Textarea
+        {/*time peroid*/}
+
+        <MultiItem
           label={FORM_lABELS[REQUIREMENTS]}
-          className="my-4"
-          value={formState[REQUIREMENTS]}
+          values={formState[REQUIREMENTS]}
           onChange={(value) => handleValueChange(REQUIREMENTS, value)}
         />
 
         <div className="my-4">
-          <label className="text-2xl font-bold">
+          <label className="text-xl font-bold">
             {FORM_lABELS[BOUNDARY_KEY]}
           </label>
           <MapComponent
@@ -82,6 +88,15 @@ const PolicyForm = () => {
             onChange={(value) => handleValueChange(BOUNDARY_KEY, value)}
           />
         </div>
+
+        <h2 className="my-2 text-3xl font-bold">Supplementary text</h2>
+
+        <Textarea
+          label={FORM_lABELS[SUPPLEMENTARY_TEXT_KEY]}
+          className="my-4"
+          value={formState[SUPPLEMENTARY_TEXT_KEY]}
+          onChange={(value) => handleValueChange(SUPPLEMENTARY_TEXT_KEY, value)}
+        />
 
         <button className="mt-8 bg-green-700 hover:bg-green-800 text-white py-1 px-2">
           Save
