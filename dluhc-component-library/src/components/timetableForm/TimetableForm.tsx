@@ -1,10 +1,12 @@
 import { useState } from "preact/hooks";
 import DescriptionPage from "./components/DescriptionPage";
+import ExportPage from "./components/ExportPgae";
 import PublishedDatePage from "./components/PublishedDatePage";
 import StagePage from "./components/StagePage";
 import TitlePage from "./components/TitlePage";
 import {
   DESCRIPTION_KEY,
+  EXPORT_KEY,
   GATEWAY_1_KEY,
   INITIAL_STATE,
   PUBLISH_DATE_KEY,
@@ -13,7 +15,7 @@ import {
 } from "./constants";
 import { FormState, FormValue } from "./types";
 
-const TOTAL_PAGES = 5;
+const TOTAL_PAGES = 6;
 
 const renderPage = (
   key: string,
@@ -58,6 +60,8 @@ const renderPage = (
           onChange={(stage) => handleValueChange(key, stage)}
         />
       );
+    case EXPORT_KEY:
+      return <ExportPage value={value} />;
     default:
       return null;
   }
@@ -69,6 +73,7 @@ const FORM_KEY_LIST = [
   PUBLISH_DATE_KEY,
   SCOPING_KEY,
   GATEWAY_1_KEY,
+  EXPORT_KEY,
 ];
 
 const TimetableForm = () => {
@@ -107,12 +112,14 @@ const TimetableForm = () => {
         </p>
       </div>
       <div>{Page}</div>
-      <button
-        className="bg-green-700 hover:bg-green-800 text-white py-1 px-2"
-        onClick={handleContinueClicked}
-      >
-        Continue
-      </button>
+      {currentPage !== EXPORT_KEY && (
+        <button
+          className="bg-green-700 hover:bg-green-800 text-white py-1 px-2"
+          onClick={handleContinueClicked}
+        >
+          Continue
+        </button>
+      )}
     </div>
   );
 };
