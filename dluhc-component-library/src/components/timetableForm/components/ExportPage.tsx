@@ -23,7 +23,7 @@ const ExportPage = ({ value }: ExportPageProps) => {
         type="button"
         className="bg-green-700 hover:bg-green-800 text-white py-1 px-2"
         href={downloadLink}
-        download="timetabe.json"
+        download="timetable.json"
       >
         Export Timetable JSON
       </a>
