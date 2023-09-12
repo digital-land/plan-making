@@ -13,7 +13,7 @@ interface TimetablePageProps {
 const DEFAULT_TIMETABLE_DATA: TimetableData = {
   title: "",
   description: "",
-  publishDate: new Date(),
+  publishDate: new Date().getTime(),
   updated: "",
   status: "",
   periodStartToEnd: "",

@@ -43,12 +43,12 @@ const formatStage = (stage: Stage): FormStage => ({
   additionalInformation: stage.additionalInformation,
 });
 
-const formatDate = (date: Date): DateValue => {
-  const copy = new Date(date);
+const formatDate = (timestamp: number): DateValue => {
+  const date = new Date(timestamp);
   return {
-    day: copy.getDate().toString(),
-    month: (copy.getMonth() + 1).toString(),
-    year: copy.getFullYear().toString(),
+    day: date.getDate().toString(),
+    month: (date.getMonth() + 1).toString(),
+    year: date.getFullYear().toString(),
   };
 };
 
@@ -93,5 +93,5 @@ const formatDateValue = (dateValue: DateValue) => {
     : new Date().getFullYear();
   const month = dateValue.month ? parseInt(dateValue.month) - 1 : 0;
   const day = dateValue.day ? parseInt(dateValue.day) : 1;
-  return new Date(year, month, day);
+  return new Date(year, month, day).getTime();
 };
