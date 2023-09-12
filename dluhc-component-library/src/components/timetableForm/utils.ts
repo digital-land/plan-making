@@ -2,12 +2,10 @@ import { DateValue } from "src/components/formComponents/dateInput/types";
 import { FormState, FormStage } from "./types";
 import { Stage, TimetableData } from "src/models/timetable/types";
 import {
-  DESCRIPTION_KEY,
   GATEWAY_1_KEY,
   INITIAL_STAGE,
   PUBLISH_DATE_KEY,
   SCOPING_KEY,
-  TITLE_KEY,
 } from "./constants";
 import { loadJson } from "src/utils";
 
@@ -23,8 +21,7 @@ export const loadTimetable = async (url: string): Promise<FormState> => {
 };
 
 const formatTimetableData = (timetable: TimetableData): FormState => ({
-  [TITLE_KEY]: timetable.title,
-  [DESCRIPTION_KEY]: timetable.description,
+  ...timetable,
   [PUBLISH_DATE_KEY]: formatDate(timetable.publishDate),
   [SCOPING_KEY]: findAndFormatStage(SCOPING_KEY, timetable.stages),
   [GATEWAY_1_KEY]: findAndFormatStage(GATEWAY_1_KEY, timetable.stages),
@@ -36,10 +33,9 @@ const findAndFormatStage = (key: string, stages: Stage[]): FormStage => {
 };
 
 const formatStage = (stage: Stage): FormStage => ({
+  ...stage,
   startDate: formatDate(stage.startDate),
   endDate: formatDate(stage.endDate),
-  progress: stage.progress,
-  additionalInformation: stage.additionalInformation,
 });
 
 const formatDate = (timestamp: number): DateValue => {
