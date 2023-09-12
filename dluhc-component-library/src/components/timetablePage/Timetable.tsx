@@ -41,7 +41,7 @@ const Timetable = ({ data }: StagesProps) => {
             <>
               <tr key={row.id} className="bg-white">
                 {row.getVisibleCells().map((cell) => (
-                  <td key={cell.id} className="pt-3 ">
+                  <td key={cell.id} className="pt-3">
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </td>
                 ))}
