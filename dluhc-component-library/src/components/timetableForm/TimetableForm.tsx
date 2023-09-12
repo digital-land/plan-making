@@ -25,7 +25,7 @@ const renderPage = (
 ) => {
   switch (key) {
     case LANDING_KEY:
-      return <LandingPage continueClick={handleContinueClicked} />;
+      return <LandingPage continueClick={() => handleContinueClicked()} />;
     case TITLE_KEY:
       return (
         <TitlePage
