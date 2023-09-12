@@ -2,6 +2,7 @@ import { NOT_STARTED } from "src/models/timetable/constants";
 import { DateValue } from "../formComponents/dateInput/types";
 import { FormStage, FormState } from "./types";
 
+export const LANDING_KEY = "landing";
 export const TITLE_KEY = "title";
 export const DESCRIPTION_KEY = "description";
 export const PUBLISH_DATE_KEY = "publishDate";

@@ -5,6 +5,7 @@ import PublishedDatePage from "./components/PublishedDatePage";
 import StagePage from "./components/StagePage";
 import TitlePage from "./components/TitlePage";
 import {
+  LANDING_KEY,
   DESCRIPTION_KEY,
   EXPORT_KEY,
   GATEWAY_1_KEY,
@@ -14,15 +15,19 @@ import {
   TITLE_KEY,
 } from "./constants";
 import { FormState, FormValue } from "./types";
+import LandingPage from "./components/LandingPage";
 
-const TOTAL_PAGES = 6;
+const TOTAL_PAGES = 7;
 
 const renderPage = (
   key: string,
   value: FormState,
   handleValueChange: (key: keyof FormState, value: FormValue) => void,
+  handleContinueClicked: () => void,
 ) => {
   switch (key) {
+    case LANDING_KEY:
+      return <LandingPage onContinueClick={() => handleContinueClicked()} />;
     case TITLE_KEY:
       return (
         <TitlePage
@@ -68,6 +73,7 @@ const renderPage = (
 };
 
 const FORM_KEY_LIST = [
+  LANDING_KEY,
   TITLE_KEY,
   DESCRIPTION_KEY,
   PUBLISH_DATE_KEY,
@@ -86,8 +92,6 @@ const TimetableForm = () => {
     setData({ ...data, [key]: value });
   };
 
-  const Page = renderPage(currentPage, data, handleValueChange);
-
   const handleBackClicked = () => {
     if (currentPageIndex !== 0) {
       setCurrentPageIndex(currentPageIndex - 1);
@@ -100,25 +104,38 @@ const TimetableForm = () => {
     }
   };
 
+  const Page = renderPage(
+    currentPage,
+    data,
+    handleValueChange,
+    handleContinueClicked,
+  );
+
   return (
     <div>
-      <div>
-        &lt;
-        <p
-          className="underline hover:decoration-2 py-1 px-2 inline-block cursor-pointer"
-          onClick={handleBackClicked}
-        >
-          Back
-        </p>
-      </div>
-      <div>{Page}</div>
-      {currentPage !== EXPORT_KEY && (
-        <button
-          className="bg-green-700 hover:bg-green-800 text-white py-1 px-2"
-          onClick={handleContinueClicked}
-        >
-          Continue
-        </button>
+      {currentPage !== LANDING_KEY ? (
+        <div>
+          <div>
+            &lt;
+            <p
+              className="underline hover:decoration-2 py-1 px-2 inline-block cursor-pointer"
+              onClick={handleBackClicked}
+            >
+              Back
+            </p>
+          </div>
+          <div>{Page}</div>
+          {currentPage !== EXPORT_KEY && (
+            <button
+              className="bg-green-700 hover:bg-green-800 text-white py-1 px-2"
+              onClick={handleContinueClicked}
+            >
+              Continue
+            </button>
+          )}
+        </div>
+      ) : (
+        <div>{Page}</div>
       )}
     </div>
   );
