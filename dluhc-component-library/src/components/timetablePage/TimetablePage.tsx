@@ -81,7 +81,7 @@ const TimetablePage = ({
               {new Date(timetableData.publishDate).toLocaleDateString("en-us", {
                 day: "numeric",
                 year: "numeric",
-                month: "short",
+                month: "long",
               })}
             </p>
             <p className="text-sm">

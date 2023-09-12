@@ -13,7 +13,7 @@ export const columnDefinitions = [
     cell: (data) =>
       new Date(data.getValue()).toLocaleDateString("en-us", {
         year: "numeric",
-        month: "short",
+        month: "long",
       }),
     header: () => <span>Start Date</span>,
   }),
@@ -21,7 +21,7 @@ export const columnDefinitions = [
     cell: (data) =>
       new Date(data.getValue()).toLocaleDateString("en-us", {
         year: "numeric",
-        month: "short",
+        month: "long",
       }),
     header: () => <span>End Date</span>,
   }),
