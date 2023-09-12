@@ -1,9 +1,10 @@
 interface InputProps<T> {
   value: T;
-  type: string;
+  type?: string;
   step?: string;
   min?: string;
   max?: string;
+  label?: string;
   onChange: (value: T) => void;
 }
 
@@ -13,6 +14,7 @@ const Input = <T extends number | string>({
   step,
   min,
   max,
+  label,
   onChange,
 }: InputProps<T>) => {
   const handleChange = (value: string) => {
@@ -21,10 +23,11 @@ const Input = <T extends number | string>({
 
   const InputBox = (
     <div className="flex items-center my-8">
-      <label className="font-semibold flex">
+      <label className="flex text-2xl font-bold flex-col">
+        {label}
         <input
           type={type}
-          class="text mr-2 border-2 border-black py-1 px-2 focus:outline-offset-2 focus:outline-2 focus:outline-yellow-400"
+          class="font-semibold text-base text mr-2 border-2 border-black py-1 px-2 focus:outline-offset-2 focus:outline-2 focus:outline-yellow-400"
           value={value}
           onChange={(event) => handleChange(event.currentTarget.value)}
           step={step}

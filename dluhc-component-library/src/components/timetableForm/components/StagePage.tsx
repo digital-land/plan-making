@@ -12,12 +12,12 @@ import {
   PROGRESS_TEXT_MAP,
 } from "src/models/timetable/constants";
 import { Progress } from "src/models/timetable/types";
-import { Stage } from "../types";
+import { FormStage } from "../types";
 
 interface StagePageProps {
   stageName: string;
-  value: Stage;
-  onChange: (value: Stage) => void;
+  value: FormStage;
+  onChange: (value: FormStage) => void;
 }
 
 const PROGRESS_OPTIONS: ReadonlyArray<RadioOption<string>> = [
