@@ -78,7 +78,7 @@ const TimetablePage = ({
           <div className="my-8">
             <p className="text-sm">
               Published{" "}
-              {new Date(timetableData.publishDate).toLocaleDateString("en-us", {
+              {new Date(timetableData.publishDate).toLocaleDateString("en-uk", {
                 day: "numeric",
                 year: "numeric",
                 month: "long",

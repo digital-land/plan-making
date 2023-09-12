@@ -11,7 +11,7 @@ export const columnDefinitions = [
   }),
   columnHelper.accessor("startDate", {
     cell: (data) =>
-      new Date(data.getValue()).toLocaleDateString("en-us", {
+      new Date(data.getValue()).toLocaleDateString("en-uk", {
         year: "numeric",
         month: "long",
       }),
@@ -19,7 +19,7 @@ export const columnDefinitions = [
   }),
   columnHelper.accessor("endDate", {
     cell: (data) =>
-      new Date(data.getValue()).toLocaleDateString("en-us", {
+      new Date(data.getValue()).toLocaleDateString("en-uk", {
         year: "numeric",
         month: "long",
       }),
