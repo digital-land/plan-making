@@ -9,6 +9,7 @@ import {
   SCOPING_KEY,
   TITLE_KEY,
 } from "./constants";
+import { loadJson } from "src/utils";
 
 export const getTimetableDownload = (formData: FormState) => {
   const timetable = formatTimetableFormData(formData);
@@ -18,9 +19,7 @@ export const getTimetableDownload = (formData: FormState) => {
 };
 
 export const loadTimetable = async (url: string): Promise<FormState> => {
-  return fetch(url)
-    .then((res) => res.json())
-    .then((data) => formatTimetableData(data));
+  return loadJson(url).then((data) => formatTimetableData(data));
 };
 
 const formatTimetableData = (timetable: TimetableData): FormState => ({
