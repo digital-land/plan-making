@@ -10,6 +10,15 @@ const LandingPage = ({
   onContinueClick,
   onUploadTimetable,
 }: LandingPageProps) => {
+  const onUpload = async (files: FileList | null) => {
+    if (!files || files.length === 0) {
+      return;
+    }
+    const url = URL.createObjectURL(files[0]);
+    const formData = await loadTimetable(url);
+    return onUploadTimetable(formData);
+  };
+
   return (
     <div className="flex flex-col">
       <h1 className="my-6 text-3xl font-bold">
@@ -41,15 +50,7 @@ const LandingPage = ({
             hidden
             type="file"
             accept="text/json"
-            onChange={async (event) => {
-              const files = event.currentTarget.files;
-              if (!files || files.length === 0) {
-                return;
-              }
-              const url = URL.createObjectURL(files[0]);
-              const formData = await loadTimetable(url);
-              return onUploadTimetable(formData);
-            }}
+            onChange={(event) => onUpload(event.currentTarget.files)}
           />
         </label>
       </div>
