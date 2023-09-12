@@ -1,0 +1,94 @@
+import { useState } from "preact/hooks";
+import { Input, MultiSelect, Textarea } from "../formComponents";
+import MapComponent from "../maps/MapComponent";
+import {
+  BOUNDARY_KEY,
+  DESCRIPTION_KEY,
+  FORM_lABELS,
+  INITIAL_FORM_STATE,
+  REFERENCE_KEY,
+  REQUIREMENTS,
+  THEMES_KEY,
+  THEME_OPTIONS,
+  TITLE_KEY,
+} from "./constants";
+import { FormState, FormValue } from "./types";
+
+const PolicyForm = () => {
+  const [formState, setFormState] = useState<FormState>(INITIAL_FORM_STATE);
+
+  const handleValueChange = (key: keyof FormState, value: FormValue) => {
+    setFormState({
+      ...formState,
+      [key]: value,
+    });
+  };
+
+  const handleFormSubmit = () => {
+    console.log(formState);
+  };
+
+  return (
+    <div>
+      <h1 className="my-2 text-4xl font-bold">Create a Policy</h1>
+      <form onSubmit={handleFormSubmit}>
+        <Input
+          label={FORM_lABELS[REFERENCE_KEY]}
+          value={formState[REFERENCE_KEY]}
+          onChange={(value) => handleValueChange(REFERENCE_KEY, value)}
+        />
+
+        <Input
+          label={FORM_lABELS[TITLE_KEY]}
+          value={formState[TITLE_KEY]}
+          onChange={(value) => handleValueChange(TITLE_KEY, value)}
+        />
+        <div className="my-8">
+          <label className="text-2xl font-bold">
+            {FORM_lABELS[THEMES_KEY]}
+          </label>
+          <MultiSelect
+            className="mt-2"
+            options={THEME_OPTIONS}
+            values={formState[THEMES_KEY]}
+            onChange={(value) => handleValueChange(THEMES_KEY, value)}
+          />
+        </div>
+
+        <Textarea
+          label={FORM_lABELS[DESCRIPTION_KEY]}
+          className="my-4"
+          value={formState[DESCRIPTION_KEY]}
+          onChange={(value) => handleValueChange(DESCRIPTION_KEY, value)}
+          maxLength={350}
+        />
+
+        <Textarea
+          label={FORM_lABELS[REQUIREMENTS]}
+          className="my-4"
+          value={formState[REQUIREMENTS]}
+          onChange={(value) => handleValueChange(REQUIREMENTS, value)}
+        />
+
+        <div className="my-4">
+          <label className="text-2xl font-bold">
+            {FORM_lABELS[BOUNDARY_KEY]}
+          </label>
+          <MapComponent
+            className="my-1"
+            style={{ height: "470px", width: "100%" }}
+            showDatasets={false}
+            value={formState[BOUNDARY_KEY]}
+            onChange={(value) => handleValueChange(BOUNDARY_KEY, value)}
+          />
+        </div>
+
+        <button className="mt-8 bg-green-700 hover:bg-green-800 text-white py-1 px-2">
+          Save
+        </button>
+      </form>
+    </div>
+  );
+};
+
+export default PolicyForm;
