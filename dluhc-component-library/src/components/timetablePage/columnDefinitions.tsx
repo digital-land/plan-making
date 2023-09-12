@@ -10,11 +10,19 @@ export const columnDefinitions = [
     header: () => <span>Stage</span>,
   }),
   columnHelper.accessor("startDate", {
-    cell: (data) => new Date(data.getValue()).toDateString(),
+    cell: (data) =>
+      new Date(data.getValue()).toLocaleDateString("en-us", {
+        year: "numeric",
+        month: "short",
+      }),
     header: () => <span>Start Date</span>,
   }),
   columnHelper.accessor("endDate", {
-    cell: (data) => new Date(data.getValue()).toDateString(),
+    cell: (data) =>
+      new Date(data.getValue()).toLocaleDateString("en-us", {
+        year: "numeric",
+        month: "short",
+      }),
     header: () => <span>End Date</span>,
   }),
   columnHelper.accessor("progress", {
