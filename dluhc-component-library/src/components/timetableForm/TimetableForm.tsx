@@ -1,6 +1,6 @@
 import { useState } from "preact/hooks";
 import DescriptionPage from "./components/DescriptionPage";
-import ExportPage from "./components/ExportPgae";
+import ExportPage from "./components/ExportPage";
 import PublishedDatePage from "./components/PublishedDatePage";
 import StagePage from "./components/StagePage";
 import TitlePage from "./components/TitlePage";

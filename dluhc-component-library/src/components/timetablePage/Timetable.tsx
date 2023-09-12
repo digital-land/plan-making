@@ -3,14 +3,14 @@ import {
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+import { Stage } from "src/models/timetable/types";
 import { AccordionDropdown } from "src/components/formComponents";
 import { columnDefinitions } from "./columnDefinitions";
-import { TimetableStage } from "./types";
 
 import "./Timetable.css";
 
 interface StagesProps {
-  data?: TimetableStage[];
+  data?: Stage[];
 }
 
 const Timetable = ({ data }: StagesProps) => {

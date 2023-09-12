@@ -1,6 +1,6 @@
 import { DateValue } from "src/components/formComponents/dateInput/types";
 import { FormState, FormStage } from "./types";
-import { Stage, Timetable } from "src/models/timetable/types";
+import { Stage, TimetableData } from "src/models/timetable/types";
 import { GATEWAY_1_KEY, SCOPING_KEY } from "./constants";
 
 export const getTimetableDownload = (formData: FormState) => {
@@ -10,10 +10,14 @@ export const getTimetableDownload = (formData: FormState) => {
   )}`;
 };
 
-const formatTimetableFormData = (formData: FormState): Timetable => ({
+const formatTimetableFormData = (formData: FormState): TimetableData => ({
   title: formData.title,
   description: formData.description,
   publishDate: formatDateValue(formData.publishDate),
+  updated: "",
+  status: "",
+  periodStartToEnd: "",
+  coverage: "",
   stages: [
     formatStage(
       SCOPING_KEY,
