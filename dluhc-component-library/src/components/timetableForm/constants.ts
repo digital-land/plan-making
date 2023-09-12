@@ -12,7 +12,7 @@ export const EXPORT_KEY = "export";
 
 const DEFAULT_DATE: DateValue = { day: "", month: "", year: "" };
 
-const INITIAL_STAGE: FormStage = {
+export const INITIAL_STAGE: FormStage = {
   startDate: DEFAULT_DATE,
   endDate: DEFAULT_DATE,
   progress: NOT_STARTED,

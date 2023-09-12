@@ -5,11 +5,11 @@ import PublishedDatePage from "./components/PublishedDatePage";
 import StagePage from "./components/StagePage";
 import TitlePage from "./components/TitlePage";
 import {
-  LANDING_KEY,
   DESCRIPTION_KEY,
   EXPORT_KEY,
   GATEWAY_1_KEY,
   INITIAL_STATE,
+  LANDING_KEY,
   PUBLISH_DATE_KEY,
   SCOPING_KEY,
   TITLE_KEY,
@@ -24,10 +24,16 @@ const renderPage = (
   value: FormState,
   handleValueChange: (key: keyof FormState, value: FormValue) => void,
   handleContinueClicked: () => void,
+  handleTimetableUpload: (value: FormState) => void,
 ) => {
   switch (key) {
     case LANDING_KEY:
-      return <LandingPage onContinueClick={() => handleContinueClicked()} />;
+      return (
+        <LandingPage
+          onContinueClick={handleContinueClicked}
+          onUploadTimetable={handleTimetableUpload}
+        />
+      );
     case TITLE_KEY:
       return (
         <TitlePage
@@ -99,9 +105,17 @@ const TimetableForm = () => {
   };
 
   const handleContinueClicked = () => {
+    if (currentPageIndex === 0) {
+      setData(INITIAL_STATE);
+    }
     if (currentPageIndex < TOTAL_PAGES - 1) {
       setCurrentPageIndex(currentPageIndex + 1);
     }
+  };
+
+  const handleTimetableUpload = (value: FormState) => {
+    setData(value);
+    setCurrentPageIndex(currentPageIndex + 1);
   };
 
   const Page = renderPage(
@@ -109,6 +123,7 @@ const TimetableForm = () => {
     data,
     handleValueChange,
     handleContinueClicked,
+    handleTimetableUpload,
   );
 
   return (
