@@ -1,8 +1,8 @@
 interface LandingPageProps {
-  continueClick: () => void;
+  onContinueClick: () => void;
 }
 
-const LandingPage = ({ continueClick }: LandingPageProps) => {
+const LandingPage = ({ onContinueClick }: LandingPageProps) => {
   return (
     <div className="flex flex-col">
       <h1 className="my-6 text-3xl font-bold">
@@ -18,7 +18,7 @@ const LandingPage = ({ continueClick }: LandingPageProps) => {
       <div>
         <button
           className="bg-green-700 hover:bg-green-800 text-white py-1 px-2 my-4"
-          onClick={continueClick}
+          onClick={onContinueClick}
         >
           Start a new timetable
         </button>

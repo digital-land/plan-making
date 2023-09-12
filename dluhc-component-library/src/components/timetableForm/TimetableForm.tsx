@@ -17,7 +17,7 @@ import {
 import { FormState, FormValue } from "./types";
 import LandingPage from "./components/LandingPage";
 
-const TOTAL_PAGES = 6;
+const TOTAL_PAGES = 7;
 
 const renderPage = (
   key: string,
@@ -27,7 +27,7 @@ const renderPage = (
 ) => {
   switch (key) {
     case LANDING_KEY:
-      return <LandingPage continueClick={() => handleContinueClicked()} />;
+      return <LandingPage onContinueClick={() => handleContinueClicked()} />;
     case TITLE_KEY:
       return (
         <TitlePage
@@ -92,10 +92,6 @@ const TimetableForm = () => {
     setData({ ...data, [key]: value });
   };
 
-  const Page = renderPage(currentPage, data, handleValueChange, () =>
-    handleContinueClicked(),
-  );
-
   const handleBackClicked = () => {
     if (currentPageIndex !== 0) {
       setCurrentPageIndex(currentPageIndex - 1);
@@ -107,6 +103,13 @@ const TimetableForm = () => {
       setCurrentPageIndex(currentPageIndex + 1);
     }
   };
+
+  const Page = renderPage(
+    currentPage,
+    data,
+    handleValueChange,
+    handleContinueClicked,
+  );
 
   return (
     <div>
