@@ -6,17 +6,23 @@ interface LandingPageProps {
   onUploadTimetable: (value: FormState) => void;
 }
 
+const readTimetable = async (files: FileList | null) => {
+  if (!files || files.length === 0) {
+    return;
+  }
+  const url = URL.createObjectURL(files[0]);
+  return await loadTimetable(url);
+};
+
 const LandingPage = ({
   onContinueClick,
   onUploadTimetable,
 }: LandingPageProps) => {
-  const onUpload = async (files: FileList | null) => {
-    if (!files || files.length === 0) {
-      return;
+  const handleUpload = async (files: FileList | null) => {
+    const timetable = await readTimetable(files);
+    if (timetable) {
+      onUploadTimetable(timetable);
     }
-    const url = URL.createObjectURL(files[0]);
-    const formData = await loadTimetable(url);
-    return onUploadTimetable(formData);
   };
 
   return (
@@ -50,7 +56,7 @@ const LandingPage = ({
             hidden
             type="file"
             accept="text/json"
-            onChange={(event) => onUpload(event.currentTarget.files)}
+            onChange={(event) => handleUpload(event.currentTarget.files)}
           />
         </label>
       </div>
