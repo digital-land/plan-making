@@ -3,7 +3,7 @@ import { NOT_STARTED, DELAYED, IN_PROGRESS, FINISHED } from "./constants";
 export interface TimetableData {
   title: string;
   description: string;
-  publishDate: Date;
+  publishDate: number;
   updated: string;
   status: string;
   periodStartToEnd: string;
@@ -14,8 +14,8 @@ export interface TimetableData {
 export interface Stage {
   key: string;
   name: string;
-  startDate: Date;
-  endDate: Date;
+  startDate: number;
+  endDate: number;
   progress: Progress;
   additionalInformation: string;
 }

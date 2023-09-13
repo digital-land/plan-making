@@ -1,8 +1,30 @@
+import { FormState } from "../types";
+import { loadTimetable } from "../utils";
+
 interface LandingPageProps {
   onContinueClick: () => void;
+  onUploadTimetable: (value: FormState) => void;
 }
 
-const LandingPage = ({ onContinueClick }: LandingPageProps) => {
+const readTimetable = async (files: FileList | null) => {
+  if (!files || files.length === 0) {
+    return;
+  }
+  const url = URL.createObjectURL(files[0]);
+  return await loadTimetable(url);
+};
+
+const LandingPage = ({
+  onContinueClick,
+  onUploadTimetable,
+}: LandingPageProps) => {
+  const handleUpload = async (files: FileList | null) => {
+    const timetable = await readTimetable(files);
+    if (timetable) {
+      onUploadTimetable(timetable);
+    }
+  };
+
   return (
     <div className="flex flex-col">
       <h1 className="my-6 text-3xl font-bold">
@@ -24,9 +46,19 @@ const LandingPage = ({ onContinueClick }: LandingPageProps) => {
         </button>
       </div>
       <div>
-        <button className="bg-green-700 hover:bg-green-800 text-white py-1 px-2">
+        <label
+          type="button"
+          role="button"
+          className="bg-green-700 hover:bg-green-800 text-white py-1 px-2"
+        >
           Upload and edit an exisiting timetable
-        </button>
+          <input
+            hidden
+            type="file"
+            accept="text/json"
+            onChange={(event) => handleUpload(event.currentTarget.files)}
+          />
+        </label>
       </div>
     </div>
   );

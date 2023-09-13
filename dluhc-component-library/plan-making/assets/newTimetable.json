@@ -1,7 +1,7 @@
 {
   "title": "Andy plan",
   "description": "Sick plan made by Andy",
-  "publishDate": "1992-12-23T00:00:00.000Z",
+  "publishDate": 725068800000,
   "updated": "",
   "status": "",
   "periodStartToEnd": "",
@@ -10,16 +10,16 @@
     {
       "key": "scoping",
       "name": "Scoping and early participation",
-      "startDate": "2002-02-01T00:00:00.000Z",
-      "endDate": "2025-11-01T00:00:00.000Z",
+      "startDate": 1012521600000,
+      "endDate": 1761955200000,
       "progress": "inProgress",
       "additionalInformation": "Additional info"
     },
     {
       "key": "gateway1",
       "name": "Gateway 1. Check-point",
-      "startDate": "2024-04-30T23:00:00.000Z",
-      "endDate": "2040-07-31T23:00:00.000Z",
+      "startDate": 1714518000000,
+      "endDate": 2227388400000,
       "progress": "notStarted",
       "additionalInformation": "Oops"
     }
