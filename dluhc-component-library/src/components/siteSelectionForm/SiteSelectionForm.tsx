@@ -9,8 +9,7 @@ import CheckAnswers from "./components/CheckAnswers";
 import { FormState, FormValue, FormPageSchema, UiSchema } from "./types";
 import { createValidationSchema } from "./utils";
 import { uploadFile } from "src/api/aws/api";
-
-import "./SiteSelectionForm.css";
+import { CHECK_ANSWERS_KEY, DYNAMIC_FORM_KEY } from "./constants";
 
 interface SiteSelectionForm {
   filepath?: string;
@@ -95,6 +94,8 @@ const createFlatFormSchema = (
 
 const queryClient = new QueryClient();
 
+const PAGES = [DYNAMIC_FORM_KEY, CHECK_ANSWERS_KEY];
+
 const SiteSelectionForm = ({ filepath, data, uiSchema }: SiteSelectionForm) => {
   const [baseSchema, setBaseSchema] = useState<FormPageSchema | null>(null);
 
@@ -106,7 +107,7 @@ const SiteSelectionForm = ({ filepath, data, uiSchema }: SiteSelectionForm) => {
     {},
   );
 
-  const [isSubmitPage, setIsSubmitPage] = useState(false);
+  const [activePage, setActivePage] = useState(0);
 
   useEffect(() => {
     if (data) {
@@ -148,9 +149,16 @@ const SiteSelectionForm = ({ filepath, data, uiSchema }: SiteSelectionForm) => {
     if (!formSchema || currentPage <= 0) {
       return;
     }
-    setIsSubmitPage(false);
 
     setCurrentPage(currentPage - 1);
+  };
+
+  const handleCancelClicked = () => {
+    if (activePage <= 0) {
+      return;
+    }
+
+    setActivePage(activePage - 1);
   };
 
   const handleContinueClicked = () => {
@@ -159,8 +167,7 @@ const SiteSelectionForm = ({ filepath, data, uiSchema }: SiteSelectionForm) => {
     }
 
     if (currentPage >= propertyKeys.length - 1) {
-      setIsSubmitPage(true);
-      setCurrentPage(currentPage + 1);
+      setActivePage(activePage + 1);
       return;
     }
 
@@ -190,36 +197,50 @@ const SiteSelectionForm = ({ filepath, data, uiSchema }: SiteSelectionForm) => {
     setFormData(newState);
   };
 
+  const renderPage = () => {
+    if (!formSchema || !formSchema.properties) {
+      return;
+    }
+
+    const page = PAGES[activePage];
+
+    switch (page) {
+      case DYNAMIC_FORM_KEY:
+        return (
+          <FormPage
+            title={formSchema.properties[currentPageId].title}
+            subtitle={formSchema.properties[currentPageId].subtitle}
+            onBackClicked={handleBackClicked}
+            onContinueClicked={handleContinueClicked}
+          >
+            <DynamicForm
+              id={currentPageId}
+              formPageSchema={formSchema.properties[currentPageId]}
+              uiSchema={uiSchema?.[currentPageId]}
+              value={formData[currentPageId]}
+              onFormValueChange={handleFormValueChange}
+            />
+            {!!errors[currentPageId]?.length && (
+              <div>{errors[currentPageId][0]}</div>
+            )}
+          </FormPage>
+        ) as ReactNode;
+
+      case CHECK_ANSWERS_KEY:
+        return (
+          <CheckAnswers
+            formSchema={formSchema}
+            formData={formData}
+            onBackClicked={handleCancelClicked}
+            onSubmitClicked={handleSubmitClicked}
+          />
+        ) as ReactNode;
+    }
+  };
+
   return (
     <QueryClientProvider client={queryClient}>
-      {!isSubmitPage
-        ? ((
-            <FormPage
-              title={formSchema.properties[currentPageId].title}
-              subtitle={formSchema.properties[currentPageId].subtitle}
-              onBackClicked={handleBackClicked}
-              onContinueClicked={handleContinueClicked}
-            >
-              <DynamicForm
-                id={currentPageId}
-                formPageSchema={formSchema.properties[currentPageId]}
-                uiSchema={uiSchema?.[currentPageId]}
-                value={formData[currentPageId]}
-                onFormValueChange={handleFormValueChange}
-              />
-              {!!errors[currentPageId]?.length && (
-                <div>{errors[currentPageId][0]}</div>
-              )}
-            </FormPage>
-          ) as ReactNode)
-        : ((
-            <CheckAnswers
-              formSchema={formSchema}
-              formData={formData}
-              onBackClicked={handleBackClicked}
-              onSubmitClicked={handleSubmitClicked}
-            ></CheckAnswers>
-          ) as ReactNode)}
+      {renderPage()}
     </QueryClientProvider>
   );
 };

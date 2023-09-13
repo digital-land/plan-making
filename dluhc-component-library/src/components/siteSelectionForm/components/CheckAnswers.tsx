@@ -5,6 +5,7 @@ import {
 } from "@tanstack/react-table";
 import { FormPageSchema, FormState, FormAnswers } from "../types";
 import { createColumnHelper } from "@tanstack/table-core";
+import { useMemo } from "preact/hooks";
 
 interface CheckAnswersProps {
   formSchema: FormPageSchema;
@@ -22,10 +23,9 @@ const columnDefinitions = [
   columnHelper.accessor("answer", {
     cell: (data) => {
       const value = data.getValue();
-      if (Array.isArray(value) && value.length > 0) {
-        return value.join(", ");
-      }
-      return value;
+      return Array.isArray(value) && value.length > 0
+        ? value.join(", ")
+        : value;
     },
   }),
 ];
@@ -46,9 +46,11 @@ const CheckAnswers = ({
   onBackClicked,
   onSubmitClicked,
 }: CheckAnswersProps) => {
-  const data = formSchema.properties
-    ? getAnswers(formSchema.properties, formData)
-    : [];
+  const data = useMemo(
+    () =>
+      formSchema.properties ? getAnswers(formSchema.properties, formData) : [],
+    [formSchema, formData],
+  );
 
   const table = useReactTable({
     data: data,
@@ -77,7 +79,6 @@ const CheckAnswers = ({
           ))}
         </tbody>
       </table>
-      <div>{formSchema}</div>
       <div className="form-page-footer mt-10 flex space-x-6">
         <button
           className="bg-gray-200 hover:bg-gray-300 text-black py-1 px-2"
