@@ -18,6 +18,7 @@ import MultiItem from "./components/MultiItem";
 
 const PolicyForm = () => {
   const [formState, setFormState] = useState<FormState>(INITIAL_FORM_STATE);
+  const [pageNum, setPageNum] = useState<number>(0);
 
   const handleValueChange = (key: keyof FormState, value: FormValue) => {
     setFormState({
@@ -29,11 +30,14 @@ const PolicyForm = () => {
   const handleFormSubmit = () => {
     console.log(formState);
   };
+  const handleCLick = () => {
+    setPageNum(1);
+  };
 
   return (
     <div>
       <h1 className="my-2 text-4xl font-bold">Create a Policy</h1>
-      <form onSubmit={handleFormSubmit}>
+      <form>
         <h2 className="my-8 text-3xl font-bold">Policy details</h2>
 
         <div className="my-4">
@@ -98,7 +102,11 @@ const PolicyForm = () => {
           onChange={(value) => handleValueChange(SUPPLEMENTARY_TEXT_KEY, value)}
         />
 
-        <button className="mt-8 bg-green-700 hover:bg-green-800 text-white py-1 px-2">
+        <button
+          type="button"
+          className="mt-8 bg-green-700 hover:bg-green-800 text-white py-1 px-2"
+          onClick={handleFormSubmit}
+        >
           Save
         </button>
       </form>
