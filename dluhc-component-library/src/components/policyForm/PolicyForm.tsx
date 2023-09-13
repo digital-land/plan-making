@@ -18,7 +18,6 @@ import MultiItem from "./components/MultiItem";
 
 const PolicyForm = () => {
   const [formState, setFormState] = useState<FormState>(INITIAL_FORM_STATE);
-  const [pageNum, setPageNum] = useState<number>(0);
 
   const handleValueChange = (key: keyof FormState, value: FormValue) => {
     setFormState({
@@ -29,9 +28,6 @@ const PolicyForm = () => {
 
   const handleFormSubmit = () => {
     console.log(formState);
-  };
-  const handleCLick = () => {
-    setPageNum(1);
   };
 
   return (
