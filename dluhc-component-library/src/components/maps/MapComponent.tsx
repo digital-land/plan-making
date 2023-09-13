@@ -7,6 +7,8 @@ import MapContainer from "./components/MapContainer";
 import { Boundary } from "./types";
 
 import "./MapComponent.css";
+import MapLayer from "./components/MapLayer";
+import { boundaryToFeature } from "./utils";
 
 interface MapComponentProps {
   baseMapProps?: BaseMapProps;
@@ -18,6 +20,7 @@ interface MapComponentProps {
   style?: CSSProperties;
   value?: Boundary;
   onChange?: (boundary: Boundary) => void;
+  submittedSites?: Boundary[];
 }
 
 interface BaseMapProps {
@@ -64,6 +67,7 @@ const MapComponent = ({
   datasetFilterList,
   value,
   onChange,
+  submittedSites,
   baseMapProps,
   drawingMapProps,
 }: MapComponentProps) => {
@@ -115,6 +119,13 @@ const MapComponent = ({
         />
       )}
       {showDatasets && <DatasetLayers selectedDatasets={datasets} />}
+      {submittedSites && (
+        <MapLayer
+          features={boundaryToFeature(submittedSites)}
+          stroke={{}}
+          fill={{}}
+        />
+      )}
     </MapContainer>
   );
 };
