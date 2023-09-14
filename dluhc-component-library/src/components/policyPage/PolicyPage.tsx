@@ -3,7 +3,7 @@ const PolicyPage = () => {
     <div>
       <div>
         <h1 className="my-8 text-3xl font-bold">
-          BR1234 - Brimingham Local Plan Policy
+          BR1234 - Birmingham Local Plan Policy
         </h1>
         <p className="w-2/3 text-lg mb-8">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
