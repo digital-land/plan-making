@@ -1,8 +1,41 @@
-const PolicyPage = () => {
+import { useEffect, useState } from "react";
+import { PolicyData } from "../policyForm/types";
+import { loadCSV, loadJson } from "src/utils";
+interface PolicyPageProps {
+  policyFilePath: string;
+}
+
+const DEFAULT_POLICY_DATA: PolicyData = {
+  reference: 0,
+  title: "",
+  description: "",
+  requirements: [],
+  boundary: [],
+  themes: [],
+  supplementaryText: "",
+};
+
+const PolicyPage = ({ policyFilePath }: PolicyPageProps) => {
+  const [policyData, setPolicyData] = useState<PolicyData>(DEFAULT_POLICY_DATA);
+
+  const loadData = async () => {
+    if (/.json$/.test(policyFilePath)) {
+      await loadJson(policyFilePath).then((data) => {
+        setPolicyData(data);
+      });
+    }
+  };
+
+  useEffect(() => {
+    loadData();
+  }, [setPolicyData, policyFilePath]);
+
   return (
     <div>
       <div>
         <h1 className="my-8 text-3xl font-bold">
+          {policyData.reference}
+          {policyData.description}
           BR1234 - Birmingham Local Plan Policy
         </h1>
         <p className="w-2/3 text-lg mb-8">
@@ -45,3 +78,6 @@ const PolicyPage = () => {
 };
 
 export default PolicyPage;
+function csvToJson() {
+  throw new Error("Function not implemented.");
+}
