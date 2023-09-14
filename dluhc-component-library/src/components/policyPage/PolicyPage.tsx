@@ -1,22 +1,13 @@
 import { useEffect, useState } from "react";
-import { PolicyData } from "../policyForm/types";
+import { FormState } from "../policyForm/types";
 import { loadJson } from "src/utils";
+import { INITIAL_FORM_STATE } from "../policyForm/constants";
 interface PolicyPageProps {
   policyFilePath: string;
 }
 
-const DEFAULT_POLICY_DATA: PolicyData = {
-  reference: 0,
-  title: "",
-  description: "",
-  requirements: [],
-  boundary: [],
-  themes: [],
-  supplementaryText: "",
-};
-
 const PolicyPage = ({ policyFilePath }: PolicyPageProps) => {
-  const [policyData, setPolicyData] = useState<PolicyData>(DEFAULT_POLICY_DATA);
+  const [policyData, setPolicyData] = useState<FormState>(INITIAL_FORM_STATE);
 
   const loadData = async () => {
     if (/.json$/.test(policyFilePath)) {
@@ -42,11 +33,15 @@ const PolicyPage = ({ policyFilePath }: PolicyPageProps) => {
           Themes this policy is linked to:
         </h2>
         {policyData.themes.map((theme) => (
-          <p className="text-sm">{theme}</p>
+          <p key={theme} className="text-sm">
+            {theme}
+          </p>
         ))}
         <h2 className="mt-8 text-xl font-bold">Requirements for policy:</h2>
-        {policyData.requirements.map((requirements) => (
-          <p className="text-sm">{requirements}</p>
+        {policyData.requirements.map((requirement) => (
+          <p key={requirement} className="text-sm">
+            {requirement}
+          </p>
         ))}
         <p className="w-2/3 text-lg mb-8 mt-6">
           {policyData.supplementaryText}

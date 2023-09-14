@@ -18,15 +18,4 @@ export interface FormState {
   [THEMES_KEY]: ReadonlyArray<string>;
   [SUPPLEMENTARY_TEXT_KEY]: string;
 }
-
-export interface PolicyData {
-  reference: number;
-  title: string;
-  description: string;
-  requirements: string[];
-  boundary: number[][];
-  themes: string[];
-  supplementaryText: string;
-}
-
 export type FormValue = FormState[keyof FormState];
