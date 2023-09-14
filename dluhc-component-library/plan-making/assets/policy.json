@@ -1,0 +1,17 @@
+{
+  "reference": "1234",
+  "title": "test policy title",
+  "description": "this is a test policy",
+  "requirements": ["req1", "req2", "req3"],
+  "boundary": [
+    [
+      [-1.8299011230468751, 55.08256539731093],
+      [-1.9205383300781251, 55.0251414435385],
+      [-1.6980651855468751, 55.0251414435385],
+      [-1.6884521484375001, 55.06762736453004],
+      [-1.8299011230468751, 55.08256539731093]
+    ]
+  ],
+  "themes": ["artsCultureHeritage"],
+  "supplementaryText": "extra text for the policy"
+}

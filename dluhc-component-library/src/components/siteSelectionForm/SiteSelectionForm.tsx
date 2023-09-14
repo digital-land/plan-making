@@ -3,11 +3,13 @@ import { ReactNode } from "react";
 import { useState, useEffect, useMemo } from "preact/hooks";
 import { ValidationError } from "yup";
 import { loadJson } from "src/utils";
-import { uploadFile } from "src/api/aws/api";
 import DynamicForm from "./components/DynamicForm";
 import FormPage from "./components/FormPage";
+import CheckAnswers from "./components/CheckAnswers";
 import { FormState, FormValue, FormPageSchema, UiSchema } from "./types";
 import { createValidationSchema } from "./utils";
+import { uploadFile } from "src/api/aws/api";
+import { CHECK_ANSWERS_KEY, DYNAMIC_FORM_KEY } from "./constants";
 
 interface SiteSelectionForm {
   filepath?: string;
@@ -92,6 +94,8 @@ const createFlatFormSchema = (
 
 const queryClient = new QueryClient();
 
+const PAGES = [DYNAMIC_FORM_KEY, CHECK_ANSWERS_KEY];
+
 const SiteSelectionForm = ({ filepath, data, uiSchema }: SiteSelectionForm) => {
   const [baseSchema, setBaseSchema] = useState<FormPageSchema | null>(null);
 
@@ -102,6 +106,8 @@ const SiteSelectionForm = ({ filepath, data, uiSchema }: SiteSelectionForm) => {
   const [errors, setErrors] = useState<Record<string, ReadonlyArray<string>>>(
     {},
   );
+
+  const [activePage, setActivePage] = useState(0);
 
   useEffect(() => {
     if (data) {
@@ -147,8 +153,21 @@ const SiteSelectionForm = ({ filepath, data, uiSchema }: SiteSelectionForm) => {
     setCurrentPage(currentPage - 1);
   };
 
+  const handleCancelClicked = () => {
+    if (activePage <= 0) {
+      return;
+    }
+
+    setActivePage(activePage - 1);
+  };
+
   const handleContinueClicked = () => {
-    if (!formSchema || currentPage >= propertyKeys.length - 1) {
+    if (!formSchema || currentPage >= propertyKeys.length) {
+      return;
+    }
+
+    if (currentPage >= propertyKeys.length - 1) {
+      setActivePage(activePage + 1);
       return;
     }
 
@@ -178,17 +197,21 @@ const SiteSelectionForm = ({ filepath, data, uiSchema }: SiteSelectionForm) => {
     setFormData(newState);
   };
 
-  return (
-    <QueryClientProvider client={queryClient}>
-      {
-        (
+  const renderPage = () => {
+    if (!formSchema || !formSchema.properties) {
+      return;
+    }
+
+    const page = PAGES[activePage];
+
+    switch (page) {
+      case DYNAMIC_FORM_KEY:
+        return (
           <FormPage
             title={formSchema.properties[currentPageId].title}
             subtitle={formSchema.properties[currentPageId].subtitle}
             onBackClicked={handleBackClicked}
             onContinueClicked={handleContinueClicked}
-            onSubmitClicked={handleSubmitClicked}
-            isLastQuestion={currentPage === propertyKeys.length - 1}
           >
             <DynamicForm
               id={currentPageId}
@@ -201,8 +224,23 @@ const SiteSelectionForm = ({ filepath, data, uiSchema }: SiteSelectionForm) => {
               <div>{errors[currentPageId][0]}</div>
             )}
           </FormPage>
-        ) as ReactNode
-      }
+        ) as ReactNode;
+
+      case CHECK_ANSWERS_KEY:
+        return (
+          <CheckAnswers
+            formSchema={formSchema}
+            formData={formData}
+            onBackClicked={handleCancelClicked}
+            onSubmitClicked={handleSubmitClicked}
+          />
+        ) as ReactNode;
+    }
+  };
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      {renderPage()}
     </QueryClientProvider>
   );
 };

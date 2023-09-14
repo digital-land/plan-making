@@ -15,7 +15,7 @@ const Textarea = ({
 }: TextareaProps) => {
   return (
     <div className={className}>
-      <label className="flex text-2xl font-bold flex-col">
+      <label className="flex text-xl font-bold flex-col">
         {label}
         <textarea
           value={value}
