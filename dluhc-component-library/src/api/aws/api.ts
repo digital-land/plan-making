@@ -26,6 +26,6 @@ export const uploadFile = async (key: string, body: FormState) => {
       alert("Form uploaded successfully.");
     })
     .catch((error) => {
-      error;
+      console.log(error);
     });
 };
