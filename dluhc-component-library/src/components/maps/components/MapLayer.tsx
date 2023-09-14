@@ -12,7 +12,7 @@ interface MapLayerProps {
   features: Feature[];
   stroke: StrokeOptions;
   fill: FillOptions;
-  zIndex: number;
+  zIndex?: number;
 }
 
 const MapLayer = ({ features, stroke, fill, zIndex = 1 }: MapLayerProps) => {

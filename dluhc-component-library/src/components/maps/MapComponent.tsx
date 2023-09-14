@@ -9,6 +9,8 @@ import { Boundary } from "./types";
 import "./MapComponent.css";
 import MapLayer from "./components/MapLayer";
 import { boundaryToFeature } from "./utils";
+import { Options as FillOptions } from "ol/style/Fill";
+import { Options as StrokeOptions } from "ol/style/Stroke";
 
 interface MapComponentProps {
   baseMapProps?: BaseMapProps;
@@ -21,6 +23,8 @@ interface MapComponentProps {
   value?: Boundary;
   onChange?: (boundary: Boundary) => void;
   submittedSites?: Boundary[];
+  strokeOptions?: StrokeOptions;
+  fillOptions?: FillOptions;
 }
 
 interface BaseMapProps {
@@ -64,6 +68,8 @@ const MapComponent = ({
   className,
   style = { height: "700px", width: "100%" },
   showDatasets = true,
+  strokeOptions = { color: "#6495ED", width: 2 },
+  fillOptions = { color: "rgba(0, 48, 120, 0.2)" },
   datasetFilterList,
   value,
   onChange,
@@ -122,8 +128,8 @@ const MapComponent = ({
       {submittedSites && (
         <MapLayer
           features={boundaryToFeature(submittedSites)}
-          stroke={{}}
-          fill={{}}
+          stroke={strokeOptions}
+          fill={fillOptions}
         />
       )}
     </MapContainer>
