@@ -1,4 +1,6 @@
-interface TextareaProps {
+import "./Textarea.css";
+
+export interface TextareaProps {
   value: string;
   maxLength?: number;
   label?: string;

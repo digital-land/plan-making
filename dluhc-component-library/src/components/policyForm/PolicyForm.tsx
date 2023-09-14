@@ -17,34 +17,6 @@ import {
 import { FormState, FormValue } from "./types";
 import MultiItem from "./components/MultiItem";
 
-const textInput = (
-  value: string,
-  handleValueChange: (index: number, newValue: string) => void,
-  index: number,
-) => {
-  return (
-    <input
-      type="string"
-      class="font-semibold text-base text mr-2 border-2 border-black py-1 px-2 focus:outline-offset-2 focus:outline-2 focus:outline-yellow-400"
-      value={value}
-      onChange={(event) => handleValueChange(index, event.currentTarget.value)}
-    />
-  );
-};
-const textAreaInput = (
-  value: string,
-  handleValueChange: (index: number, newValue: string) => void,
-  index: number,
-) => {
-  return (
-    <Textarea
-      className="my-4"
-      value={value}
-      onChange={(event) => handleValueChange(index, event)}
-    />
-  );
-};
-
 const PolicyForm = () => {
   const [formState, setFormState] = useState<FormState>(INITIAL_FORM_STATE);
 
@@ -102,7 +74,7 @@ const PolicyForm = () => {
         <MultiItem
           label={FORM_lABELS[REQUIREMENTS]}
           values={formState[REQUIREMENTS]}
-          input={textInput}
+          input={Input}
           onChange={(value) => handleValueChange(REQUIREMENTS, value)}
         />
 
@@ -131,7 +103,7 @@ const PolicyForm = () => {
         <MultiItem
           label={FORM_lABELS[MULTI_ENTRY_TEXT_AREA_KEY]}
           values={formState[MULTI_ENTRY_TEXT_AREA_KEY]}
-          input={textAreaInput}
+          input={Textarea}
           onChange={(value) =>
             handleValueChange(MULTI_ENTRY_TEXT_AREA_KEY, value)
           }
