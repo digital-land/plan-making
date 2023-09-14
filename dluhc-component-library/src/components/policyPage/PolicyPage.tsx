@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
-import { FormState } from "../policyForm/types";
 import { loadJson } from "src/utils";
-import { INITIAL_FORM_STATE } from "../policyForm/constants";
+import { PolicyState } from "../policyForm/types";
+import { INITIAL_POLICY_STATE } from "../policyForm/constants";
 interface PolicyPageProps {
   policyFilePath: string;
 }
 
 const PolicyPage = ({ policyFilePath }: PolicyPageProps) => {
-  const [policyData, setPolicyData] = useState<FormState>(INITIAL_FORM_STATE);
+  const [policyData, setPolicyData] =
+    useState<PolicyState>(INITIAL_POLICY_STATE);
 
   const loadData = async () => {
     if (/.json$/.test(policyFilePath)) {

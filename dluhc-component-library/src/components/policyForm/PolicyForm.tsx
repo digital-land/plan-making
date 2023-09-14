@@ -5,7 +5,7 @@ import {
   BOUNDARY_KEY,
   DESCRIPTION_KEY,
   FORM_lABELS,
-  INITIAL_FORM_STATE,
+  INITIAL_POLICY_STATE,
   REFERENCE_KEY,
   REQUIREMENTS,
   SUPPLEMENTARY_TEXT_KEY,
@@ -13,13 +13,13 @@ import {
   THEME_OPTIONS,
   TITLE_KEY,
 } from "./constants";
-import { FormState, FormValue } from "./types";
+import { FormValue, PolicyState } from "./types";
 import MultiItem from "./components/MultiItem";
 
 const PolicyForm = () => {
-  const [formState, setFormState] = useState<FormState>(INITIAL_FORM_STATE);
+  const [formState, setFormState] = useState<PolicyState>(INITIAL_POLICY_STATE);
 
-  const handleValueChange = (key: keyof FormState, value: FormValue) => {
+  const handleValueChange = (key: keyof PolicyState, value: FormValue) => {
     setFormState({
       ...formState,
       [key]: value,

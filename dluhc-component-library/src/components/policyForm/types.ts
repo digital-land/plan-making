@@ -9,7 +9,7 @@ import {
   TITLE_KEY,
 } from "./constants";
 
-export interface FormState {
+export interface PolicyState {
   [REFERENCE_KEY]: string;
   [TITLE_KEY]: string;
   [DESCRIPTION_KEY]: string;
@@ -18,4 +18,5 @@ export interface FormState {
   [THEMES_KEY]: ReadonlyArray<string>;
   [SUPPLEMENTARY_TEXT_KEY]: string;
 }
-export type FormValue = FormState[keyof FormState];
+
+export type FormValue = PolicyState[keyof PolicyState];
