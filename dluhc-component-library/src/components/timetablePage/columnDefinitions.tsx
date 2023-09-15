@@ -1,20 +1,28 @@
 import { createColumnHelper } from "@tanstack/table-core";
-import { TimetableStage } from "./types";
+import { Stage } from "src/models/timetable/types";
 import ProgressTile from "./ProgressTile";
 
-const columnHelper = createColumnHelper<TimetableStage>();
+const columnHelper = createColumnHelper<Stage>();
 
 export const columnDefinitions = [
-  columnHelper.accessor("developmentPlanEvent", {
+  columnHelper.accessor("name", {
     cell: (data) => <span className="font-bold">{data.getValue()}</span>,
     header: () => <span>Stage</span>,
   }),
   columnHelper.accessor("startDate", {
-    cell: (data) => data.getValue(),
+    cell: (data) =>
+      new Date(data.getValue()).toLocaleDateString("en-uk", {
+        year: "numeric",
+        month: "long",
+      }),
     header: () => <span>Start Date</span>,
   }),
   columnHelper.accessor("endDate", {
-    cell: (data) => data.getValue(),
+    cell: (data) =>
+      new Date(data.getValue()).toLocaleDateString("en-uk", {
+        year: "numeric",
+        month: "long",
+      }),
     header: () => <span>End Date</span>,
   }),
   columnHelper.accessor("progress", {

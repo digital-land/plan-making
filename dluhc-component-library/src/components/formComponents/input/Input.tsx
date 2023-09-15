@@ -23,7 +23,7 @@ const Input = <T extends number | string>({
 
   const InputBox = (
     <div className="flex items-center my-8">
-      <label className="flex text-2xl font-bold flex-col">
+      <label className="flex text-xl font-bold flex-col">
         {label}
         <input
           type={type}

@@ -46,3 +46,8 @@ export type Widget = "map" | "radio";
 export type UiPropertySchema = { "ui:widget"?: Widget };
 
 export type UiSchema = Record<string, UiPropertySchema>;
+
+export type FormAnswers = {
+  question: string;
+  answer: FormValue;
+};
