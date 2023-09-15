@@ -13,13 +13,13 @@ import {
   THEME_OPTIONS,
   TITLE_KEY,
 } from "./constants";
-import { FormValue, PolicyState } from "./types";
+import { FormValue, Policy } from "./types";
 import MultiItem from "./components/MultiItem";
 
 const PolicyForm = () => {
-  const [formState, setFormState] = useState<PolicyState>(INITIAL_POLICY_STATE);
+  const [formState, setFormState] = useState<Policy>(INITIAL_POLICY_STATE);
 
-  const handleValueChange = (key: keyof PolicyState, value: FormValue) => {
+  const handleValueChange = (key: keyof Policy, value: FormValue) => {
     setFormState({
       ...formState,
       [key]: value,
