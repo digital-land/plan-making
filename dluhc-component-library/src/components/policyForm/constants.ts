@@ -1,4 +1,4 @@
-import { FormState } from "./types";
+import { Policy } from "./types";
 
 export const REFERENCE_KEY = "reference";
 export const TITLE_KEY = "title";
@@ -20,7 +20,7 @@ export const FORM_lABELS = {
   [MULTI_ENTRY_TEXT_AREA_KEY]: "Multi Text 2.1",
 };
 
-export const INITIAL_FORM_STATE: FormState = {
+export const INITIAL_POLICY_STATE: Policy = {
   [REFERENCE_KEY]: "",
   [TITLE_KEY]: "",
   [DESCRIPTION_KEY]: "",
