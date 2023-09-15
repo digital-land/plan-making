@@ -6,7 +6,7 @@ export interface TextareaProps {
   label?: string;
   className?: string;
   onChange: (value: string) => void;
-  multiItem: boolean;
+  multiItem?: boolean;
 }
 
 const Textarea = ({
@@ -15,7 +15,7 @@ const Textarea = ({
   label,
   className,
   onChange,
-  multiItem,
+  multiItem = false,
 }: TextareaProps) => {
   return (
     <div className={className}>

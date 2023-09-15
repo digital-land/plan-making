@@ -99,7 +99,6 @@ const PolicyForm = () => {
           className="my-4"
           value={formState[SUPPLEMENTARY_TEXT_KEY]}
           onChange={(value) => handleValueChange(SUPPLEMENTARY_TEXT_KEY, value)}
-          multiItem={false}
         />
 
         <MultiItem
