@@ -46,6 +46,8 @@ const BaseMap = ({
       new View({
         center: [lng, lat],
         zoom,
+        minZoom: 6,
+        maxZoom: 18,
       }),
     );
     map.setTarget(ref.current);
