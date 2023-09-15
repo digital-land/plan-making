@@ -46,9 +46,10 @@ const MultiItem = ({
         {input({
           value,
           onChange: (newValue: string) => handleValueChange(newValue, index),
+          multiItem: true,
         })}
         <button
-          className="bg-red-700 hover:bg-red-800 text-white py-1 px-2"
+          className="bg-red-700 hover:bg-red-800 text-white py-1 px-2 ml-6"
           type="button"
           onClick={() => handleDeleteClicked(index)}
         >
