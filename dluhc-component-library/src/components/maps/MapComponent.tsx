@@ -1,16 +1,17 @@
 import { CSSProperties, useState } from "preact/compat";
+import { Options as FillOptions } from "ol/style/Fill";
+import { Options as StrokeOptions } from "ol/style/Stroke";
+
 import BaseMap from "./components/BaseMap";
 import DatasetControl from "./components/DatasetControl";
 import DatasetLayers from "./components/DatasetLayers";
 import DrawingLayer from "./components/DrawingLayer";
 import MapContainer from "./components/MapContainer";
+import MapLayer from "./components/MapLayer";
 import { Boundary } from "./types";
+import { boundaryToFeature } from "./utils";
 
 import "./MapComponent.css";
-import MapLayer from "./components/MapLayer";
-import { boundaryToFeature } from "./utils";
-import { Options as FillOptions } from "ol/style/Fill";
-import { Options as StrokeOptions } from "ol/style/Stroke";
 
 interface MapComponentProps {
   baseMapProps?: BaseMapProps;
@@ -22,7 +23,7 @@ interface MapComponentProps {
   style?: CSSProperties;
   value?: Boundary;
   onChange?: (boundary: Boundary) => void;
-  submittedSites?: Boundary[];
+  boundaries?: ReadonlyArray<Boundary>;
   strokeOptions?: StrokeOptions;
   fillOptions?: FillOptions;
 }
@@ -73,7 +74,7 @@ const MapComponent = ({
   datasetFilterList,
   value,
   onChange,
-  submittedSites,
+  boundaries,
   baseMapProps,
   drawingMapProps,
 }: MapComponentProps) => {
@@ -125,9 +126,9 @@ const MapComponent = ({
         />
       )}
       {showDatasets && <DatasetLayers selectedDatasets={datasets} />}
-      {submittedSites && (
+      {boundaries && (
         <MapLayer
-          features={boundaryToFeature(submittedSites)}
+          features={boundaryToFeature(boundaries)}
           stroke={strokeOptions}
           fill={fillOptions}
         />

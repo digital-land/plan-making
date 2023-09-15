@@ -1,7 +1,8 @@
 import { Geometry, Polygon } from "ol/geom";
-import RenderFeature from "ol/render/Feature";
-import { Boundary } from "./types";
 import Feature from "ol/Feature";
+import RenderFeature from "ol/render/Feature";
+
+import { Boundary } from "./types";
 
 export const isPolygon = (
   polygon: Geometry | RenderFeature | undefined,
