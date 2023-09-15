@@ -1,7 +1,7 @@
 {
-  "reference": "1234",
-  "title": "test policy title",
-  "description": "this is a test policy",
+  "reference": "NE1234",
+  "title": "Test Policy Title",
+  "description": "This is a test policy used to demonstarte how the policy page works. this description can be a brief overview of the policys input into the prior form.",
   "requirements": ["req1", "req2", "req3"],
   "boundary": [
     [
@@ -13,5 +13,5 @@
     ]
   ],
   "themes": ["artsCultureHeritage"],
-  "supplementaryText": "extra text for the policy"
+  "supplementaryText": "Here is some extra text for the policy, where any extra information can be added."
 }
