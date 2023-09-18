@@ -1,5 +1,3 @@
-import "./Textarea.css";
-
 export interface TextareaProps {
   value: string;
   maxLength?: number;
@@ -26,8 +24,8 @@ const Textarea = ({
           onChange={(event) => onChange(event.currentTarget.value)}
           maxLength={maxLength}
           className={
-            "font-semibold text-base border-2 border-black 2 h-32 focus:outline-offset-2 focus:outline-2 focus:outline-yellow-400 " +
-            (multiItem ? "w-8/1" : "")
+            "font-semibold text-base border-2 border-black 2 h-32 focus:outline-offset-2 focus:outline-2 focus:outline-yellow-400 resize" +
+            (multiItem ? "w-8/12" : "")
           }
         />
       </label>
