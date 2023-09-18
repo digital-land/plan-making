@@ -9,7 +9,7 @@ import { useEffect, useRef } from "preact/hooks";
 import { useMap } from "src/contexts/mapContext";
 
 interface MapLayerProps {
-  features: ReadonlyArray<Feature>;
+  features: Feature[];
   stroke: StrokeOptions;
   fill: FillOptions;
   zIndex?: number;

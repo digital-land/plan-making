@@ -23,7 +23,7 @@ interface MapComponentProps {
   style?: CSSProperties;
   value?: Boundary;
   onChange?: (boundary: Boundary) => void;
-  boundaries?: ReadonlyArray<Boundary>;
+  boundaries?: Boundary[];
   strokeOptions?: StrokeOptions;
   fillOptions?: FillOptions;
 }

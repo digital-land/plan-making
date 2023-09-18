@@ -21,7 +21,7 @@ const DatasetLayer = ({ area, dataset, zIndex = 1 }: DatasetlayerProps) => {
   if (isLoading || isError) {
     return null;
   }
-  const features = new GeoJSON().readFeatures(data);
+  const features = useMemo(() => new GeoJSON().readFeatures(data), [data]);
 
   const stroke: StrokeOptions = useMemo(() => {
     const color = dataset["paint-options"]
