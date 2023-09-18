@@ -2,9 +2,11 @@ import { number, boolean, array, string, object, ObjectShape } from "yup";
 import { RadioOption } from "src/components/formComponents/types";
 import {
   FormPageSchema,
+  FormState,
   ValidationArraySchema,
   ValidationShape,
 } from "./types";
+import db from "./db";
 
 export const convertPropertyToOptions: (
   property: FormPageSchema,
@@ -68,4 +70,15 @@ export const createValidationSchema = (
   }
 
   return object({ [key]: validationShape } as ObjectShape);
+};
+
+export const storeFormData = (formData: FormState) => {
+  return db.formDataStore.add({ data: formData });
+};
+
+export const getFormData = () => {
+  return db.formDataStore
+    .orderBy("id")
+    .toArray()
+    .then((result) => result.pop()?.data);
 };

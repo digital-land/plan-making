@@ -7,7 +7,7 @@ import DynamicForm from "./components/DynamicForm";
 import FormPage from "./components/FormPage";
 import CheckAnswers from "./components/CheckAnswers";
 import { FormState, FormValue, FormPageSchema, UiSchema } from "./types";
-import { createValidationSchema } from "./utils";
+import { createValidationSchema, getFormData, storeFormData } from "./utils";
 import { uploadFile } from "src/api/aws/api";
 import { CHECK_ANSWERS_KEY, DYNAMIC_FORM_KEY } from "./constants";
 
@@ -110,6 +110,9 @@ const SiteSelectionForm = ({ filepath, data, uiSchema }: SiteSelectionForm) => {
   const [activePage, setActivePage] = useState(0);
 
   useEffect(() => {
+    getFormData().then((data?: FormState) => {
+      setFormData(data ?? {});
+    });
     if (data) {
       setBaseSchema(data);
     } else if (filepath) {
@@ -170,6 +173,8 @@ const SiteSelectionForm = ({ filepath, data, uiSchema }: SiteSelectionForm) => {
       setActivePage(activePage + 1);
       return;
     }
+
+    storeFormData(formData);
 
     try {
       currentPageSchema.validateSync({
