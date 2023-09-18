@@ -2,9 +2,12 @@ import { Geometry } from "ol/geom";
 import { Options as FillOptions } from "ol/style/Fill";
 import { Options as StrokeOptions } from "ol/style/Stroke";
 import { useMemo } from "preact/compat";
+
 import { useFetchEntities } from "src/api/planningData/api";
 import { Dataset } from "src/api/planningData/types";
 import MapLayer from "./MapLayer";
+
+import GeoJSON from "ol/format/GeoJSON";
 
 interface DatasetlayerProps {
   area: Geometry;
@@ -18,6 +21,7 @@ const DatasetLayer = ({ area, dataset, zIndex = 1 }: DatasetlayerProps) => {
   if (isLoading || isError) {
     return null;
   }
+  const features = useMemo(() => new GeoJSON().readFeatures(data), [data]);
 
   const stroke: StrokeOptions = useMemo(() => {
     const color = dataset["paint-options"]
@@ -41,7 +45,7 @@ const DatasetLayer = ({ area, dataset, zIndex = 1 }: DatasetlayerProps) => {
   }, [dataset]);
 
   return (
-    <MapLayer features={data} stroke={stroke} fill={fill} zIndex={zIndex} />
+    <MapLayer features={features} stroke={stroke} fill={fill} zIndex={zIndex} />
   );
 };
 

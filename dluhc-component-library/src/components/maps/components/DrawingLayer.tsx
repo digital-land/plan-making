@@ -126,11 +126,11 @@ const DrawingLayer = ({
 
     modify.on("modifyend", (event: ModifyEvent) => {
       const geometry = event.features.getArray()[0].getGeometry();
-      const coordiantes = geometry
+      const coordinates = geometry
         ? (geometry as Polygon).getCoordinates()
         : [];
       if (onChange) {
-        onChange(coordiantes);
+        onChange(coordinates);
       }
     });
 

@@ -1,10 +1,15 @@
 import { CSSProperties, useState } from "preact/compat";
+import { Options as FillOptions } from "ol/style/Fill";
+import { Options as StrokeOptions } from "ol/style/Stroke";
+
 import BaseMap from "./components/BaseMap";
 import DatasetControl from "./components/DatasetControl";
 import DatasetLayers from "./components/DatasetLayers";
 import DrawingLayer from "./components/DrawingLayer";
 import MapContainer from "./components/MapContainer";
+import MapLayer from "./components/MapLayer";
 import { Boundary } from "./types";
+import { boundaryToFeature } from "./utils";
 
 import "./MapComponent.css";
 
@@ -18,6 +23,9 @@ interface MapComponentProps {
   style?: CSSProperties;
   value?: Boundary;
   onChange?: (boundary: Boundary) => void;
+  boundaries?: Boundary[];
+  strokeOptions?: StrokeOptions;
+  fillOptions?: FillOptions;
 }
 
 interface BaseMapProps {
@@ -61,9 +69,12 @@ const MapComponent = ({
   className,
   style = { height: "700px", width: "100%" },
   showDatasets = true,
+  strokeOptions = { color: "#6495ED", width: 2 },
+  fillOptions = { color: "rgba(0, 48, 120, 0.2)" },
   datasetFilterList,
   value,
   onChange,
+  boundaries,
   baseMapProps,
   drawingMapProps,
 }: MapComponentProps) => {
@@ -115,6 +126,13 @@ const MapComponent = ({
         />
       )}
       {showDatasets && <DatasetLayers selectedDatasets={datasets} />}
+      {boundaries && (
+        <MapLayer
+          features={boundaryToFeature(boundaries)}
+          stroke={strokeOptions}
+          fill={fillOptions}
+        />
+      )}
     </MapContainer>
   );
 };

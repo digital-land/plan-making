@@ -1,5 +1,4 @@
-import { FeatureCollection } from "geojson";
-import GeoJSON from "ol/format/GeoJSON";
+import Feature from "ol/Feature";
 import BaseLayer from "ol/layer/Base";
 import VectorImageLayer from "ol/layer/VectorImage";
 import VectorSource from "ol/source/Vector";
@@ -10,10 +9,10 @@ import { useEffect, useRef } from "preact/hooks";
 import { useMap } from "src/contexts/mapContext";
 
 interface MapLayerProps {
-  features: FeatureCollection;
+  features: Feature[];
   stroke: StrokeOptions;
   fill: FillOptions;
-  zIndex: number;
+  zIndex?: number;
 }
 
 const MapLayer = ({ features, stroke, fill, zIndex = 1 }: MapLayerProps) => {
@@ -27,7 +26,7 @@ const MapLayer = ({ features, stroke, fill, zIndex = 1 }: MapLayerProps) => {
     }
 
     const source = new VectorSource({
-      features: new GeoJSON().readFeatures(features),
+      features: features,
     });
     layer.current = new VectorImageLayer({
       source,

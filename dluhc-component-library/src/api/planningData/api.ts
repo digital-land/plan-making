@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { FeatureCollection } from "geojson";
 import WKT from "ol/format/WKT.js";
-import { Geometry, Polygon } from "ol/geom";
+import { Geometry } from "ol/geom";
 import { Dataset, DatasetError, DatasetResponse } from "./types";
 
 const baseURL = "https://www.planning.data.gov.uk";
