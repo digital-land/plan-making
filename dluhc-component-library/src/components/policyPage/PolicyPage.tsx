@@ -3,7 +3,6 @@ import { loadJson } from "src/utils";
 import { Policy } from "../policyForm/types";
 import { INITIAL_POLICY_STATE } from "../policyForm/constants";
 import MapComponent from "../maps/MapComponent";
-import { Boundary } from "../maps/types";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 interface PolicyPageProps {
   policyFilePath: string;
