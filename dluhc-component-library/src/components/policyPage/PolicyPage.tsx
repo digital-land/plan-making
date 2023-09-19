@@ -1,7 +1,10 @@
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { loadJson } from "src/utils";
 import { Policy } from "../policyForm/types";
 import { INITIAL_POLICY_STATE } from "../policyForm/constants";
+import MapComponent from "../maps/MapComponent";
+import { Boundary } from "../maps/types";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 interface PolicyPageProps {
   policyFilePath: string;
 }
@@ -16,6 +19,20 @@ const PolicyPage = ({ policyFilePath }: PolicyPageProps) => {
       });
     }
   };
+
+  const baseMapProps = {
+    isDrawingMode: false,
+    lat: 54.97,
+    lng: -1.65,
+    zoom: 10,
+    style: { height: "500px", width: "500px" },
+  };
+
+  const [boundary, setBoundary] = useState<Boundary>();
+
+  // const y: ReadonlyArray<Boundary> = policyData.boundary;
+
+  const queryClient = new QueryClient();
 
   useEffect(() => {
     loadData();
@@ -46,7 +63,20 @@ const PolicyPage = ({ policyFilePath }: PolicyPageProps) => {
         <p className="w-2/3 text-lg mb-8 mt-6">
           {policyData.supplementaryText}
         </p>
-        <div>boundary placeholder</div>
+        <div>
+          <QueryClientProvider client={queryClient}>
+            {
+              (
+                <MapComponent
+                  baseMapProps={baseMapProps}
+                  showDatasets={false}
+                  // value={policyData.}
+                  boundaries={policyData.boundary}
+                />
+              ) as ReactNode
+            }
+          </QueryClientProvider>
+        </div>
       </div>
     </div>
   );

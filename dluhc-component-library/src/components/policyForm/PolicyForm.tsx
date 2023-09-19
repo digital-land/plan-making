@@ -2,7 +2,6 @@ import { useState } from "preact/hooks";
 import { Input, MultiSelect, Textarea } from "../formComponents";
 import MapComponent from "../maps/MapComponent";
 import {
-  BOUNDARY_KEY,
   DESCRIPTION_KEY,
   FORM_lABELS,
   INITIAL_POLICY_STATE,
@@ -12,6 +11,7 @@ import {
   THEMES_KEY,
   THEME_OPTIONS,
   TITLE_KEY,
+  VALUE_KEY,
 } from "./constants";
 import { FormValue, Policy } from "./types";
 import MultiItem from "./components/MultiItem";
@@ -77,15 +77,13 @@ const PolicyForm = () => {
         />
 
         <div className="my-4">
-          <label className="text-xl font-bold">
-            {FORM_lABELS[BOUNDARY_KEY]}
-          </label>
+          <label className="text-xl font-bold">{FORM_lABELS[VALUE_KEY]}</label>
           <MapComponent
             className="my-1"
             style={{ height: "470px", width: "100%" }}
             showDatasets={false}
-            value={formState[BOUNDARY_KEY]}
-            onChange={(value) => handleValueChange(BOUNDARY_KEY, value)}
+            value={formState[VALUE_KEY]}
+            onChange={(value) => handleValueChange(VALUE_KEY, value)}
           />
         </div>
 
