@@ -30,11 +30,7 @@ const MapInput = ({ baseMapProps, boundaries }: MapComponentProps) => {
               showDatasets={false}
               value={boundary}
               onChange={setBoundary}
-<<<<<<< HEAD
-              boundaries={submittedSites}
-=======
               boundaries={boundaries}
->>>>>>> main
             />
           ) as ReactNode
         }
