@@ -79,3 +79,7 @@ export const storeFormData = (formData: FormState) => {
 export const getFormData = () => {
   return db.formDataStore.get(1).then((result) => result?.data);
 };
+
+export const clearFormData = () => {
+  return db.formDataStore.clear();
+};
