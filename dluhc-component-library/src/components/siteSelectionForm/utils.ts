@@ -73,12 +73,9 @@ export const createValidationSchema = (
 };
 
 export const storeFormData = (formData: FormState) => {
-  return db.formDataStore.add({ data: formData });
+  return db.formDataStore.put({ id: 1, data: formData });
 };
 
 export const getFormData = () => {
-  return db.formDataStore
-    .orderBy("id")
-    .toArray()
-    .then((result) => result.pop()?.data);
+  return db.formDataStore.get(1).then((result) => result?.data);
 };

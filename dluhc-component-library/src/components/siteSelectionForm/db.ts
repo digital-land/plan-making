@@ -12,7 +12,7 @@ class FormDataDB extends Dexie {
   constructor() {
     super("FormDataDB");
     this.version(1).stores({
-      formDataStore: "++id, data",
+      formDataStore: "id, data",
     });
     this.formDataStore = this.table("formDataStore");
   }
