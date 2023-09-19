@@ -28,10 +28,6 @@ const PolicyPage = ({ policyFilePath }: PolicyPageProps) => {
     style: { height: "500px", width: "500px" },
   };
 
-  const [boundary, setBoundary] = useState<Boundary>();
-
-  // const y: ReadonlyArray<Boundary> = policyData.boundary;
-
   const queryClient = new QueryClient();
 
   useEffect(() => {
