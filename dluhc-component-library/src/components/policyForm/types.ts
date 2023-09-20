@@ -1,6 +1,5 @@
 import { Boundary } from "../maps/types";
 import {
-  VALUE_KEY,
   DESCRIPTION_KEY,
   REFERENCE_KEY,
   REQUIREMENTS,
@@ -15,10 +14,9 @@ export interface Policy {
   [TITLE_KEY]: string;
   [DESCRIPTION_KEY]: string;
   [REQUIREMENTS]: ReadonlyArray<string>;
-  [VALUE_KEY]: Boundary;
   [THEMES_KEY]: ReadonlyArray<string>;
   [SUPPLEMENTARY_TEXT_KEY]: string;
-  [BOUNDARY_KEY]: Boundary[];
+  [BOUNDARY_KEY]: Boundary;
 }
 
 export type FormValue = Policy[keyof Policy];

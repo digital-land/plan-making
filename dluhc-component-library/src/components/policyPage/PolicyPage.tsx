@@ -33,6 +33,8 @@ const PolicyPage = ({ policyFilePath }: PolicyPageProps) => {
     loadData();
   }, [setPolicyData, policyFilePath]);
 
+  const boundary = [policyData.boundary];
+
   return (
     <div>
       <div>
@@ -65,7 +67,7 @@ const PolicyPage = ({ policyFilePath }: PolicyPageProps) => {
                 <MapComponent
                   baseMapProps={baseMapProps}
                   showDatasets={false}
-                  boundaries={policyData.boundary}
+                  boundaries={boundary}
                 />
               ) as ReactNode
             }
