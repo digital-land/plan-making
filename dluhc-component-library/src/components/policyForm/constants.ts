@@ -13,7 +13,7 @@ export const FORM_lABELS = {
   [TITLE_KEY]: "Policy Title (?)",
   [DESCRIPTION_KEY]: "Description",
   [REQUIREMENTS]: "Requirements",
-  [BOUNDARY_KEY]: "Boundaries",
+  [BOUNDARY_KEY]: "Draw a boundary",
   [THEMES_KEY]: "Themes",
   [SUPPLEMENTARY_TEXT_KEY]: "Text 1.1",
 };

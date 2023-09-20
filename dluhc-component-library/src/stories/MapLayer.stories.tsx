@@ -6,7 +6,7 @@ import { Boundary } from "src/components/maps/types";
 
 interface MapComponentProps {
   baseMapProps: BaseMapProps;
-  submittedSites: Boundary[];
+  boundaries: Boundary[];
 }
 
 interface BaseMapProps {
@@ -18,7 +18,7 @@ interface BaseMapProps {
 
 const queryClient = new QueryClient();
 
-const MapInput = ({ baseMapProps, submittedSites }: MapComponentProps) => {
+const MapInput = ({ baseMapProps, boundaries }: MapComponentProps) => {
   const [boundary, setBoundary] = useState<Boundary>();
   return (
     <>
@@ -30,7 +30,7 @@ const MapInput = ({ baseMapProps, submittedSites }: MapComponentProps) => {
               showDatasets={false}
               value={boundary}
               onChange={setBoundary}
-              boundaries={submittedSites}
+              boundaries={boundaries}
             />
           ) as ReactNode
         }
