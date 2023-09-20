@@ -14,7 +14,7 @@ interface MapLayerProps {
   stroke: StrokeOptions;
   fill: FillOptions;
   zIndex?: number;
-  populated?: boolean;
+  fitView?: boolean;
 }
 
 const MapLayer = ({
@@ -22,7 +22,7 @@ const MapLayer = ({
   stroke,
   fill,
   zIndex = 1,
-  populated = false,
+  fitView = false,
 }: MapLayerProps) => {
   const map = useMap();
   const layer = useRef<BaseLayer | null>(null);
@@ -47,7 +47,7 @@ const MapLayer = ({
     layer.current.setZIndex(zIndex);
     map.addLayer(layer.current);
 
-    if (populated && !isEmpty(source.getExtent())) {
+    if (fitView && !isEmpty(source.getExtent())) {
       map.getView().fit(source.getExtent(), { padding: [10, 10, 10, 10] });
     }
 

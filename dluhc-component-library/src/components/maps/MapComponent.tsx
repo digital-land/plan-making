@@ -131,7 +131,7 @@ const MapComponent = ({
           features={boundaryToFeature(boundaries)}
           stroke={strokeOptions}
           fill={fillOptions}
-          populated={true}
+          fitView={true}
         />
       )}
     </MapContainer>
