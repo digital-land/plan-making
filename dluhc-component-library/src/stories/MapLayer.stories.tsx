@@ -54,7 +54,7 @@ export const Default = {
       zoom: 10,
       style: { height: "500px", width: "500px" },
     },
-    submittedSites: [
+    boundaries: [
       [
         [
           [-1.9332955613569025, 55.02451876227576],
