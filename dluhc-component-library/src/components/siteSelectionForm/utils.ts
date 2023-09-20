@@ -73,11 +73,11 @@ export const createValidationSchema = (
 };
 
 export const storeFormData = (formData: FormState) => {
-  return db.formDataStore.put({ id: 1, data: formData });
+  return db.formDataStore.put({ id: "siteSelectionForm", data: formData });
 };
 
 export const getFormData = () => {
-  return db.formDataStore.get(1).then((result) => result?.data);
+  return db.formDataStore.get("siteSelectionForm").then((result) => result?.data);
 };
 
 export const clearFormData = () => {

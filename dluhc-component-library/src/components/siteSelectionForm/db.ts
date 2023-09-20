@@ -2,7 +2,7 @@ import Dexie from "dexie";
 import { FormState } from "./types";
 
 interface IFormData {
-  id?: number;
+  id?: string;
   data: FormState;
 }
 
