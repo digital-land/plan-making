@@ -18,7 +18,7 @@ import { CHECK_ANSWERS_KEY, DYNAMIC_FORM_KEY } from "./constants";
 
 interface SiteSelectionForm {
   filepath?: string;
-  data?: FormPageSchema;
+  schema?: FormPageSchema;
   uiSchema?: UiSchema;
 }
 
@@ -101,7 +101,11 @@ const queryClient = new QueryClient();
 
 const PAGES = [DYNAMIC_FORM_KEY, CHECK_ANSWERS_KEY];
 
-const SiteSelectionForm = ({ filepath, data, uiSchema }: SiteSelectionForm) => {
+const SiteSelectionForm = ({
+  filepath,
+  schema,
+  uiSchema,
+}: SiteSelectionForm) => {
   const [baseSchema, setBaseSchema] = useState<FormPageSchema | null>(null);
 
   const [formData, setFormData] = useState<FormState>({});
@@ -115,19 +119,25 @@ const SiteSelectionForm = ({ filepath, data, uiSchema }: SiteSelectionForm) => {
   const [activePage, setActivePage] = useState(0);
 
   useEffect(() => {
-    getFormData().then((data?: FormState) => {
-      setFormData(data ?? {});
+    getFormData().then((retrievedFormData?: FormState) => {
+      setFormData(retrievedFormData ?? {});
     });
-    if (data) {
-      setBaseSchema(data);
+  });
+
+  useEffect(() => {
+    getFormData().then((schema?: FormState) => {
+      setFormData(schema ?? {});
+    });
+    if (schema) {
+      setBaseSchema(schema);
     } else if (filepath) {
-      loadJson(filepath).then((data) => {
-        setBaseSchema(data);
+      loadJson(filepath).then((schema) => {
+        setBaseSchema(schema);
       });
     } else {
       setBaseSchema(null);
     }
-  }, [setBaseSchema, filepath, data]);
+  }, [setBaseSchema, filepath, schema]);
 
   const formSchema: FormPageSchema | null = useMemo(
     () => baseSchema && createFlatFormSchema(baseSchema, formData),
@@ -179,12 +189,12 @@ const SiteSelectionForm = ({ filepath, data, uiSchema }: SiteSelectionForm) => {
       return;
     }
 
-    storeFormData(formData);
-
     try {
       currentPageSchema.validateSync({
         [currentPageId]: formData[currentPageId],
       });
+
+      storeFormData(formData);
 
       setCurrentPage(currentPage + 1);
       setErrors({ [currentPageId]: [] });
@@ -195,8 +205,7 @@ const SiteSelectionForm = ({ filepath, data, uiSchema }: SiteSelectionForm) => {
   };
 
   const handleSubmitClicked = () => {
-    uploadFile("local_plan", formData);
-    clearFormData();
+    uploadFile("local_plan", formData).then(() => clearFormData());
   };
 
   const handleFormValueChange = (id: string, value: FormValue) => {
