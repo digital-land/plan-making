@@ -18,7 +18,7 @@ import { CHECK_ANSWERS_KEY, DYNAMIC_FORM_KEY } from "./constants";
 
 interface SiteSelectionForm {
   filepath?: string;
-  schema?: FormPageSchema;
+  data?: FormPageSchema;
   uiSchema?: UiSchema;
 }
 
@@ -101,11 +101,7 @@ const queryClient = new QueryClient();
 
 const PAGES = [DYNAMIC_FORM_KEY, CHECK_ANSWERS_KEY];
 
-const SiteSelectionForm = ({
-  filepath,
-  schema,
-  uiSchema,
-}: SiteSelectionForm) => {
+const SiteSelectionForm = ({ filepath, data, uiSchema }: SiteSelectionForm) => {
   const [baseSchema, setBaseSchema] = useState<FormPageSchema | null>(null);
 
   const [formData, setFormData] = useState<FormState>({});
@@ -125,19 +121,19 @@ const SiteSelectionForm = ({
   });
 
   useEffect(() => {
-    getFormData().then((schema?: FormState) => {
-      setFormData(schema ?? {});
+    getFormData().then((data?: FormState) => {
+      setFormData(data ?? {});
     });
-    if (schema) {
-      setBaseSchema(schema);
+    if (data) {
+      setBaseSchema(data);
     } else if (filepath) {
-      loadJson(filepath).then((schema) => {
-        setBaseSchema(schema);
+      loadJson(filepath).then((data) => {
+        setBaseSchema(data);
       });
     } else {
       setBaseSchema(null);
     }
-  }, [setBaseSchema, filepath, schema]);
+  }, [setBaseSchema, filepath, data]);
 
   const formSchema: FormPageSchema | null = useMemo(
     () => baseSchema && createFlatFormSchema(baseSchema, formData),
