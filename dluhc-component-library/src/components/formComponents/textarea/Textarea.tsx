@@ -4,7 +4,6 @@ export interface TextareaProps {
   label?: string;
   className?: string;
   onChange: (value: string) => void;
-  multiItem?: boolean;
 }
 
 const Textarea = ({
@@ -13,7 +12,6 @@ const Textarea = ({
   label,
   className,
   onChange,
-  multiItem = false,
 }: TextareaProps) => {
   return (
     <div className={className}>
@@ -24,8 +22,7 @@ const Textarea = ({
           onChange={(event) => onChange(event.currentTarget.value)}
           maxLength={maxLength}
           className={
-            "font-semibold text-base border-2 border-black 2 h-32 focus:outline-offset-2 focus:outline-2 focus:outline-yellow-400 resize" +
-            (multiItem ? "w-8/12" : "")
+            "font-semibold text-base border-2 border-black 2 h-32 focus:outline-offset-2 focus:outline-2 focus:outline-yellow-400 resize "
           }
         />
       </label>

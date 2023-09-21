@@ -67,7 +67,6 @@ const PolicyForm = () => {
           value={formState[DESCRIPTION_KEY]}
           onChange={(value) => handleValueChange(DESCRIPTION_KEY, value)}
           maxLength={350}
-          multiItem={false}
         />
 
         {/*time period*/}
