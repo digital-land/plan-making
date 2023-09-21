@@ -25,10 +25,19 @@ export const convertPropertyToOptions: (
   return [];
 };
 
+export const convertEnumsToOptions: (
+  enums: ReadonlyArray<string>,
+) => ReadonlyArray<{ key: string; label: string }> = (
+  enums: ReadonlyArray<string>,
+) => {
+  return enums.map((value) => ({ key: value, label: value }));
+};
+
 export const isArrayValidationShape = (
   property: FormPageSchema,
   validationShape: ValidationShape,
-): validationShape is ValidationArraySchema => property?.type === "array";
+): validationShape is ValidationArraySchema =>
+  validationShape && property?.type === "array";
 
 export const REQUIRED_MESSAGE = "This field is required.";
 

@@ -7,15 +7,23 @@ import Stroke, { Options as StrokeOptions } from "ol/style/Stroke";
 import Style from "ol/style/Style";
 import { useEffect, useRef } from "preact/hooks";
 import { useMap } from "src/contexts/mapContext";
+import { isEmpty } from "ol/extent";
 
 interface MapLayerProps {
   features: Feature[];
   stroke: StrokeOptions;
   fill: FillOptions;
   zIndex?: number;
+  fitView?: boolean;
 }
 
-const MapLayer = ({ features, stroke, fill, zIndex = 1 }: MapLayerProps) => {
+const MapLayer = ({
+  features,
+  stroke,
+  fill,
+  zIndex = 1,
+  fitView = false,
+}: MapLayerProps) => {
   const map = useMap();
   const layer = useRef<BaseLayer | null>(null);
 
@@ -38,6 +46,10 @@ const MapLayer = ({ features, stroke, fill, zIndex = 1 }: MapLayerProps) => {
 
     layer.current.setZIndex(zIndex);
     map.addLayer(layer.current);
+
+    if (fitView && !isEmpty(source.getExtent())) {
+      map.getView().fit(source.getExtent(), { padding: [10, 10, 10, 10] });
+    }
 
     return () => {
       layer.current && map?.removeLayer(layer.current);

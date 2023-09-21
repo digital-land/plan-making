@@ -24,7 +24,12 @@ export interface FormPageSchema {
   items?: FormPageSchema;
 }
 
-export type FormValue = string | number | boolean | Array<string> | Boundary;
+export type FormValue =
+  | string
+  | number
+  | boolean
+  | ReadonlyArray<string>
+  | Boundary;
 
 export type FormState = Record<string, FormValue>;
 
