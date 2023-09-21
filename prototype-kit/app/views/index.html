@@ -1,6 +1,6 @@
 {% extends "layouts/main.html" %} {% set pageName="Home" %} {% block content %}
 
-<script type="module" src="/public/js/dluhc.js"></script>
+<script src="/public/js/dluhc.js"></script>
 <link rel="stylesheet" href="/public/stylesheets/dluhc.css" />
 
 <div class="govuk-grid-row">
@@ -10,7 +10,7 @@
     <h1 class="govuk-heading-xl">{{ serviceName }}</h1>
 
     <div id="siteSelectionForm" role="main"></div>
-    <script type="module">
+    <script>
       window.DLUHC.renderSiteSelectionForm(
         {
           schemaFilepath: "/public/siteSelectionFull.json",
