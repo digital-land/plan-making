@@ -13,7 +13,7 @@ import {
   UiPropertySchema,
   Widget,
 } from "../types";
-import { convertPropertyToOptions } from "../utils";
+import { convertEnumsToOptions, convertPropertyToOptions } from "../utils";
 import MapPage from "./MapPage";
 
 interface DynamicFormProps {
@@ -72,7 +72,7 @@ const DynamicForm = ({
     case InputType.MultiSelect:
       questionInputComponent = (
         <MultiSelect
-          options={formPageSchema.enum as ReadonlyArray<string>}
+          options={convertEnumsToOptions(formPageSchema.enum ?? [])}
           values={value as Array<string>}
           onChange={handleFormValueChange}
         />
