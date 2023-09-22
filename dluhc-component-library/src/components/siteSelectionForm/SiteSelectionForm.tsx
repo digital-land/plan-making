@@ -118,12 +118,9 @@ const SiteSelectionForm = ({ filepath, data, uiSchema }: SiteSelectionForm) => {
     getFormData().then((retrievedFormData?: FormState) => {
       setFormData(retrievedFormData ?? {});
     });
-  });
+  }, []);
 
   useEffect(() => {
-    getFormData().then((data?: FormState) => {
-      setFormData(data ?? {});
-    });
     if (data) {
       setBaseSchema(data);
     } else if (filepath) {
