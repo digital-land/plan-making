@@ -15,17 +15,17 @@ interface MapPageProps {
 const GREEN_BELT = "green-belt";
 const ANCIENT_WOODLAND = "ancient-woodland";
 
-const constraintS = [GREEN_BELT, ANCIENT_WOODLAND];
+const CONSTRAINTS = [GREEN_BELT, ANCIENT_WOODLAND];
 
 // TODO these should probably come from a network request to PDP like the datalist does
-const constraint_LABELS: Record<string, string> = {
+const CONSTRAINT_LABELS: Record<string, string> = {
   [GREEN_BELT]: "Green belt",
   [ANCIENT_WOODLAND]: "Ancient woodland",
 };
 
-const renderconstraints = (activeconstraints: ReadonlyArray<string>) => {
+const renderConstraints = (activeconstraints: ReadonlyArray<string>) => {
   return activeconstraints.map((constraint) => (
-    <li>{constraint_LABELS[constraint]}</li>
+    <li>{CONSTRAINT_LABELS[constraint]}</li>
   ));
 };
 
@@ -37,7 +37,7 @@ const MapPage = ({ value, onChange }: MapPageProps) => {
 
   const { data: constraintData, isLoading } = useFetchEntities(polygon);
 
-  const activeconstraints = useMemo(
+  const activeConstraints = useMemo(
     () =>
       constraintData?.features.reduce<ReadonlyArray<string>>(
         (constraintList, feature) => {
@@ -45,7 +45,7 @@ const MapPage = ({ value, onChange }: MapPageProps) => {
 
           if (
             !constraintList.includes(dataset) &&
-            constraintS.includes(dataset)
+            CONSTRAINTS.includes(dataset)
           ) {
             return [...constraintList, dataset];
           }
@@ -57,7 +57,7 @@ const MapPage = ({ value, onChange }: MapPageProps) => {
     [constraintData],
   );
 
-  const hasconstraints = value && !isLoading && !!activeconstraints?.length;
+  const hasConstraints = value && !isLoading && !!activeConstraints?.length;
 
   return (
     <div className="flex flex-col mb-4">
@@ -68,7 +68,7 @@ const MapPage = ({ value, onChange }: MapPageProps) => {
       <MapComponent
         className="my-4"
         style={{ height: "470px", width: "100%" }}
-        datasetFilterList={constraintS}
+        datasetFilterList={CONSTRAINTS}
         value={value}
         onChange={onChange}
       />
@@ -118,7 +118,7 @@ const MapPage = ({ value, onChange }: MapPageProps) => {
         to be.
       </p>
       {isLoading && <LoadingSpinner className="my-4" />}
-      {hasconstraints && (
+      {hasConstraints && (
         <>
           <h2 className="my-4 text-3xl font-bold">
             Your site has flagged some contraints
@@ -134,7 +134,7 @@ const MapPage = ({ value, onChange }: MapPageProps) => {
           </ul>
           <p className="my-2">Identified constraints:</p>
           <ul className="list-disc pl-8">
-            {renderconstraints(activeconstraints)}
+            {renderConstraints(activeConstraints)}
           </ul>
         </>
       )}
