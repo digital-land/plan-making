@@ -15,16 +15,18 @@ interface MapPageProps {
 const GREEN_BELT = "green-belt";
 const ANCIENT_WOODLAND = "ancient-woodland";
 
-const RISKS = [GREEN_BELT, ANCIENT_WOODLAND];
+const constraintS = [GREEN_BELT, ANCIENT_WOODLAND];
 
 // TODO these should probably come from a network request to PDP like the datalist does
-const RISK_LABELS: Record<string, string> = {
+const constraint_LABELS: Record<string, string> = {
   [GREEN_BELT]: "Green belt",
   [ANCIENT_WOODLAND]: "Ancient woodland",
 };
 
-const renderRisks = (activeRisks: ReadonlyArray<string>) => {
-  return activeRisks.map((risk) => <li>{RISK_LABELS[risk]}</li>);
+const renderconstraints = (activeconstraints: ReadonlyArray<string>) => {
+  return activeconstraints.map((constraint) => (
+    <li>{constraint_LABELS[constraint]}</li>
+  ));
 };
 
 const MapPage = ({ value, onChange }: MapPageProps) => {
@@ -33,23 +35,29 @@ const MapPage = ({ value, onChange }: MapPageProps) => {
     [value],
   );
 
-  const { data: riskData, isLoading } = useFetchEntities(polygon);
+  const { data: constraintData, isLoading } = useFetchEntities(polygon);
 
-  const activeRisks = useMemo(
+  const activeconstraints = useMemo(
     () =>
-      riskData?.features.reduce<ReadonlyArray<string>>((riskList, feature) => {
-        const dataset = feature.properties?.dataset;
+      constraintData?.features.reduce<ReadonlyArray<string>>(
+        (constraintList, feature) => {
+          const dataset = feature.properties?.dataset;
 
-        if (!riskList.includes(dataset) && RISKS.includes(dataset)) {
-          return [...riskList, dataset];
-        }
+          if (
+            !constraintList.includes(dataset) &&
+            constraintS.includes(dataset)
+          ) {
+            return [...constraintList, dataset];
+          }
 
-        return riskList;
-      }, []),
-    [riskData],
+          return constraintList;
+        },
+        [],
+      ),
+    [constraintData],
   );
 
-  const hasRisks = value && !isLoading && !!activeRisks?.length;
+  const hasconstraints = value && !isLoading && !!activeconstraints?.length;
 
   return (
     <div className="flex flex-col mb-4">
@@ -60,7 +68,7 @@ const MapPage = ({ value, onChange }: MapPageProps) => {
       <MapComponent
         className="my-4"
         style={{ height: "470px", width: "100%" }}
-        datasetFilterList={RISKS}
+        datasetFilterList={constraintS}
         value={value}
         onChange={onChange}
       />
@@ -110,10 +118,10 @@ const MapPage = ({ value, onChange }: MapPageProps) => {
         to be.
       </p>
       {isLoading && <LoadingSpinner className="my-4" />}
-      {hasRisks && (
+      {hasconstraints && (
         <>
           <h2 className="my-4 text-3xl font-bold">
-            Your site has flagged some risks
+            Your site has flagged some contraints
           </h2>
           <p className="my-2">
             Planning data shows that some or all of your site is located in a
@@ -121,11 +129,13 @@ const MapPage = ({ value, onChange }: MapPageProps) => {
           </p>
           <p className="my-2">You can:</p>
           <ul className="list-disc pl-8">
-            <li>Tell us how to mitigate the risks on the next screens</li>
+            <li>Tell us how to mitigate the constraints on the next screens</li>
             <li>Change the site boundary on the map</li>
           </ul>
-          <p className="my-2">Identified risks:</p>
-          <ul className="list-disc pl-8">{renderRisks(activeRisks)}</ul>
+          <p className="my-2">Identified constraints:</p>
+          <ul className="list-disc pl-8">
+            {renderconstraints(activeconstraints)}
+          </ul>
         </>
       )}
     </div>
