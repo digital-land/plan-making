@@ -27,7 +27,7 @@ export const Default = {
           type: "boolean",
           title: "I confirm consent for my data to be processed",
         },
-        siteUse1: {
+        siteUse: {
           type: "array",
           items: { type: "string" },
           title:
@@ -163,13 +163,15 @@ export const BoundaryByAddress = {
               //WIP - multi lines of text, put a radio for now
               type: "string",
               title: "Potential site constraints",
-              subtitle: "Multi text lines, data pulled from prior boundary.",
+              subtitle:
+                "This is a example of IF a area is over a potential risk, showing two possible options as to why.",
               enum: ["Ancient woodland", "Green belt"],
             },
             potentialSiteConstraintsCheck: {
               type: "string",
               title: "Potential site constraints",
-              subtitle: "You are in flood zone 1",
+              subtitle:
+                "You are in flood zone 1. This is a example of IF a area is over a potential risk, following on from the previous page.",
               enum: [
                 "I understand that this site is over 1 ha and will need to undertake a flood risk assessment should it be selected",
                 "I dont want to provide a mitigation for this risk right now.",
