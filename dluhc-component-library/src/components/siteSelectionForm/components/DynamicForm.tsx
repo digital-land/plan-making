@@ -4,6 +4,7 @@ import {
   Input,
   MultiSelect,
   RadioButtons,
+  Textarea,
 } from "src/components/formComponents";
 import { Boundary } from "src/components/maps/types";
 import {
@@ -31,6 +32,7 @@ enum InputType {
   MultiSelect,
   Checkbox,
   Map,
+  TextArea,
   None,
 }
 
@@ -45,6 +47,7 @@ const InputTypeMap: Record<QuestionType, InputType> = {
 const widgetMap: Record<Widget, InputType> = {
   radio: InputType.RadioInput,
   map: InputType.Map,
+  textArea: InputType.TextArea,
 };
 
 const getInputType = (dataType: QuestionType, widgetType?: Widget) => {
@@ -122,6 +125,14 @@ const DynamicForm = ({
         <MapPage value={value as Boundary} onChange={handleFormValueChange} />
       );
       break;
+
+    case InputType.TextArea:
+      questionInputComponent = (
+        <Textarea
+          value={(value as string) ?? ""}
+          onChange={handleFormValueChange}
+        />
+      );
   }
 
   return <form>{questionInputComponent}</form>;

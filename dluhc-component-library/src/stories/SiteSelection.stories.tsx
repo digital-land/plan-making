@@ -105,12 +105,13 @@ export const BoundaryByAddress = {
           type: "object",
           properties: {
             landingPage: {
+              //WIP - multilines of text + drop down
               title: "Suggest a plan for local plan 2040",
               subtitle:
                 "To meet the needs of our residents and buisnesses up to 2040, we may need to identify additional land for development as part of our Local Plan 2040.\nWe want to look at a number of options, so we can choose the most suitable sites for new developers.\nIf you have any suggestions for sites that should be considered when we are developing the Local Plan, we want to hear from you. This is known as a 'call for sites'.\nThis call for sites doesnt determine how many new developments we need, or which sites will be allocated for development. It's an opportunity for local residents, community groups, business operators, landowners and developers to suggest sites that they would like to be considered as part of the Local Plan 2040.",
             },
             contactPage: {
-              //WIP
+              //WIP needs multi inputs, for time being given a text area
               title: "Pleae provide your contact details",
               subtitle: "Multi part textbox/inputs",
             },
@@ -155,7 +156,7 @@ export const BoundaryByAddress = {
               },
             },
             potentialSiteConstraints: {
-              //WIP
+              //WIP - multi lines of text
               title: "Potential site constraints",
               subtitle: "Multi text lines, data pulled from prior boundary.",
             },
@@ -175,7 +176,7 @@ export const BoundaryByAddress = {
               enum: ["Yes", "No"],
             },
             siteAddress: {
-              //WIP
+              //WIP needs multiple inputs, for time being given text area
               type: "string",
               title: "Site address",
               subtitle:
@@ -221,7 +222,7 @@ export const BoundaryByAddress = {
               ],
             },
             timeline: {
-              //WIP
+              //WIP - need a additional "dont know" box
               type: "number",
               title:
                 "When do you think the site will be ready for its intended use?",
@@ -232,7 +233,6 @@ export const BoundaryByAddress = {
               max: 35,
             },
             additionalComments: {
-              //WIP
               type: "string",
               title:
                 "Please provide any additional comments you wish to makes about the site",
@@ -264,6 +264,15 @@ export const BoundaryByAddress = {
       },
       relationship: {
         "ui:widget": "radio",
+      },
+      additionalComments: {
+        "ui:widget": "textArea",
+      },
+      siteAddress: {
+        "ui:widget": "textArea",
+      },
+      contactPage: {
+        "ui:widget": "textArea",
       },
     },
   },
