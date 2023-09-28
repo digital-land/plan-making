@@ -1,21 +1,35 @@
 {
-  "reference": "NE1234",
-  "title": "Test Policy Title",
-  "description": "This is a test policy used to demonstarte how the policy page works. this description can be a brief overview of the policys input into the prior form.",
-  "requirements": ["req1", "req2", "req3"],
+  "reference": "PLY11",
+  "title": "Cornwall Street West, City Centre",
+  "description": "Land at Cornwall Street West is allocated for mixed use, including commercial and housing, retention of coach station and new multi-storey car parks accessed from Mayflower Street.  Provision is made for in the order of 79 homes.  ",
+  "requirements": [
+    "High quality design to replace poorer quality developments and deliver a greater level of activity, floorspace and diversity of land uses. ",
+    "Buildings of between 5-6 storeys in height.",
+    "An enhanced arrival point to the City Centre providing for high quality public car parking in a multi-storey format with vehicular access direct from Mayflower Street and seamless pedestrian connections into Cornwall Street.",
+    "A north / south connection through the block which provides smaller scale spaces in the City Centre to support a greater range of land uses. ",
+    "Enhanced setting of the coach station with new build frontage and improved direct pedestrian and cycle access to the car park and to all surrounding streets.",
+    "Further enhancements as required to support a high quality of environment and facilities at the coach station."
+  ],
   "boundary": [
     [
-      [-1.9332955613569025, 55.02451876227576],
-      [-1.9167930901603967, 55.019563404930295],
-      [-1.8810377359013006, 55.011678619347435],
-      [-1.8676785925517483, 55.023617833775745],
-      [-1.861784852838711, 55.031275080585004],
-      [-1.851176121355243, 55.04253308016297],
-      [-1.8547123651830657, 55.046810290566526],
-      [-1.8822164838439084, 55.05086196330697],
-      [-1.9211151659499577, 55.04590986317646]
+      [-4.144253133644764, 50.37329529248319],
+      [-4.1442475087434785, 50.37304416915168],
+      [-4.145130618245107, 50.37304775663719],
+      [-4.145140921101501, 50.372642996486576],
+      [-4.144241883842195, 50.37265671911854],
+      [-4.144241883842195, 50.372387654733956],
+      [-4.145889979918479, 50.37235536690528],
+      [-4.1458956048197635, 50.37325583033339],
+      [-4.144253133644764, 50.37329529248319]
     ]
   ],
-  "themes": ["artsCultureHeritage"],
-  "supplementaryText": "Here is some extra text for the policy, where any extra information can be added."
+  "themes": [
+    "artsCultureHeritage",
+    "economy",
+    "environmentAndGreenspace",
+    "gettingAround",
+    "livingAndHousing",
+    "cityLife"
+  ],
+  "supplementaryText": ""
 }

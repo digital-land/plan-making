@@ -1,7 +1,7 @@
 import { ReactNode, useEffect, useState } from "react";
 import { loadJson } from "src/utils";
 import { Policy } from "../policyForm/types";
-import { INITIAL_POLICY_STATE } from "../policyForm/constants";
+import { INITIAL_POLICY_STATE, THEME_OPTIONS } from "../policyForm/constants";
 import MapComponent from "../maps/MapComponent";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 interface PolicyPageProps {
@@ -39,22 +39,30 @@ const PolicyPage = ({ policyFilePath }: PolicyPageProps) => {
         <h1 className="my-8 text-3xl font-bold">
           {policyData.reference} - {policyData.title}
         </h1>
-        <p className="w-2/3 text-lg mb-8">{policyData.description}</p>
-        <hr className="my-8"></hr>
-        <h2 className="mt-8 text-xl font-bold">
+        <p className="text-lg mb-8">{policyData.description}</p>
+        <h2 className="mt-8  mb-4  text-xl font-bold">
           Themes this policy is linked to:
         </h2>
-        {policyData.themes.map((theme) => (
-          <p key={theme} className="text-sm">
-            {theme}
-          </p>
-        ))}
-        <h2 className="mt-8 text-xl font-bold">Requirements for policy:</h2>
-        {policyData.requirements.map((requirement) => (
-          <p key={requirement} className="text-sm">
-            {requirement}
-          </p>
-        ))}
+        <ul className="list-disc pl-8">
+          {policyData.themes.map((theme) => (
+            <li key={theme} className="text-sm">
+              {
+                THEME_OPTIONS.find((themeObject) => themeObject.key === theme)
+                  ?.label
+              }
+            </li>
+          ))}
+        </ul>
+        <h2 className="mt-8 mb-4 text-xl font-bold">
+          Development should provide for the following:
+        </h2>
+        <ul className="list-disc pl-8">
+          {policyData.requirements.map((requirement) => (
+            <li key={requirement} className="text-sm mb-2">
+              {requirement}
+            </li>
+          ))}
+        </ul>
         <p className="w-2/3 text-lg mb-8 mt-6">
           {policyData.supplementaryText}
         </p>
