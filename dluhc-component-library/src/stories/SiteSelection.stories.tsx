@@ -92,12 +92,15 @@ export const BoundaryByAddress = {
   args: {
     data: {
       required: [
+        "contactPage",
         "boundaryDataMap",
         "AdditionalConstraints",
+        "siteAddress",
         "preApp",
         "flexability",
         "relationship",
         "blockers",
+        "additionalComments",
       ],
       type: "object",
       properties: {
@@ -112,8 +115,9 @@ export const BoundaryByAddress = {
             },
             contactPage: {
               //WIP needs multi inputs, for time being given a text area
-              title: "Pleae provide your contact details",
-              subtitle: "Multi part textbox/inputs",
+              title: "Please provide your contact details",
+              subtitle:
+                "We need your contact details so we can get in touch if we need to discuss your suggestion, clarify anything or gather information.\nYour contact details will only be used to contact you about this site suggestion. You can refer to our privacy notice for more information.\n Please provide your name, organisation (if relevant), email address and telephone number.",
             },
             siteUse: {
               type: "array",
@@ -156,9 +160,11 @@ export const BoundaryByAddress = {
               },
             },
             potentialSiteConstraints: {
-              //WIP - multi lines of text
+              //WIP - multi lines of text, put a radio for now
+              type: "string",
               title: "Potential site constraints",
               subtitle: "Multi text lines, data pulled from prior boundary.",
+              enum: ["Ancient woodland", "Green belt"],
             },
             potentialSiteConstraintsCheck: {
               type: "string",
@@ -229,8 +235,8 @@ export const BoundaryByAddress = {
               subtitle:
                 "We need to know which financial year you think the site will be ready. For example, when you think the first house or business space will be built. Our financial year runs from 1 April to 31 March.",
               step: 1,
-              min: 18,
-              max: 35,
+              min: 2023,
+              max: 2040,
             },
             additionalComments: {
               type: "string",
@@ -273,6 +279,9 @@ export const BoundaryByAddress = {
       },
       contactPage: {
         "ui:widget": "textArea",
+      },
+      potentialSiteConstraints: {
+        "ui:widget": "radio",
       },
     },
   },
