@@ -200,6 +200,8 @@ export const FigmaDesign = {
               type: "string",
               title:
                 "Would you be willing for this site to be joined with adjacent sites, or split up?",
+              subtitle:
+                "Sometimes it might be better to join sites together or, split up ones to make improved development sites.",
               enum: ["Yes", "No", "Maybe"],
             },
             relationship: {
