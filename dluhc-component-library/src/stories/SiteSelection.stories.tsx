@@ -88,7 +88,7 @@ export const Default = {
   },
 };
 
-export const BoundaryByAddress = {
+export const FigmaDesign = {
   args: {
     data: {
       required: [
