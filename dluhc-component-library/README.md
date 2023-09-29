@@ -16,11 +16,7 @@ Firstly you will need to include the dluhc-component-library JavaScript code in 
 
 ```
 <head>
-	<script
-	      crossorigin="anonymous"
-	      src="https://cdn.jsdelivr.net/gh/digital-land/plan-making@release/assets/index-28d3d6bd.js"
-	    >
-	</script>
+	<script crossorigin="anonymous" src="https://cdn.jsdelivr.net/gh/digital-land/plan-making@release/assets/index-28d3d6bd.js"></script>
 </head>
 ```
 
@@ -29,14 +25,33 @@ Then where you want the component to be rendered you need to add a new div with 
 ```
 <body>
 	<div id="siteSelectionForm" role="main"></div>
-	<script>
-		window.DLUHC.renderSiteSelectionForm(
-			{},
-			document.getElementById("siteSelectionForm")
-		);
-	</script>
+		<script>
+			window.DLUHC.renderSiteSelectionForm(
+				{
+					schemaFilepath: "/public/siteSelectionFull.json",
+				},
+				document.getElementById("siteSelectionForm")
+			);
+		</script>
+	</div>
 </body>
 ```
+---
+
+### For development 
+In the component library, run `npm run build` to build the library. 
+
+In the `dist` dir you will find files called `dluhc.css` and `dluhc.js`. Move the `.css` file to `prototype-kit/.tmp/public/stylesheets`, and the `.js` file to `prototype-kit/.tmp/public/js`. You will also need to move any assets such as schemas like `siteSelectionFull.json` into the `prototype-kit/.tmp/public` dir.
+
+Then use the below script in the head of the html instead of the one above. 
+
+```
+<head>
+	<script src="/public/js/dluhc.js"></script>
+	<link rel="stylesheet" href="/public/stylesheets/dluhc.css" />
+</head>
+```
+---
 
 # Components
 

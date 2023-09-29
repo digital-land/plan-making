@@ -10,4 +10,12 @@ export default defineConfig({
       planMaking: "/plan-making",
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        entryFileNames: "dluhc.js",
+        assetFileNames: "dluhc.css",
+      },
+    },
+  },
 });
