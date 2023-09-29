@@ -46,7 +46,7 @@ export type ValidationShape =
   | BooleanSchema
   | ValidationArraySchema;
 
-export type Widget = "map" | "radio";
+export type Widget = "map" | "radio" | "textArea";
 
 export type UiPropertySchema = { "ui:widget"?: Widget };
 
