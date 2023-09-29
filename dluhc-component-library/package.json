@@ -17,6 +17,7 @@
     "@tanstack/react-query": "^4.33.0",
     "@tanstack/react-table": "^8.9.3",
     "csvtojson": "^2.0.10",
+    "dexie": "^3.2.4",
     "ol": "^7.5.0",
     "preact": "^10.16.0",
     "yup": "^1.2.0"

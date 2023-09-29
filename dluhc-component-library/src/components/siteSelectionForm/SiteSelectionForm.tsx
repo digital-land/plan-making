@@ -7,7 +7,12 @@ import DynamicForm from "./components/DynamicForm";
 import FormPage from "./components/FormPage";
 import CheckAnswers from "./components/CheckAnswers";
 import { FormState, FormValue, FormPageSchema, UiSchema } from "./types";
-import { createValidationSchema } from "./utils";
+import {
+  clearFormData,
+  createValidationSchema,
+  getFormData,
+  storeFormData,
+} from "./utils";
 import { uploadFile } from "src/api/aws/api";
 import { CHECK_ANSWERS_KEY, DYNAMIC_FORM_KEY } from "./constants";
 
@@ -110,6 +115,12 @@ const SiteSelectionForm = ({ filepath, data, uiSchema }: SiteSelectionForm) => {
   const [activePage, setActivePage] = useState(0);
 
   useEffect(() => {
+    getFormData().then((retrievedFormData?: FormState) => {
+      setFormData(retrievedFormData ?? {});
+    });
+  }, []);
+
+  useEffect(() => {
     if (data) {
       setBaseSchema(data);
     } else if (filepath) {
@@ -176,6 +187,8 @@ const SiteSelectionForm = ({ filepath, data, uiSchema }: SiteSelectionForm) => {
         [currentPageId]: formData[currentPageId],
       });
 
+      storeFormData(formData);
+
       setCurrentPage(currentPage + 1);
       setErrors({ [currentPageId]: [] });
     } catch (error) {
@@ -185,7 +198,7 @@ const SiteSelectionForm = ({ filepath, data, uiSchema }: SiteSelectionForm) => {
   };
 
   const handleSubmitClicked = () => {
-    uploadFile("local_plan", formData);
+    uploadFile("local_plan", formData).then(() => clearFormData());
   };
 
   const handleFormValueChange = (id: string, value: FormValue) => {
