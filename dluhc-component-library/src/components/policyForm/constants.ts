@@ -7,6 +7,7 @@ export const REQUIREMENTS = "requirements";
 export const BOUNDARY_KEY = "boundary";
 export const THEMES_KEY = "themes";
 export const SUPPLEMENTARY_TEXT_KEY = "supplementaryText";
+export const MULTI_ENTRY_TEXT_AREA_KEY = "multiEntryTextArea";
 
 export const FORM_lABELS = {
   [REFERENCE_KEY]: "Policy number (?)",
@@ -16,6 +17,7 @@ export const FORM_lABELS = {
   [BOUNDARY_KEY]: "Draw a boundary",
   [THEMES_KEY]: "Themes",
   [SUPPLEMENTARY_TEXT_KEY]: "Text 1.1",
+  [MULTI_ENTRY_TEXT_AREA_KEY]: "Multi Text 2.1",
 };
 
 export const INITIAL_POLICY_STATE: Policy = {
@@ -26,6 +28,7 @@ export const INITIAL_POLICY_STATE: Policy = {
   [BOUNDARY_KEY]: [],
   [THEMES_KEY]: [],
   [SUPPLEMENTARY_TEXT_KEY]: "",
+  [MULTI_ENTRY_TEXT_AREA_KEY]: [""],
 };
 
 export const THEME_OPTIONS = [

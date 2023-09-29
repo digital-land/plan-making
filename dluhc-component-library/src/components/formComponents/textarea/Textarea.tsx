@@ -1,4 +1,4 @@
-interface TextareaProps {
+export interface TextareaProps {
   value: string;
   maxLength?: number;
   label?: string;
@@ -21,7 +21,9 @@ const Textarea = ({
           value={value}
           onChange={(event) => onChange(event.currentTarget.value)}
           maxLength={maxLength}
-          className="font-semibold text-base border-2 border-black w-8/12 h-32 focus:outline-offset-2 focus:outline-2 focus:outline-yellow-400"
+          className={
+            "font-semibold text-base border-2 border-black 2 h-32 focus:outline-offset-2 focus:outline-2 focus:outline-yellow-400 resize "
+          }
         />
       </label>
       {maxLength && (

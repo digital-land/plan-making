@@ -1,4 +1,4 @@
-interface InputProps<T> {
+export interface InputProps<T> {
   value: T;
   type?: string;
   step?: string;

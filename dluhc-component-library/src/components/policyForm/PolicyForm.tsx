@@ -6,6 +6,7 @@ import {
   DESCRIPTION_KEY,
   FORM_lABELS,
   INITIAL_POLICY_STATE,
+  MULTI_ENTRY_TEXT_AREA_KEY,
   REFERENCE_KEY,
   REQUIREMENTS,
   SUPPLEMENTARY_TEXT_KEY,
@@ -68,11 +69,12 @@ const PolicyForm = () => {
           maxLength={350}
         />
 
-        {/*time peroid*/}
+        {/*time period*/}
 
         <MultiItem
           label={FORM_lABELS[REQUIREMENTS]}
           values={formState[REQUIREMENTS]}
+          input={Input}
           onChange={(value) => handleValueChange(REQUIREMENTS, value)}
         />
 
@@ -98,6 +100,14 @@ const PolicyForm = () => {
           onChange={(value) => handleValueChange(SUPPLEMENTARY_TEXT_KEY, value)}
         />
 
+        <MultiItem
+          label={FORM_lABELS[MULTI_ENTRY_TEXT_AREA_KEY]}
+          values={formState[MULTI_ENTRY_TEXT_AREA_KEY]}
+          input={Textarea}
+          onChange={(value) =>
+            handleValueChange(MULTI_ENTRY_TEXT_AREA_KEY, value)
+          }
+        />
         <button
           type="button"
           className="mt-8 bg-green-700 hover:bg-green-800 text-white py-1 px-2"
