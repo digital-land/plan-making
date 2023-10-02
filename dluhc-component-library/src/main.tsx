@@ -19,10 +19,17 @@ declare global {
 const renderSiteSelectionForm: RenderFunction = (
   options: {
     schemaFilepath: string;
+    uiSchemaFilePath: string;
   },
   element: HTMLElement,
 ) => {
-  render(<SiteSelectionForm filepath={options.schemaFilepath} />, element);
+  render(
+    <SiteSelectionForm
+      filepath={options.schemaFilepath}
+      uiSchemaFilepath={options.uiSchemaFilePath}
+    />,
+    element,
+  );
 };
 
 const renderTimetable: RenderFunction = (

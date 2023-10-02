@@ -13,6 +13,7 @@ import { CHECK_ANSWERS_KEY, DYNAMIC_FORM_KEY } from "./constants";
 
 interface SiteSelectionForm {
   filepath?: string;
+  uiSchemaFilepath?: string;
   data?: FormPageSchema;
   uiSchema?: UiSchema;
 }
@@ -96,8 +97,14 @@ const queryClient = new QueryClient();
 
 const PAGES = [DYNAMIC_FORM_KEY, CHECK_ANSWERS_KEY];
 
-const SiteSelectionForm = ({ filepath, data, uiSchema }: SiteSelectionForm) => {
+const SiteSelectionForm = ({
+  filepath,
+  data,
+  uiSchema,
+  uiSchemaFilepath,
+}: SiteSelectionForm) => {
   const [baseSchema, setBaseSchema] = useState<FormPageSchema | null>(null);
+  const [baseUiSchema, setBaseUiSchema] = useState<UiSchema | null>(null);
 
   const [formData, setFormData] = useState<FormState>({});
 
@@ -120,6 +127,18 @@ const SiteSelectionForm = ({ filepath, data, uiSchema }: SiteSelectionForm) => {
       setBaseSchema(null);
     }
   }, [setBaseSchema, filepath, data]);
+
+  useEffect(() => {
+    if (uiSchema) {
+      setBaseUiSchema(uiSchema);
+    } else if (uiSchemaFilepath) {
+      loadJson(uiSchemaFilepath).then((data) => {
+        setBaseUiSchema(data);
+      });
+    } else {
+      setBaseUiSchema(null);
+    }
+  }, [setBaseUiSchema, uiSchemaFilepath, uiSchema]);
 
   const formSchema: FormPageSchema | null = useMemo(
     () => baseSchema && createFlatFormSchema(baseSchema, formData),
@@ -204,6 +223,8 @@ const SiteSelectionForm = ({ filepath, data, uiSchema }: SiteSelectionForm) => {
 
     const page = PAGES[activePage];
 
+    console.log(baseUiSchema);
+
     switch (page) {
       case DYNAMIC_FORM_KEY:
         return (
@@ -216,7 +237,7 @@ const SiteSelectionForm = ({ filepath, data, uiSchema }: SiteSelectionForm) => {
             <DynamicForm
               id={currentPageId}
               formPageSchema={formSchema.properties[currentPageId]}
-              uiSchema={uiSchema?.[currentPageId]}
+              uiSchema={baseUiSchema?.[currentPageId]}
               value={formData[currentPageId]}
               onFormValueChange={handleFormValueChange}
             />
