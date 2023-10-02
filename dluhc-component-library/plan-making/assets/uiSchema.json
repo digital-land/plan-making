@@ -1,0 +1,35 @@
+{
+  "boundaryDataMap": {
+    "ui:widget": "map"
+  },
+  "boundarySelection": {
+    "ui:widget": "radio"
+  },
+  "potentialSiteConstraintsCheck": {
+    "ui:widget": "radio"
+  },
+  "AdditionalConstraints": {
+    "ui:widget": "radio"
+  },
+  "preApp": {
+    "ui:widget": "radio"
+  },
+  "flexability": {
+    "ui:widget": "radio"
+  },
+  "relationship": {
+    "ui:widget": "radio"
+  },
+  "additionalComments": {
+    "ui:widget": "textArea"
+  },
+  "siteAddress": {
+    "ui:widget": "textArea"
+  },
+  "contactPage": {
+    "ui:widget": "textArea"
+  },
+  "potentialSiteConstraints": {
+    "ui:widget": "radio"
+  }
+}

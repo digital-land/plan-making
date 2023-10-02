@@ -7,17 +7,16 @@
     <title>Vite + Preact + TS</title>
   </head>
   <body>
-    <div id="timetable" role="main"></div>
-    <div id="siteMap" role="main"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <div id="siteSelectionForm" role="main"></div>
     <script type="module">
-      window.DLUHC.renderTimetable(
+      window.DLUHC.renderSiteSelectionForm(
         {
-          timetableFilepath: "/assets/timetable.json",
+          schemaFilepath: "plan-making/assets/siteSelectionFull.json",
+          uiSchemaFilePath: "plan-making/assets/uiSchema.json",
         },
-        document.getElementById("timetable"),
+        document.getElementById("siteSelectionForm"),
       );
-      window.DLUHC.renderMap({}, document.getElementById("siteMap"));
     </script>
   </body>
 </html>
