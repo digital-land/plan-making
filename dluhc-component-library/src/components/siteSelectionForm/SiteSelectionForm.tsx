@@ -130,16 +130,12 @@ const SiteSelectionForm = ({
 
   useEffect(() => {
     if (uiSchema) {
-      console.log("1");
       setBaseUiSchema(uiSchema);
     } else if (uiSchemaFilepath) {
-      console.log("2");
       loadJson(uiSchemaFilepath).then((data) => {
-        console.log("in 138");
         setBaseUiSchema(data);
       });
     } else {
-      console.log("3");
       setBaseUiSchema(null);
     }
   }, [setBaseUiSchema, uiSchemaFilepath, uiSchema]);
